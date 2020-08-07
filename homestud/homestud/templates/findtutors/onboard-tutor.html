@@ -1,0 +1,77 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block extra_head %}
+{{ wizard.form.media }}
+<link rel=”stylesheet” href=”{% static 'css/onboarding-tutor.js' %}”>
+{{ geoform.media }}
+
+<script>
+    let autocomplete;
+    function initAutocomplete(){
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('id_0-address'),
+            {
+                types: ['establishment'],
+                componentRestrictions: {'country': ['GH']},
+                fields: ['place_id', 'geometry', 'name']
+            }
+        );
+        autocomplete.addListener('place_changed', onPlaceChanged);
+    }
+    function onPlaceChanged(){
+        var place = autocomplete.getPlace();
+
+        if (!place.geometry){
+            //User did not selet a prediction; reset the input field
+            document.getElementById('id_0-address').placeholder = 'Enter a location';
+        } else {
+            //Display details about valid place
+            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG));
+            destinationLatLng = place.getLatLng();
+            destlat = destinationLatLng.latitude;
+            destLon = destinationLatLng.longitude;
+
+            console.log(destlat, destLon)
+        }
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container mb-5">
+        <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            
+            {{ wizard.management_form }}
+            {% if wizard.form.forms %}
+                {{ wizard.form.management_form }}
+                {% for form in wizard.form.forms %}
+                    {{ form|crispy }}
+                {% endfor %}
+            {% else %}
+                {{ wizard.form|crispy }}
+            {% endif %}
+            
+        <!-- Show Previous step button -->
+            {% if wizard.steps.prev %}
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
+            <input type="submit" value="{% trans "Save & Continue" %}"/>
+            {% endif %}
+    
+            <!-- Show 'Submit' on last step -->
+            {% if wizard.steps.last %}
+            <input class="btn btn-lg btn-info" type="submit" value="{% trans "Submit" %}"/>
+            {% endif %}
+    
+        </form>
+    </div>
+
+    
+{% endblock %}

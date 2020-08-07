@@ -1,0 +1,6 @@
+{% extends "account/base.html" %}
+
+{% block content %}
+<p>Welcome to Homestud, {{ user.get_username }}!</p>
+<p>You are logged in as a {{ user.user_type }}</p>
+{% endblock content %}

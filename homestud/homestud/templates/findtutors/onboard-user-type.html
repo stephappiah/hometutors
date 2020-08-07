@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding</title>
+</head>
+<body>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Next</button>
+    </form>
+
+    {% if user.user_type == "tutor" %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'findtutors:onboarding_usertype' %}" />
+    {% elif user.user_type == "student" or user.user_type == "guardian" or redirect_field_value  %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" /> -->
+    {% endif %}
+</body>
+</html>
