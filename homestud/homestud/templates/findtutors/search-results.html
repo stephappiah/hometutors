@@ -1,0 +1,29 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load static %}
+
+
+{% block content %}
+
+    <form action="{% url 'findtutors:filter' %}" method="get">
+        <input name="programme" id="search" placeholder="Type a programme...">
+        <input name="course" id="search" placeholder="Type a course...">
+        <button class="btn btn-sm btn-light" type="submit">Search</button>
+    </form>
+
+    <p>Tutors Nearby</p>
+    
+    {% if tutors %}
+    <ul>
+        {% for tutor in tutors  %}
+        <li>
+            {{ tutor.fname }}: {{ tutor.distance.km }} Km {{ tutor.teach_levels }}
+        </li>
+          
+        {% endfor %}
+    </ul>
+        
+    {% endif %}
+        
+{% endblock content %}
+    

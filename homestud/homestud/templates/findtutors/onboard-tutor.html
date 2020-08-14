@@ -25,20 +25,20 @@
         var place = autocomplete.getPlace();
 
         if (!place.geometry){
-            //User did not selet a prediction; reset the input field
+            //User did not selet a prediction; reset the input field --> id_0_address is id for search box
             document.getElementById('id_0-address').placeholder = 'Enter a location';
         } else {
-            //Display details about valid place
-            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG));
-            destinationLatLng = place.getLatLng();
-            destlat = destinationLatLng.latitude;
-            destLon = destinationLatLng.longitude;
-
-            console.log(destlat, destLon)
+            //Get lon and lat of entered location
+            var latitude = place.geometry.location.lat()
+            var longitude = place.geometry.location.lng()
+            //Convert to point value and prefill into the field (hidden from user)
+            var point = `SRID=4326;POINT(${longitude} ${latitude})`
+            $('#id_0-location').val(point);
+            console.log(point)
         }
     }
 </script>
-
+<!-- Google maps api url and callback function -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
 
 {% endblock %}

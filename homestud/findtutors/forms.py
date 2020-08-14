@@ -1,9 +1,8 @@
 # from django import forms
 from django.contrib.gis import forms
-from .models import UserType, Profile, Education, TutorProfile, TutorInterest
+from .models import Profile, UserType
 from phonenumber_field.formfields import PhoneNumberField
 from django.forms.widgets import CheckboxSelectMultiple
-from .multi_choices import shs_choices
 
 
 
@@ -28,23 +27,18 @@ class PersonInfoForm(forms.ModelForm):
 
         widgets = {
             'dob': DateInput(),
-            'location': forms.OSMWidget(
-                attrs={
-                    'map_width': 800,
-                    'map_height': 500,
-                }
-            )
+            'location': forms.HiddenInput()
         }
 
 class EducationForm(forms.ModelForm):
     class Meta:
-        model = Education
+        model = Profile
         fields = ('school', 'programme', 'start_year', 'end_year',)
 
 class TutorProfileForm(forms.ModelForm):
     class Meta:
-        model = TutorProfile
-        exclude = ('user',)
+        model = Profile
+        fields = ('bio', 'highest_education', 'class_type', 'rate_per_hour', 'free_lesson_duration',)
 
 class UserTypeForm(forms.ModelForm):
 
@@ -61,16 +55,14 @@ class UserTypeForm(forms.ModelForm):
 
 
 class TutorInterestForm(forms.ModelForm):
-    shs_programs = forms.CharField(label='SHS Programmes', widget=forms.RadioSelect(choices=shs_choices))
+
     class Meta:
-        model = TutorInterest
-        exclude = ('user',)
+        model = Profile
+        fields = ('teach_levels', 'tutoring_programs', 'courses_subjects', )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['teach_levels'].widget.attrs.update({'class': 'myClass', })
-        self.fields['primary_programs'].widget.attrs.update({'class': 'myClass', })
-        self.fields['jhs_programs'].widget.attrs.update({'class': 'myClass', })
-        self.fields['shs_programs'].widget.attrs.update({'class': 'd-none', })
-        
+        self.fields['tutoring_programs'].widget.attrs.update({'class': 'myClass', })
+        self.fields['courses_subjects'].widget.attrs.update({'class': 'myClass', })
         

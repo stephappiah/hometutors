@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'phonenumber_field',
     'clearcache', #can be deleted
-    # 'mapwidgets',
 
     # my apps
     'users',
@@ -81,18 +80,6 @@ ACCOUNT_FORMS = {
     
     'signup': 'users.forms.CustomSignupForm', 
 } 
-
-
-# Google maps api
-# MAP_WIDGETS = {
-#     "GooglePointFieldWidget": (
-#         ("zoom", 15),
-#         ("mapCenterLocationName", "Ghana"),
-#         ("GooglePlaceAutocompleteOptions", {'componentRestrictions': {'country': 'gh'}}),
-#         ("markerFitZoom", 12),
-#     ),
-#     "GOOGLE_MAP_API_KEY": "<AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk>"
-# }
 
 
 MIDDLEWARE = [

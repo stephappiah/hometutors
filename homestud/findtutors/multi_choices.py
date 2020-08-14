@@ -1,27 +1,4 @@
 
-
-shs_choices = (
-    ('art', 'Arts'),
-    ('sci', 'Science'),
-    ('vsa', 'Visual Arts'),
-    ('bus', 'Business'),
-    ('hme', 'Home Economics'),
-    ('tec', 'Technical'),
-)
-
-primary_choices = (
-    ('eng', 'English'),
-    ('mat', 'Math'),
-    ('sci', 'Science'),
-)
-
-jhs_choices = (
-    ('eng', 'English'),
-    ('sci', 'Science'),
-    ('mat', 'Math'),
-    ('soc', 'Social'),
-)
-
 teach_level_choices = (
         ('preschool', 'preschool'),
         ('primary', 'Primary'),
