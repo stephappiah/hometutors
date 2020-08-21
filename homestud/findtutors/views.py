@@ -13,12 +13,13 @@ from .forms import UserTypeForm
 import os
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
-from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm
+from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, UpdateTutorForm
 from .models import Profile, UserType
+from users.models import User
 from django.forms.models import construct_instance
 
 
-class OnboardingTutorWizard(SessionWizardView, LoginRequiredMixin):
+class OnboardingTutorWizard(SessionWizardView):
     
     template_name = 'findtutors/onboard-tutor.html'
 
@@ -30,8 +31,28 @@ class OnboardingTutorWizard(SessionWizardView, LoginRequiredMixin):
         initial = self.initial_dict.get(step, {})
         firstname = self.request.user.first_name
         lastname = self.request.user.last_name
-        initial.update({'fname': firstname, 'lname': lastname})
+
+        # algorithm generates slug(username, kinda) from first and lastname
+        def generate_slug(firstname, lastname):
+            slug = "{0}{1}".format(firstname[:2],lastname).lower()
+            x=0
+            while True:
+                if x == 0 and Profile.objects.filter(slug=slug).count() == 0:
+                    return slug
+                else:
+                    slug = "{0}{1}".format(slug,x)
+                    if Profile.objects.filter(slug=slug).count() == 0:
+                        return slug
+                x += 1
+                if x > 1000000:
+                    raise Exception("Name is super popular!")
+            return slug
+
+        slug = generate_slug(firstname, lastname)
+
+        initial.update({'fname': firstname, 'lname': lastname, 'slug': slug})
         return initial
+
 
     def done(self, form_list, **kwargs):
         # instantiate model and Add signed-in user to form
@@ -42,14 +63,14 @@ class OnboardingTutorWizard(SessionWizardView, LoginRequiredMixin):
             profile_instance = construct_instance(form, profile_instance, form._meta.fields, form._meta.exclude)
             # save form instaces to database(model)
             profile_instance.save()
-   
-        return render(self.request, 'done.html', {
-            'form_data': [form.cleaned_data for form in form_list],
-        })
+
+            # redirect to profile dashboard
+        return HttpResponseRedirect(reverse('findtutors:dashboard_profile'))
 
 # ------ End of onboarding-tutor view ---------------------------------------------------
 
 def home(request):
+    
     return render(request, 'findtutors/home.html')
 
 @login_required 
@@ -75,28 +96,33 @@ def onboarding_usertype(request):
     return render(request, 'findtutors/onboard-user-type.html', {'form': form}) 
 
 
-def tutor_profile_detail(request, username):
-    return render(request, 'findtutors/tutor-profile.html')
+def tutor_profile_detail(request, slug_username):
+    
+    qs = Profile.objects.get(slug=slug_username)
+    context = {
+        'tutor': qs,
+    }
+    return render(request, 'findtutors/tutor-profile.html', context)
 
-class SearchTutor(ListView):
-    template_name = 'findtutors/search-results.html'
-    model = Profile
-    context_object_name = 'tutors'
+def SearchTutor(request):
 
-    def get_queryset(self):
-        #Get coordinates from search form in template
-        latitude = float(self.request.GET['lat'])
-        longitude = float(self.request.GET['lon'])
+    #Get coordinates from search form in template
+    latitude = float(request.GET.get('lat'))
+    longitude = float(request.GET.get('lon'))
 
-        # Store coordinates in user session
-        self.request.session['lat'] = latitude 
-        self.request.session['lon'] = longitude 
+    # Store coordinates in user session
+    request.session['lat'] = latitude 
+    request.session['lon'] = longitude 
 
-        user_location = Point(longitude, latitude, srid=4326)
-        # Queryset filtered within a distance of 20km; annotated and orderd by distance
-        dist = Distance('location', user_location)
-        qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
-        return qs
+    user_location = Point(longitude, latitude, srid=4326)
+    # Queryset filtered within a distance of 20km; annotated and orderd by distance
+    dist = Distance('location', user_location)
+    qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+    print(user_location)
+    context = {
+        'tutors': qs
+    }
+    return render(request, 'findtutors/search-results.html', context)
 
 def FilterSearch(request):
     # coordinates from session
@@ -120,3 +146,18 @@ def FilterSearch(request):
         'tutors': qs
     }
     return render(request, 'findtutors/search-results.html', context)
+
+@login_required 
+def dashboard_profile(request):
+    logged_in_user = request.user
+    data = Profile.objects.get(user=logged_in_user)
+    form = UpdateTutorForm(instance=data)
+
+    if request.method == 'POST':
+        form = UpdateTutorForm(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+    context = {
+        'form': form
+    }
+    return render(request, 'findtutors/profile-dashboard.html', context)

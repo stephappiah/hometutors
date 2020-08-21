@@ -5,7 +5,8 @@
 
 {% block extra_head %}
 {{ wizard.form.media }}
-<link rel=”stylesheet” href=”{% static 'css/onboarding-tutor.js' %}”>
+<script src="{% static "js/onboarding-tutor.js" %}"></script>
+<script src="{% static "js/show-hide-chips.js" %}"></script>
 {{ geoform.media }}
 
 <script>
@@ -37,6 +38,7 @@
             console.log(point)
         }
     }
+
 </script>
 <!-- Google maps api url and callback function -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
@@ -45,33 +47,43 @@
 
 {% block content %}
     <div class="container mb-5">
-        <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-        <form action="" method="post">
-            {% csrf_token %}
+        <div class="row">
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm pt-4">
+                <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    
+                    {{ wizard.management_form }}
+                    {% if wizard.form.forms %}
+                        {{ wizard.form.management_form }}
+                        {% for form in wizard.form.forms %}
+                            {{ form|crispy }}
+                        {% endfor %}
+                    {% else %}
+                        {{ wizard.form }}
+                    {% endif %}
+                    
+                <!-- Show Previous step button -->
+                    {% if wizard.steps.prev %}
+                    <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
+                    <input type="submit" value="{% trans "Save & Continue" %}"/>
+                    {% endif %}
             
-            {{ wizard.management_form }}
-            {% if wizard.form.forms %}
-                {{ wizard.form.management_form }}
-                {% for form in wizard.form.forms %}
-                    {{ form|crispy }}
-                {% endfor %}
-            {% else %}
-                {{ wizard.form|crispy }}
-            {% endif %}
+                    <!-- Show 'Submit' on last step -->
+                    {% if wizard.steps.last %}
+                    <input class="btn btn-lg btn-info" type="submit" value="{% trans "Submit" %}"/>
+                    {% endif %}
             
-        <!-- Show Previous step button -->
-            {% if wizard.steps.prev %}
-            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
-            <input type="submit" value="{% trans "Save & Continue" %}"/>
-            {% endif %}
-    
-            <!-- Show 'Submit' on last step -->
-            {% if wizard.steps.last %}
-            <input class="btn btn-lg btn-info" type="submit" value="{% trans "Submit" %}"/>
-            {% endif %}
-    
-        </form>
+                    </form>
+            </div>
+        </div>
+        
     </div>
 
-    
+    <script>
+        
+    </script>
 {% endblock %}

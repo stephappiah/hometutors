@@ -1,7 +1,8 @@
 from django.urls import path
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 from . import views
-from .views import OnboardingTutorWizard, SearchTutor, FilterSearch
+from .views import OnboardingTutorWizard, SearchTutor, FilterSearch, dashboard_profile
 from .forms import PersonInfoForm, EducationForm, TutorProfileForm
 
 app_name = 'findtutors'
@@ -10,9 +11,10 @@ urlpatterns = [
 
     path('', views.home, name="home"),
     path("onboarding-usertype/", views.onboarding_usertype, name="onboarding_usertype"),
-    path("tutor/<str:username>", views.tutor_profile_detail, name="view_tutor_profile"),
-    url(r'^onboarding-tutor/$', OnboardingTutorWizard.as_view(), name="onboarding_tutor"),
-    path("search/", SearchTutor.as_view(), name="search"),
+    path("tutor/<str:slug_username>", views.tutor_profile_detail, name="view_tutor_profile"),
+    url(r'^onboarding-tutor/$', login_required(OnboardingTutorWizard.as_view()), name="onboarding_tutor"),
+    path("search/", SearchTutor, name="search"),
     path('filter/', FilterSearch, name='filter'),
+    path('dashboard/profile', dashboard_profile, name='dashboard_profile'),
 
 ]

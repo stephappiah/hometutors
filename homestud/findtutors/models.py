@@ -35,6 +35,8 @@ class Profile(models.Model):
     tutoring_programs = MultiSelectField(choices=programmes_choices, null=True, blank=True)
     courses_subjects = MultiSelectField(choices=courses_choices, null=True, blank=True)
 
+    slug = models.CharField(unique=True, max_length=50, null=True, blank=True)
+
     def __str__(self):
         return str(self.user)
 

@@ -9,7 +9,7 @@ from .models import Profile, UserType
 @admin.register(Profile)
 class ProfileAdmin(OSMGeoAdmin):
     list_display = ('user', 'fname', 'lname', 'location', 'address', 'teach_levels', 'tutoring_programs',
-     'courses_subjects', 'highest_education', 'class_type', 'bio', )
+     'courses_subjects', 'highest_education', 'class_type', 'bio', 'slug')
 
 @admin.register(UserType)
 class UserTypeAdmin(admin.ModelAdmin):

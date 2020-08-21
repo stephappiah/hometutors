@@ -1,0 +1,103 @@
+
+#myFont-sm{
+    font-size: 1.3rem;
+}
+
+/* ---- disable matrialize defaults */
+input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
+    border: 0.5px solid #cccfd3 !important;
+    border-radius: .55rem !important;
+    width: 100% !important;
+    height: calc(2.0em + .75rem + 2px) !important;
+    padding: .375rem .75rem !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+}
+/* state :focus ---- disable matrialize defaults*/
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    outline: none;
+    border-bottom: 0.5px solid #80bdff; 
+    -webkit-box-shadow: none;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.display-text {
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+/* checkbox ---> chips */
+
+ul.chips_class_type {
+    list-style: none;
+    padding: 20px;
+}
+ul.chips_class_type li{
+  display: inline;
+}
+ul.chips_class_type li label{
+    display: inline-block;
+    /* background-color: rgba(255, 255, 255, .9) ;
+    color: #adadad ; */
+    border: 2px solid rgba(139, 139, 139, .3) ;
+    border-radius: 25px !important;
+    white-space: nowrap !important;
+    margin: 3px 0px !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: all .2s !important;
+}
+
+ul.chips_class_type li label {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+ul.chips_class_type li label::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 12px;
+    padding: 2px 6px 2px 2px !important;
+    content: "\f067";
+    transition: transform .3s ease-in-out !important;
+}
+
+ul.chips_class_type li label input[type="checkbox"]:checked + label::before {
+    content: "\f00c" !important;
+    transform: rotate(-360deg) !important;
+    transition: transform .3s ease-in-out !important;
+}
+
+/* ul#id_2-class_type li label input[type="checkbox"]:checked + label {
+    border: 2px solid #1bdbf8 !important;
+    background-color: #12bbd4 !important;
+    color: #fff !important;
+    transition: all .2s !important;
+} */
+
+ul#id_2-class_type li input[type="checkbox"] {
+  display: absolute;
+}
+ul#id_2-class_type li input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+ul#id_2-class_type li input[type="checkbox"]:focus + label {
+  border: 2px solid #e9a1ff !important;
+}
+
+
+
+ul#id_3-courses_subjects li label{
+    display: none;
+}

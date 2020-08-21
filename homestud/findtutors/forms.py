@@ -14,7 +14,7 @@ class PersonInfoForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('fname', 'lname', 'avatar', 'dob', 'contact', 'location', 'address', )
+        fields = ('avatar', 'fname', 'lname', 'dob', 'contact', 'location', 'address', 'slug' )
         
         labels = {
             'avatar': 'Profile Picture',
@@ -27,7 +27,8 @@ class PersonInfoForm(forms.ModelForm):
 
         widgets = {
             'dob': DateInput(),
-            'location': forms.HiddenInput()
+            'location': forms.HiddenInput(),
+            'slug': forms.HiddenInput()
         }
 
 class EducationForm(forms.ModelForm):
@@ -39,6 +40,10 @@ class TutorProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('bio', 'highest_education', 'class_type', 'rate_per_hour', 'free_lesson_duration',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
 
 class UserTypeForm(forms.ModelForm):
 
@@ -60,9 +65,17 @@ class TutorInterestForm(forms.ModelForm):
         model = Profile
         fields = ('teach_levels', 'tutoring_programs', 'courses_subjects', )
 
+        labels = {
+            'courses_subjects': 'Courses'
+        }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['teach_levels'].widget.attrs.update({'class': 'myClass', })
-        self.fields['tutoring_programs'].widget.attrs.update({'class': 'myClass', })
-        self.fields['courses_subjects'].widget.attrs.update({'class': 'myClass', })
-        
+        self.fields['teach_levels'].widget.attrs.update({'class': 'chips_class_type', })
+        self.fields['tutoring_programs'].widget.attrs.update({'class': 'chips_class_type', })
+        self.fields['courses_subjects'].widget.attrs.update({'class': 'chips_class_type', })
+
+class UpdateTutorForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user', 'slug', )

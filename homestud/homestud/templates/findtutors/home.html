@@ -1,5 +1,5 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
+{% load static %}
 {% block extra_head %}
 <script>
     let autocomplete;
@@ -57,19 +57,33 @@
 </script>
 <!-- Google maps api url and callback function -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
-  
 {% endblock extra_head %}
-
+    
 {% block content %}
 
-<form action="{% url 'findtutors:search' %}" method="get">
-    <input name="q" id="search" placeholder="Your location...">
-    <p class="btn btn-sm btn-light" onclick="getPosition()">Search Near Me</p>
-    <input name="lon" class="d-none" id="lon">
-    <input name="lat" class="d-none" id="lat">
-    <button class="btn btn-sm btn-light" type="submit">Search</button>
-</form>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm">
 
-<p>Welcome to Homestud, {{ request.user.firt_name }}!</p>
-<p>You are logged in as a {{ user.user_type }}</p>
+        </div>
+        <div class="col-sm m-4">
+            <p class="display-text">
+                Find a home tutor now!
+            </p>
+            <form action="{% url 'findtutors:search' %}" method="get">
+                <div class="form-group">
+                    <input name="q" class="form-control shadow-sm" id="search" placeholder="Enter your address or town...">
+                </div>
+                
+                <p class="btn btn-sm btn-light" onclick="getPosition()">Search Near Me</p>
+                <input name="lon" class="d-none" id="lon">
+                <input name="lat" class="d-none" id="lat">
+                <button class="btn btn-sm btn-light" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    
+
+</div>
+
 {% endblock content %}

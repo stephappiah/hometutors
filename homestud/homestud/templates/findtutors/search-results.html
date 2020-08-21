@@ -18,6 +18,7 @@
         {% for tutor in tutors  %}
         <li>
             {{ tutor.fname }}: {{ tutor.distance.km }} Km {{ tutor.teach_levels }}
+            <p><a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}">View Profile</a></p>
         </li>
           
         {% endfor %}
