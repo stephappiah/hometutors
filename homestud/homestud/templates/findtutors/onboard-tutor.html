@@ -67,15 +67,18 @@
                     {% endif %}
                     
                 <!-- Show Previous step button -->
-                    {% if wizard.steps.prev %}
-                    <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
-                    <input type="submit" value="{% trans "Save & Continue" %}"/>
-                    {% endif %}
-            
-                    <!-- Show 'Submit' on last step -->
-                    {% if wizard.steps.last %}
-                    <input class="btn btn-lg btn-info" type="submit" value="{% trans "Submit" %}"/>
-                    {% endif %}
+                    <div class="container mt-4">
+                        {% if wizard.steps.prev %}
+                        <button class="btn btn-sm btn-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
+                        <input class="btn btn-sm btn-info" type="submit" value="{% trans "Save & Continue" %}"/>
+                        {% endif %}
+                
+                        <!-- Show 'Submit' on last step -->
+                        {% if wizard.steps.last %}
+                        <input class="btn btn-sm btn-info" type="submit" value="{% trans "Submit" %}"/>
+                        {% endif %}
+                    </div>
+                    
             
                     </form>
             </div>

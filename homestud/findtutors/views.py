@@ -120,7 +120,8 @@ def SearchTutor(request):
     qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
     print(user_location)
     context = {
-        'tutors': qs
+        'tutors': qs,
+        'total_tutors': qs.count()
     }
     return render(request, 'findtutors/search-results.html', context)
 

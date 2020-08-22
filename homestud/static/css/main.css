@@ -71,8 +71,14 @@ ul.chips_class_type li label::before {
     content: "\f067";
     transition: transform .3s ease-in-out !important;
 }
-
+/* for checkbox */
 ul.chips_class_type li label input[type="checkbox"]:checked + label::before {
+    content: "\f00c" !important;
+    transform: rotate(-360deg) !important;
+    transition: transform .3s ease-in-out !important;
+}
+/* for radio button */
+ul.chips_class_type li label input[type="radio"]:checked + label::before {
     content: "\f00c" !important;
     transform: rotate(-360deg) !important;
     transition: transform .3s ease-in-out !important;
@@ -85,19 +91,43 @@ ul.chips_class_type li label input[type="checkbox"]:checked + label::before {
     transition: all .2s !important;
 } */
 
-ul#id_2-class_type li input[type="checkbox"] {
+ul.chips_class_type li input[type="checkbox"] {
   display: absolute;
 }
-ul#id_2-class_type li input[type="checkbox"] {
+ul.chips_class_type li input[type="checkbox"] {
   position: absolute;
   opacity: 0;
 }
-ul#id_2-class_type li input[type="checkbox"]:focus + label {
+ul.chips_class_type li input[type="checkbox"]:focus + label {
   border: 2px solid #e9a1ff !important;
 }
 
 
-
+/* Hide courses/subjects chips until related programs are checked */
 ul#id_3-courses_subjects li label{
     display: none;
+}
+
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.card{
+    border: none;
+}
+
+.prof-img img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.course-chips{
+    border: 1px solid gray;
+    display: inline-block;
+    margin-bottom: 5px;
+    border-radius: 25px;
+    padding: 0.3rem;
+    text-align: center;
 }
