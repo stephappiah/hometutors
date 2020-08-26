@@ -1,33 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <p>hey</p>
-            </div>
-            <div class="col-sm">
-                <form action="">
-                    <div class="form-group">
-                        <input class="form-control" type="search" name="q" id="q">
-                    </div>
-                </form>
+
+<div class="card shadow-sm">
+    <div class="row card-body">
+        <!-- Profile image -->
+        <div class="col-4 prof-img">
+            <div class="big-circle">
+                <div class="rate">
+                  <p>GHC {{ tutor.rate_per_hour }}</p> 
+                </div>
+                <img src="{{ tutor.avatar.url }}" alt="">
             </div>
         </div>
-        
+        <!-- Tutor details -->
+        <div class="col-8">
+            <!-- first and last names -->
+            <p class="lead-text mb-0">{{ tutor.fname }} {{ tutor.lname }}</p>
+            <p class="small-text text-muted">{{ tutor.school }}</p>
+            <!-- distance -->
+            <div class="distance">
+                <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class=mr-2 bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+                {{ tutor.distance.km|dividebyth }} km away
+            </div>
+            <!-- list of courses/Subjects -->
+            <div class="course-chips-container mt-2">
+                <p>Teaches subjects in:</p>
+                {% for program in tutor.tutoring_programs %}
+                    <div class="course-chips">{{ program }}</div>
+                {% endfor %}
+            </div>
+            <a class="btn btn-sm btn-info" href="{% url 'findtutors:view_tutor_profile' tutor.slug %}">View Profile</a>
+        </div>
     </div>
-    
-
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</body>
-</html>
+</div>

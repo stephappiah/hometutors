@@ -15,7 +15,6 @@ from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, UpdateTutorForm
 from .models import Profile, UserType
-from users.models import User
 from django.forms.models import construct_instance
 
 
@@ -144,7 +143,8 @@ def FilterSearch(request):
         qs = qs.filter(courses_subjects__icontains=course)
 
     context = {
-        'tutors': qs
+        'tutors': qs,
+        'total_tutors': qs.count()
     }
     return render(request, 'findtutors/search-results.html', context)
 

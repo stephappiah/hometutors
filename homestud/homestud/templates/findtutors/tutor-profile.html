@@ -1,12 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutor Profile</title>
-</head>
-<body>
-    <p>My name is {{ tutor.fname }}</p>
-    <p>Hey! This is my profile page</p>
-</body>
-</html>
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load extra_template_filters %}
+
+
+{% block content %}
+    <div class="prof-header jumbotron">
+        <div class="profile-pic">
+            <img src="{{ tutor.avatar.url }}" alt="">
+        </div>
+        <p class="prof-name lead-text">{{ tutor.fname }} {{ tutor.lname }}</p>
+        <div class="call-action">
+            <div>
+                <p class="text-center">&#8373;{{ tutor.rate_per_hour }}<small>/hr</small></p>
+                <p class="text-center">1st lesson free</p>
+            </div>  
+            <a class="btn border-round btn-info" href="">Book a class</a>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <!-- Profile details -->
+    <div class="container">
+        <div class="row jumbotron-bwhite">
+            <div class="col-sm">
+                <!-- Education -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="lead-text">Education</p>
+                        <p class="lead">{{ tutor.school }}</p>
+                        <p>{{ tutor.programme }}</p>
+                        <p>{{ tutor.start_year }} - {{ tutor.end_year }}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Lessons -->
+            <div class="col-sm">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="course-chips-container mt-4">
+                            <p class="mb-1">Class Type</p>
+                            {% for class in tutor.class_type %}
+                                <div class="course-chips">{{ class }}</div>
+                            {% endfor %}
+                        </div>
+                        <!-- programmes -->
+                        <div class="course-chips-container mt-4">
+                            <p class="mb-1">Teaching Programs</p>
+                            {% for program in tutor.tutoring_programs %}
+                                <div class="course-chips">{{ program }}</div>
+                            {% endfor %}
+                        </div>
+                        <!-- Courses -->
+                        <div class="course-chips-container mt-4">
+                            <p class="mb-1">Courses</p>
+                            {% for course in tutor.courses_subjects %}
+                                <div class="course-chips">{{ course }}</div>
+                            {% endfor %}
+                        </div>
+                        <!-- Levels -->
+                        <div class="course-chips-container mt-4">
+                            <p class="mb-1">Levels</p>
+                            {% for level in tutor.teach_levels %}
+                                <div class="course-chips">{{ level }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bio -->
+            <div class="col-sm">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p>Bio</p>
+                        <p>{{ tutor.bio }}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- First Lesson Policy -->
+            <div class="col-sm">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p>Booking Details</p>
+                        <p>First {{ tutor.free_lesson_duration }}mins available for free. This will be an introductory 
+                            lesson to work out if the tutoring can work out. <br>
+                            If all goes smoothly, tutoring will begin with agreed upon rates and scheduled days and time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    

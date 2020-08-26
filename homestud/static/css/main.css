@@ -117,17 +117,140 @@ ul#id_3-courses_subjects li label{
     border: none;
 }
 
-.prof-img img{
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
+.big-circle img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.big-circle{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    text-align: center;
+    margin: auto;
 }
 
 .course-chips{
-    border: 1px solid gray;
+    border: 1px solid #dee0e4;
+    background-color: #dee0e4;
     display: inline-block;
     margin-bottom: 5px;
     border-radius: 25px;
     padding: 0.3rem;
     text-align: center;
+    font-size: 0.7rem;
 }
+
+.icon-text{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+p {
+    display: block;
+    margin-block-start: 0.1em;
+    margin-block-end: 0.1em;
+    margin-inline-start: 0.1px;
+    margin-inline-end: 0.1px;
+}
+.small-text{
+    font-size: 0.8rem;
+}
+.school{
+    font-size: 1rem;
+}
+
+.lead-text {
+    font-size: 5vw;
+    font-weight: 500;
+}
+.rate{
+    position: absolute;
+    bottom: -15%;
+    right: 0%;
+    border-radius: 50%;
+    height: 55px;
+    width: 55px;
+    border: 2px solid white;
+    background-color: #0c8bd4;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jumbotron-bwhite{
+    background-color: #fdfdff;
+}
+
+.profile-pic img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.border-round{
+    border-top-left-radius: 4rem;
+    border-top-right-radius: 4rem;
+    border-bottom-left-radius: 4rem;
+    border-bottom-right-radius: 4rem;
+}
+
+/* Desktop and Tablets */
+@media (min-width: 768px){
+    .prof-header{
+        display: flex;
+        padding-left: 10%;
+    }
+    .prof-name{
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 1rem;
+    }
+    .call-action{
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 20vw;
+    }
+    .profile-pic img{
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+    }
+    .lead-text{
+        font-size: 2.6vw;
+        font-weight: 400;
+    }
+    
+}
+
+/* Phone screeens (small) */
+@media screen and (max-width: 767px){
+    .prof-header{
+        text-align: center;
+    }
+    .call-action{
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding: 1.2rem;
+        background-color: white;
+        box-shadow: 0 -5px 30px rgba(57,57,57,0.15);
+        z-index: 1;
+    }
+    .call-action div{
+       float: left;
+    }
+    .call-action a{
+        margin-top: auto;
+        margin-bottom: auto;
+        float: right;
+    }
+}
+
+
