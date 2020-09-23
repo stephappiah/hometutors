@@ -10,12 +10,32 @@ from .multi_choices import highest_education_choices
 class DateInput(forms.DateInput):
     input_type ='date'
 
+class AvatarForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['avatar'].required = True
+
+    class Meta: 
+        model = Profile
+        fields = ('avatar',)
+        labels = {
+            'avatar': 'Profile Picture'
+        }
+
 class PersonInfoForm(forms.ModelForm):
-    contact = PhoneNumberField(required=False)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['fname'].required = True
+        self.fields['lname'].required = True
+        self.fields['dob'].required = True
+        self.fields['contact'].required = True
+        self.fields['address'].required = True
+
+    contact = PhoneNumberField()
 
     class Meta:
         model = Profile
-        fields = ('avatar', 'fname', 'lname', 'dob', 'contact', 'location', 'address', 'slug' )
+        fields = ('fname', 'lname', 'dob', 'contact', 'location', 'address', 'slug', )
         
         labels = {
             'avatar': 'Profile Picture',
@@ -33,20 +53,35 @@ class PersonInfoForm(forms.ModelForm):
         }
 
 class EducationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['highest_education'].required = True
+        self.fields['school'].required = True
+        self.fields['programme'].required = True
+        self.fields['start_year'].required = True
+        self.fields['end_year'].required = True
+        # self.fields['highest_education'].widget.attrs.update({'class': 'chips_class_type'})
+        
     class Meta:
         model = Profile
         fields = ( 'highest_education', 'school', 'programme', 'start_year', 'end_year',)
 
         widgets = {
             'start_year': DateInput(),
-            'end_year': DateInput(),
-            'highest_education': forms.RadioSelect(choices=highest_education_choices)
+            'end_year': DateInput()
         }
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['highest_education'].widget.attrs.update({'class': 'chips_class_type'})
+   
 
 class TutorProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['class_type'].required = True
+        self.fields['rate_per_hour'].required = True
+        self.fields['free_lesson_duration'].required = True
+        self.fields['bio'].required = True
+        self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
+        self.fields['bio'].widget.attrs.update({'class': 'form-control'})
+
     class Meta:
         model = Profile
         fields = ('class_type', 'rate_per_hour', 'free_lesson_duration', 'bio', )
@@ -55,10 +90,10 @@ class TutorProfileForm(forms.ModelForm):
             
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
-        self.fields['bio'].widget.attrs.update({'class': 'form-control'})
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
+    #     self.fields['bio'].widget.attrs.update({'class': 'form-control'})
 
 class UserTypeForm(forms.ModelForm):
 
@@ -75,6 +110,14 @@ class UserTypeForm(forms.ModelForm):
 
 
 class TutorInterestForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['teach_levels'].required = True
+        self.fields['tutoring_programs'].required = True
+        self.fields['courses_subjects'].required = True
+        self.fields['teach_levels'].widget.attrs.update({'class': 'chips_class_type', })
+        self.fields['tutoring_programs'].widget.attrs.update({'class': 'chips_class_type', })
+        self.fields['courses_subjects'].widget.attrs.update({'class': 'chips_class_type', })
 
     class Meta:
         model = Profile
@@ -84,13 +127,13 @@ class TutorInterestForm(forms.ModelForm):
             'courses_subjects': 'Courses'
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['teach_levels'].widget.attrs.update({'class': 'chips_class_type', })
-        self.fields['tutoring_programs'].widget.attrs.update({'class': 'chips_class_type', })
-        self.fields['courses_subjects'].widget.attrs.update({'class': 'chips_class_type', })
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['teach_levels'].widget.attrs.update({'class': 'chips_class_type', })
+    #     self.fields['tutoring_programs'].widget.attrs.update({'class': 'chips_class_type', })
+    #     self.fields['courses_subjects'].widget.attrs.update({'class': 'chips_class_type', })
 
 class UpdateTutorForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ('user', 'slug', )
+        exclude = ('user', 'slug', 'location',) 

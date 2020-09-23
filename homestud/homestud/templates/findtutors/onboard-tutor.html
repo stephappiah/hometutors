@@ -3,6 +3,11 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{% block head_title %}
+    Tutor Onboarding - Homestud
+{% endblock head_title %}
+    
+
 {% block extra_head %}
 {{ wizard.form.media }}
 <script src="{% static "js/onboarding-tutor.js" %}"></script>
@@ -46,47 +51,1058 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mb-5">
-        <div class="row">
-            <div class="col-sm">
 
-            </div>
-            <div class="col-sm pt-4">
-                <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    
-                    {{ wizard.management_form }}
-                    {% if wizard.form.forms %}
-                        {{ wizard.form.management_form }}
-                        {% for form in wizard.form.forms %}
-                            {{ form|crispy }}
-                        {% endfor %}
-                    {% else %}
-                        {{ wizard.form }}
-                    {% endif %}
-                    
-                <!-- Show Previous step button -->
-                    <div class="container mt-4">
-                        {% if wizard.steps.prev %}
-                        <button class="btn btn-sm btn-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
-                        <input class="btn btn-sm btn-info" type="submit" value="{% trans "Save & Continue" %}"/>
-                        {% endif %}
-                
-                        <!-- Show 'Submit' on last step -->
-                        {% if wizard.steps.last %}
-                        <input class="btn btn-sm btn-info" type="submit" value="{% trans "Submit" %}"/>
-                        {% endif %}
-                    </div>
-                    
-            
-                    </form>
-            </div>
+    <!----------------------------- Stepper -------------------------------------->
+    <div class="steps-form mt-3">
+        <div class="steps-row setup-panel">
+          <div class="steps-step">
+            <a href="" id="step0" type="button" class="btn grey-back btn-circle">1</a>
+            <p class="sm-hide">Personal Info</p>
+          </div>
+          <div class="steps-step">
+            <a href="" id="step1" type="button" class="btn grey-back btn-circle">2</a>
+            <p class="sm-hide">Education</p>
+          </div>
+          <div class="steps-step">
+            <a href="" id="step2" type="button" class="btn grey-back btn-circle">3</a>
+            <p class="sm-hide">Tutor Profile</p>
+          </div>
+          <div class="steps-step">
+            <a href="" id="step3" type="button" class="btn grey-back btn-circle">4</a>
+            <p class="sm-hide">Subject of Interest</p>
+          </div>
+          <div class="steps-step">
+            <a href="" id="step4" type="button" class="btn grey-back btn-circle">5</a>
+            <p class="sm-hide">Profile Picture</p>
+          </div>
         </div>
+    </div> <!------------------ END Stepper tab ----------------->
+
+    <div class="container mb-5 mt-5">
+        <!--------------------------- Registration Area -------------------------->
+        <div class="row">
+            <!------------- Progress percent  ------------->
+            <div class="col-lg-4 order-lg-2 mb-4">
+                <div class="container card shadow p-3">
+                    <p class="text-center mt-2">Profile Completeness</p>
+                    <div class="progress mb-3" style="height: 20px;">
+                    <div class="progress-bar turq-color" role="progressbar" style="width: 0%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><strong></strong></div>
+                    </div>
+                    <p class="text-muted">100% profile completeness gets you more customised ad and connections with students.</p>
+                </div>
+            </div> <!------------------ END Progress percent ----------------->
+
+            <!-- Registration form -->
+            <div class="col-lg-8 order-lg-1">
+                <div class="container registration card shadow-sm pt-3">
+                    <!-- <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+                    <p class="lead text-center mt-3">Form Title</p> -->
+                    <form id="tutorForm" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        {{ wizard.management_form }}
+                        {% if wizard.form.forms %}
+                            {{ wizard.form.management_form }}
+                            {% for form in wizard.form.forms %}
+                                {{ form|crispy }}
+                            {% endfor %}
+                        {% else %}
+                            {{ wizard.form }}
+                        {% endif %}
+                        
+                        <!-- Show Previous step button -->
+                        <div class="container mt-4 mb-4">
+                            {% if wizard.steps.index > 0 and wizard.steps.index < 4 %}
+                            <button class="btn btn-sm btn-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
+                            <input class="btn btn-sm btn-info" type="submit" value="{% trans "Save & Continue" %}"/>
+                            {% endif %}
+                    
+                            <!-- Show 'Submit' on last step -->
+                            {% if wizard.steps.index == 4 %}
+                            <button class="btn btn-sm btn-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
+                            <input class="btn btn-sm btn-info" type="submit" value="{% trans "Submit" %}"/>
+                            {% endif %}
+
+                            <!-- Show 'save and continue' on first step -->
+                            {% if wizard.steps.index == 0 %}
+                            <input class="btn btn-sm btn-info" type="submit" value="{% trans "Save & Continue" %}"/>
+                            {% endif %}
+                        </div>
+                        
+                
+                    </form>
+                </div>
+            </div> <!------------------ END Registration form ----------------->
+        </div> <!------------------ END Registration AREA ----------------->
         
     </div>
+    
+    <script type="text/javascript">
 
-    <script>
+        
+        // change active stepper background
+        $(document).ready(function(){
+            var step = '{{wizard.steps.index}}';
+            $('#step'+step).css({
+                'background-color': '#149AA4',
+                'color': 'white',
+                'border': 'none'
+            });
+
+
+            // ------------------- update Progress bar ------------------------
+            $("#tutorForm input").keyup(function() {
+                var Formstep = '{{wizard.steps.index}}';
+                // First step
+                if (Formstep == 0){
+                    //set initial percentage
+                    var numValid = 0;
+                    $("#tutorForm input[required]").each(function() {
+                        if (this.validity.valid) {
+                            numValid++;
+                        }
+                    });
+                    
+                    var progress = $(".progress-bar");
+                        // progressMessage = $("#progress-message");
+                    
+                        if (numValid == 0) {
+                            progress.css("width", "0");
+                            progress.text('0');
+                        }
+                        if (numValid == 1) {
+                            progress.css("width", "8%");
+                            progress.text('8%');
+                        }
+                        if (numValid == 2) {
+                            progress.css("width", "18%");
+                            progress.text('18%');
+                        }
+                        if (numValid == 3) {
+                            progress.css("width", "20%");
+                            progress.text('20%');
+                        }
+                        if (numValid == 4) {
+                            progress.css("width", "25%");
+                            progress.text('25%');
+                        }
+                        if (numValid == 5) {
+                            progress.css("width", "25%");
+                            progress.text('25%');
+                        }
+                } // End of first step 
+
+                // Second step
+                if (Formstep == 1){
+                    //set initial percentage
+
+                    var numValid = 0;
+                    $("#tutorForm input[required]").each(function() {
+                        if (this.validity.valid) {
+                            numValid++;
+                        }
+                    });
+                    
+                    var progress = $(".progress-bar");
+                        // progressMessage = $("#progress-message");
+                    
+                        if (numValid == 0) {
+                            progress.css("width", "25%");
+                            progress.text('25%');
+                        }
+                        if (numValid == 1) {
+                            progress.css("width", "35%");
+                            progress.text('35%');
+                        }
+                        if (numValid == 2) {
+                            progress.css("width", "50%");
+                            progress.text('50%');
+                        }
+                        
+                } // End of second step 
+
+                 // Third step
+                if (Formstep == 2){
+                    //set initial percentage
+
+                    var numValid = 0;
+                    $("#tutorForm input[required]").each(function() {
+                        if (this.validity.valid) {
+                            numValid++;
+                        }
+                    });
+                    console.log('first key press',numValid)
+                    var progress = $(".progress-bar");
+                        // progressMessage = $("#progress-message");
+                    
+                        if (numValid == 0) {
+                            progress.css("width", "50%");
+                            progress.text('50%');
+                        }
+                        if (numValid == 1) {
+                            progress.css("width", "69%");
+                            progress.text('69%');
+                        }
+                        
+                } // End of Third step 
+                
+                 // Fouth step
+                if (Formstep == 3){
+                    //set initial percentage
+
+                    var numValid = 0;
+                    $("#tutorForm input[required]").each(function() {
+                        if (this.validity.valid) {
+                            numValid++;
+                        }
+                    });
+                    console.log('first key press',numValid)
+                    var progress = $(".progress-bar");
+                        // progressMessage = $("#progress-message");
+                    
+                        if (numValid == 0) {
+                            progress.css("width", "50%");
+                            progress.text('50%');
+                        }
+                        if (numValid == 1) {
+                            progress.css("width", "69%");
+                            progress.text('69%');
+                        }
+                        
+                } // End of Fourth step 
+                
+                });
+            
+        }); // End of document.ready function
+
+        window.onload = function () { 
+            // ------------------- update Progress bar on page reload ------------------------
+        
+
+            var Formstep = '{{wizard.steps.index}}';
+                // First step
+            if (Formstep == 0){
+                //set initial percentage
+                var numValid = 0;
+                $("#tutorForm input[required]").each(function() {
+                    if (this.validity.valid) {
+                        numValid++;
+                    }
+                });
+                
+                var progress = $(".progress-bar");
+                    // progressMessage = $("#progress-message");
+                
+                    if (numValid == 0) {
+                        progress.css("width", "0");
+                        progress.text('0');
+                    }
+                    if (numValid == 1) {
+                        progress.css("width", "8%");
+                        progress.text('8%');
+                    }
+                    if (numValid == 2) {
+                        progress.css("width", "18%");
+                        progress.text('18%');
+                    }
+                    if (numValid == 3) {
+                        progress.css("width", "20%");
+                        progress.text('20%');
+                    }
+                    if (numValid == 4) {
+                        progress.css("width", "25%");
+                        progress.text('25%');
+                    }
+                    if (numValid == 5) {
+                        progress.css("width", "25%");
+                        progress.text('25%');
+                    }
+            } // End of first step 
+
+            // --------------------- Second step --------------------------------------------------
+            var Formstep = '{{wizard.steps.index}}';
+                // Second step
+            if (Formstep == 1){
+                //set initial percentage
+                var numValid = 0;
+                $("#tutorForm input[required]").each(function() {
+                    if (this.validity.valid) {
+                        numValid++;
+                    }
+                });
+                console.log(numValid);
+                var progress = $(".progress-bar");
+                    // progressMessage = $("#progress-message");
+                
+                    if (numValid == 0) {
+                            progress.css("width", "25%");
+                            progress.text('25%');
+                    }
+                    if (numValid == 1) {
+                        progress.css("width", "35%");
+                        progress.text('35%');
+                    }
+                    if (numValid == 2) {
+                        progress.css("width", "50%");
+                        progress.text('50%');
+                    }
+                    if (numValid == 3) {
+                        progress.css("width", "50%");
+                        progress.text('50%');
+                    }
+                    if (numValid == 4) {
+                        progress.css("width", "50%");
+                        progress.text('50%');
+                    }
+            } // End of second step 
+                
+            // --------------------- Third step --------------------------------------------------
+            var Formstep = '{{wizard.steps.index}}';
+                // Third step
+            if (Formstep == 2){
+                //set initial percentage
+                var numValid = 0;
+                $("#tutorForm input[required]").each(function() {
+                    if (this.validity.valid) {
+                        numValid++;
+                    }
+                });
+                console.log('on reload',numValid)
+                var progress = $(".progress-bar");
+                    // progressMessage = $("#progress-message");
+                
+                    if (numValid == 0) {
+                            progress.css("width", "50%");
+                            progress.text('50%');
+                    }
+                    if (numValid == 1) {
+                        progress.css("width", "69%");
+                        progress.text('69%');
+                    }
+                    
+            } // End of Third step 
+
+            // --------------------- Fifth step --------------------------------------------------
+            var Formstep = '{{wizard.steps.index}}';
+                // Fourth step
+            if (Formstep == 3){
+                //set initial percentage
+                var numValid = 0;
+                $("#tutorForm input[required]").each(function() {
+                    if (this.validity.valid) {
+                        numValid++;
+                    }
+                });
+                console.log('on reload',numValid)
+                var progress = $(".progress-bar");
+                    // progressMessage = $("#progress-message");
+                
+                    if (numValid == 0) {
+                            progress.css("width", "90%");
+                            progress.text('90%');
+                    }
+                    
+            } // End of fourth step 
+
+            // --------------------- Firth step --------------------------------------------------
+            var Formstep = '{{wizard.steps.index}}';
+                // Fourth step
+            if (Formstep == 4){
+                //set initial percentage
+                var numValid = 0;
+                $("#tutorForm input[required]").each(function() {
+                    if (this.validity.valid) {
+                        numValid++;
+                    }
+                });
+                console.log('on reload',numValid)
+                var progress = $(".progress-bar");
+                    // progressMessage = $("#progress-message");
+                
+                    if (numValid == 0) {
+                            progress.css("width", "100%");
+                            progress.text('100%');
+                    }
+                    
+            } // End of fourth step 
+
+
+
+            //---------------------------------   Style chips    ------------------------------------------------
+            
+            // define variables
+            const colorStyle = {
+                "border":"2px solid #1bdbf8",
+                "background-color":"#12bbd4",
+                "color": "#fff",
+                "transition": "all .2s"
+                },
+                defaultStyle = {
+                    "border":"2px solid rgba(139, 139, 139, .3)",
+                    "background-color":"rgba(255, 255, 255, .9)",
+                    "color": "#adadad",
+                    "transition": "all .2s"
+                },
+                individualChips = $('#id_2-class_type_0'),
+                groupChips = $('#id_2-class_type_1'),
+                onlineChips = $('#id_2-class_type_2');
+
+        /* ------------------------------------ Class Type Chips ----------------------------- */
+        
+            // chip id 0 for class-type
+            if (individualChips.is(':checked')){
+                individualChips.closest('label').css(colorStyle);
+            } else {
+            
+                individualChips.closest('label').css(defaultStyle);
+            
+            }
+            // chip id 1 for class-type
+            if (groupChips.is(':checked')){
+                groupChips.closest('label').css(colorStyle);
+            } else {
+            
+                groupChips.closest('label').css(defaultStyle);
+
+            }
+            // chip id 2 for class-type
+            if (onlineChips.is(':checked')){
+                onlineChips.closest('label').css(colorStyle);
+            } else {
+            
+                onlineChips.closest('label').css(defaultStyle);
+
+            }
+
+             /* ------------------------------- Style Teaching level ------------------------------*/ 
+             const preschool = $('#id_3-teach_levels_0'),
+             primlevel = $('#id_3-teach_levels_1'),
+             jhighlevel = $('#id_3-teach_levels_2'),
+             senhighlevel = $('#id_3-teach_levels_3');
+   
+           // preschool
+           
+            if (preschool.is(':checked')){
+                
+                preschool.closest('label').css(colorStyle);
+            } else {
+        
+                preschool.closest('label').css(defaultStyle);
+        
+            }
+        
+           // Primary level
+           
+            if (primlevel.is(':checked')){
+                
+                primlevel.closest('label').css(colorStyle);
+            } else {
+        
+                primlevel.closest('label').css(defaultStyle);
+        
+            }
+           
+           // jhs level
+           
+            if (jhighlevel.is(':checked')){
+                
+                jhighlevel.closest('label').css(colorStyle);
+            } else {
+        
+                jhighlevel.closest('label').css(defaultStyle);
+        
+            }
+             
+           // shs level
+           
+            if (senhighlevel.is(':checked')){
+                
+                senhighlevel.closest('label').css(colorStyle);
+            } else {
+        
+                senhighlevel.closest('label').css(defaultStyle);
+        
+            }
+            
+
+            /* ------------------------------- Courses/subjects chips ------------------------------*/ 
+
+        // 
+            // define variables 
+            const early = $('#id_3-tutoring_programs_0'), 
+            prjhs = $('#id_3-tutoring_programs_1'),
+            art = $('#id_3-tutoring_programs_2'),
+            sci = $('#id_3-tutoring_programs_3'),
+            vsa = $('#id_3-tutoring_programs_4'),
+            bus = $('#id_3-tutoring_programs_5'),
+            hme = $('#id_3-tutoring_programs_6'),
+            tec = $('#id_3-tutoring_programs_7');
+            
+            // list of courses under programme
+            const earlyCourses = $("#id_3-courses_subjects_0, #id_3-courses_subjects_1, #id_3-courses_subjects_2"),
+                primjhsCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5"),
+                artCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_6, #id_3-courses_subjects_7, #id_3-courses_subjects_8, #id_3-courses_subjects_9, #id_3-courses_subjects_10, #id_3-courses_subjects_11, #id_3-courses_subjects_12"),
+                sciCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_13, #id_3-courses_subjects_14, #id_3-courses_subjects_15, #id_3-courses_subjects_28"),
+                vsaCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_16, #id_3-courses_subjects_17, #id_3-courses_subjects_18, #id_3-courses_subjects_19, #id_3-courses_subjects_20, #id_3-courses_subjects_21, #id_3-courses_subjects_22, #id_3-courses_subjects_23"),
+                busCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_24, #id_3-courses_subjects_25, #id_3-courses_subjects_26, #id_3-courses_subjects_27, #id_3-courses_subjects_28"),
+                hmeCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_29, #id_3-courses_subjects_30, #id_3-courses_subjects_32");
+
+            // ---------- Style tutoring programmes colors  ------------------------------
+            
+            if (early.is(':checked')){
+                
+                early.closest('label').css(colorStyle);
+            } else {
+                early.closest('label').css(defaultStyle);
+
+            }
+            //primjhs
+            if (prjhs.is(':checked')){
+                
+                prjhs.closest('label').css(colorStyle);
+            } else {
+                prjhs.closest('label').css(defaultStyle);
+
+            }
+            //art
+            if (art.is(':checked')){
+                
+                art.closest('label').css(colorStyle);
+            } else {
+                art.closest('label').css(defaultStyle);
+
+            }
+            //sci
+            if (sci.is(':checked')){
+                
+                sci.closest('label').css(colorStyle);
+            } else {
+                sci.closest('label').css(defaultStyle);
+
+            }
+            //vsa
+            if (vsa.is(':checked')){
+                
+                vsa.closest('label').css(colorStyle);
+            } else {
+                vsa.closest('label').css(defaultStyle);
+
+            }
+            //bus
+            if (bus.is(':checked')){
+                
+                bus.closest('label').css(colorStyle);
+            } else {
+                bus.closest('label').css(defaultStyle);
+
+            }
+            //hme
+            if (hme.is(':checked')){
+                
+                hme.closest('label').css(colorStyle);
+            } else {
+                hme.closest('label').css(defaultStyle);
+
+            }
+            //tec
+            if (tec.is(':checked')){
+                
+                tec.closest('label').css(colorStyle);
+            } else {
+                tec.closest('label').css(defaultStyle);
+
+            }
+
+            // --------------------- Show or hide courses on reload ---------------------------
+
+            // if early years chips is checked -- show courses
+            if (early.is(':checked')){
+                // show courses
+                earlyCourses.closest('label').css({
+                    "display":"inline-block",   
+                });
+            } else {
+                // hide courses
+                earlyCourses.closest('label').css({
+                    "display":"none"
+                });
+
+            }
+
+            // if  primary/jhs chips is checked -- show courses
+            if (prjhs.is(':checked')){
+                // show courses
+                primjhsCourses.closest('label').css({
+                    "display":"inline-block",   
+                });
+            } else {
+                // hide courses
+                primjhsCourses.closest('label').css({
+                    "display":"none"
+                });
+
+            }
+            
+            // if  art chips is checked -- show courses
+            if (art.is(':checked')){
+                // show courses
+                artCourses.closest('label').css({
+                    "display":"inline-block",   
+                });
+            } else {
+                // hide courses
+                artCourses.closest('label').css({
+                    "display":"none"
+                });
+
+            }
+
+            // if  sci chips is checked -- show courses
+            if (sci.is(':checked')){
+                // show courses
+                sciCourses.closest('label').css({
+                    "display":"inline-block",   
+                });
+            } else {
+                // hide courses
+                sciCourses.closest('label').css({
+                    "display":"none"
+                });
+
+            }
+
+            // if  vsa chips is checked -- show courses
+            if (vsa.is(':checked')){
+                // show courses
+                vsaCourses.closest('label').css({
+                    "display":"inline-block",   
+                });
+            } else {
+                // hide courses
+                vsaCourses.closest('label').css({
+                    "display":"none"
+                });
+
+            }
+
+            // if  bus chips is checked -- show courses
+            if (bus.is(':checked')){
+                // show courses
+                busCourses.closest('label').css({
+                    "display":"inline-block",   
+                });
+            } else {
+                // hide courses
+                busCourses.closest('label').css({
+                    "display":"none"
+                });
+
+            }
+            // if  hme chips is checked -- show courses
+            if (hme.is(':checked')){
+                // show courses
+                hmeCourses.closest('label').css({
+                    "display":"inline-block",   
+                });
+            } else {
+                // hide courses
+                hmeCourses.closest('label').css({
+                    "display":"none"
+                });
+
+            }
+
+            /* -------------------Courses Chips color styling -> onclick -------------------------------*/ 
+            const wrt = $('#id_3-courses_subjects_0'),
+            red = $('#id_3-courses_subjects_1'),
+            num = $('#id_3-courses_subjects_2'),
+            eng = $('#id_3-courses_subjects_3'),
+            mat = $('#id_3-courses_subjects_4'),
+            scn = $('#id_3-courses_subjects_5'),
+            lit = $('#id_3-courses_subjects_6'),
+            eco = $('#id_3-courses_subjects_7'),
+            his = $('#id_3-courses_subjects_8'),
+            gov = $('#id_3-courses_subjects_9'),
+            geo = $('#id_3-courses_subjects_10'),
+            rst = $('#id_3-courses_subjects_11'),
+            fre = $('#id_3-courses_subjects_12'),
+            bio = $('#id_3-courses_subjects_13'),
+            phy = $('#id_3-courses_subjects_14'),
+            che = $('#id_3-courses_subjects_15'),
+            grp = $('#id_3-courses_subjects_16'),
+            pmk = $('#id_3-courses_subjects_17'),
+            bsk = $('#id_3-courses_subjects_18'),
+            cer = $('#id_3-courses_subjects_19'),
+            scp = $('#id_3-courses_subjects_20'),
+            jew = $('#id_3-courses_subjects_21'),
+            ltw = $('#id_3-courses_subjects_22'),
+            gka = $('#id_3-courses_subjects_23'),
+            bsm = $('#id_3-courses_subjects_24'),
+            acc = $('#id_3-courses_subjects_25'),
+            prc = $('#id_3-courses_subjects_26'),
+            bum = $('#id_3-courses_subjects_27'),
+            emt = $('#id_3-courses_subjects_28'),
+            mil = $('#id_3-courses_subjects_29'),
+            fdn = $('#id_3-courses_subjects_30'),
+            txt = $('#id_3-courses_subjects_31');
+
+        // to do: use for loop to simplify code
+
+        // style chips on click
+        
+        if (wrt.is(':checked')){
+            
+            wrt.closest('label').css(colorStyle);
+        } else {
+
+            wrt.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (red.is(':checked')){
+            
+            red.closest('label').css(colorStyle);
+        } else {
+
+            red.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (num.is(':checked')){
+            
+            num.closest('label').css(colorStyle);
+        } else {
+
+            num.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (eng.is(':checked')){
+            
+            eng.closest('label').css(colorStyle);
+        } else {
+
+            eng.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (mat.is(':checked')){
+            
+            mat.closest('label').css(colorStyle);
+        } else {
+
+            mat.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (scn.is(':checked')){
+            
+            scn.closest('label').css(colorStyle);
+        } else {
+
+            scn.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (lit.is(':checked')){
+            
+            lit.closest('label').css(colorStyle);
+        } else {
+
+            lit.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (eco.is(':checked')){
+            
+            eco.closest('label').css(colorStyle);
+        } else {
+
+            eco.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (his.is(':checked')){
+            
+            his.closest('label').css(colorStyle);
+        } else {
+
+            his.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (geo.is(':checked')){
+            
+            geo.closest('label').css(colorStyle);
+        } else {
+
+            geo.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (gov.is(':checked')){
+            
+            gov.closest('label').css(colorStyle);
+        } else {
+
+            gov.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (rst.is(':checked')){
+            
+            rst.closest('label').css(colorStyle);
+        } else {
+
+            rst.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (fre.is(':checked')){
+            
+            fre.closest('label').css(colorStyle);
+        } else {
+
+            fre.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (bio.is(':checked')){
+            
+            bio.closest('label').css(colorStyle);
+        } else {
+
+            bio.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (phy.is(':checked')){
+            
+            phy.closest('label').css(colorStyle);
+        } else {
+
+            phy.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (che.is(':checked')){
+            
+            che.closest('label').css(colorStyle);
+        } else {
+
+            che.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (grp.is(':checked')){
+            
+            grp.closest('label').css(colorStyle);
+        } else {
+
+            grp.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (pmk.is(':checked')){
+            
+            pmk.closest('label').css(colorStyle);
+        } else {
+
+            pmk.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (bsk.is(':checked')){
+            
+            bsk.closest('label').css(colorStyle);
+        } else {
+
+            bsk.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (cer.is(':checked')){
+            
+            cer.closest('label').css(colorStyle);
+        } else {
+
+            cer.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (scp.is(':checked')){
+            
+            scp.closest('label').css(colorStyle);
+        } else {
+
+            scp.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (jew.is(':checked')){
+            
+            jew.closest('label').css(colorStyle);
+        } else {
+
+            jew.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (ltw.is(':checked')){
+            
+            ltw.closest('label').css(colorStyle);
+        } else {
+
+            ltw.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (gka.is(':checked')){
+            
+            gka.closest('label').css(colorStyle);
+        } else {
+
+            gka.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (bsm.is(':checked')){
+            
+            bsm.closest('label').css(colorStyle);
+        } else {
+
+            bsm.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (acc.is(':checked')){
+            
+            acc.closest('label').css(colorStyle);
+        } else {
+
+            acc.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (prc.is(':checked')){
+            
+            prc.closest('label').css(colorStyle);
+        } else {
+
+            prc.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (bum.is(':checked')){
+            
+            bum.closest('label').css(colorStyle);
+        } else {
+
+            bum.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (emt.is(':checked')){
+            
+            emt.closest('label').css(colorStyle);
+        } else {
+
+            emt.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (mil.is(':checked')){
+            
+            mil.closest('label').css(colorStyle);
+        } else {
+
+            mil.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (fdn.is(':checked')){
+            
+            fdn.closest('label').css(colorStyle);
+        } else {
+
+            fdn.closest('label').css(defaultStyle);
+
+        }
+
+        // style chips on click
+        
+        if (txt.is(':checked')){
+            
+            txt.closest('label').css(colorStyle);
+        } else {
+
+            txt.closest('label').css(defaultStyle);
+
+        }
+
+
+
+        }; // end of widow reload
         
     </script>
 {% endblock %}

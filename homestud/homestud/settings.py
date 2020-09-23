@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 #Gdal settings for windows environment
 GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal300.dll"
 

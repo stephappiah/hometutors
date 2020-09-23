@@ -13,17 +13,18 @@ from .forms import UserTypeForm
 import os
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
-from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, UpdateTutorForm
+from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, UpdateTutorForm, AvatarForm
 from .models import Profile, UserType
 from django.forms.models import construct_instance
+from django.core.paginator import Paginator
 
 
 class OnboardingTutorWizard(SessionWizardView):
     
     template_name = 'findtutors/onboard-tutor.html'
-
-    form_list = [PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, ] 
-    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'photos'))
+    
+    form_list = [PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, AvatarForm] 
+    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'avatar'))
 
     # Prepopulate with user's first and last names
     def get_form_initial(self, step):
@@ -60,6 +61,7 @@ class OnboardingTutorWizard(SessionWizardView):
 
         for form in form_list:
             profile_instance = construct_instance(form, profile_instance, form._meta.fields, form._meta.exclude)
+
             # save form instaces to database(model)
             profile_instance.save()
 
@@ -106,23 +108,62 @@ def tutor_profile_detail(request, slug_username):
 def SearchTutor(request):
 
     #Get coordinates from search form in template
-    latitude = float(request.GET.get('lat'))
-    longitude = float(request.GET.get('lon'))
+    lat = request.GET.get('lat')
+    lon = request.GET.get('lon')
+   
+    # Check if latitude and longitude fields are not empty
+    if lat != '' or lon != '':
+        #when pagination is >1, lat and lon returns none. This if checks that and returns lat and lon from SESSION
+        if lat is None or lon is None:
+            latitude = request.session['lat']
+            longitude = request.session['lon']
 
-    # Store coordinates in user session
-    request.session['lat'] = latitude 
-    request.session['lon'] = longitude 
+            user_location = Point(longitude, latitude, srid=4326)
+            # Queryset filtered within a distance of 20km; annotated and orderd by distance
+            dist = Distance('location', user_location)
+            qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+            paginator = Paginator(qs, 10) #show 10 tutors per page
 
-    user_location = Point(longitude, latitude, srid=4326)
-    # Queryset filtered within a distance of 20km; annotated and orderd by distance
-    dist = Distance('location', user_location)
-    qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
-    print(user_location)
-    context = {
-        'tutors': qs,
-        'total_tutors': qs.count()
-    }
-    return render(request, 'findtutors/search-results.html', context)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+
+            
+            context = {
+                'tutors': page_obj,
+                'total_tutors': qs.count()
+            }
+            return render(request, 'findtutors/search-results.html', context)
+        else:
+            latitude = float(lat)
+            longitude = float(lon)
+            # Store coordinates in user session
+            request.session['lat'] = latitude 
+            request.session['lon'] = longitude 
+
+            
+            user_location = Point(longitude, latitude, srid=4326)
+            # Queryset filtered within a distance of 20km; annotated and orderd by distance
+            dist = Distance('location', user_location)
+            qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+            paginator = Paginator(qs, 10) #show 10 tutors per page
+
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+
+            
+            context = {
+                'tutors': page_obj,
+                'total_tutors': qs.count()
+            }
+            return render(request, 'findtutors/search-results.html', context)
+
+    # return an error message if latitude and longitude fields are empty
+    else:
+        errorMessage = 'Please select a location from the autocomplete list or click on the button below to use your current location.'
+        message = {
+            'errCoord': errorMessage
+        }
+        return render(request, 'findtutors/home.html', message)
 
 def FilterSearch(request):
     # coordinates from session
@@ -142,9 +183,14 @@ def FilterSearch(request):
     if course != '' and course is not None:
         qs = qs.filter(courses_subjects__icontains=course)
 
+    paginator = Paginator(qs, 10) #show 10 tutors per page
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'tutors': qs,
-        'total_tutors': qs.count()
+                'tutors': page_obj,
+                'total_tutors': qs.count()
     }
     return render(request, 'findtutors/search-results.html', context)
 
@@ -152,13 +198,62 @@ def FilterSearch(request):
 def dashboard_profile(request):
     logged_in_user = request.user
     data = Profile.objects.get(user=logged_in_user)
-    form = UpdateTutorForm(instance=data)
+
+    # PersonalForm = PersonInfoForm(instance=data) 
+    # EducationalForm = EducationForm(instance=data) 
+    # ProfileForm = TutorProfileForm(instance=data, auto_id='id-2_%s') 
+    # InterestForm = TutorInterestForm(instance=data)
 
     if request.method == 'POST':
-        form = UpdateTutorForm(request.POST, instance=data)
-        if form.is_valid():
-            form.save()
+        if 'personal_info' in request.POST:
+            PersonalForm = PersonInfoForm(request.POST, prefix='personal_info', instance=data)
+            if PersonalForm.is_valid():
+                PersonalForm.save()
+
+            EducationalForm = EducationForm(instance=data, prefix='education') 
+            ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
+            InterestForm = TutorInterestForm(instance=data, prefix='interest')
+
+        elif 'education' in request.POST:
+            EducationalForm = EducationForm(request.POST, prefix='education', instance=data)
+            if EducationalForm.is_valid():
+                EducationalForm.save()
+
+            PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
+            ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
+            InterestForm = TutorInterestForm(instance=data, prefix='interest')
+
+        elif 'tutor_profile' in request.POST:
+            ProfileForm = TutorProfileForm(request.POST, prefix='tutor_profile', instance=data)
+            if ProfileForm.is_valid():
+                ProfileForm.save()
+
+            PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
+            EducationalForm = EducationForm(instance=data, prefix='education') 
+            InterestForm = TutorInterestForm(instance=data, prefix='interest')
+
+        elif 'interest' in request.POST:
+            InterestForm = TutorInterestForm(request.POST, prefix='interest', instance=data)
+            if InterestForm.is_valid():
+                InterestForm.save()
+
+            PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
+            EducationalForm = EducationForm(instance=data, prefix='education') 
+            ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
+
+    else:
+        PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
+        EducationalForm = EducationForm(instance=data, prefix='education') 
+        ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
+        InterestForm = TutorInterestForm(instance=data, prefix='interest')
+
+        
+
+    
     context = {
-        'form': form
+        'PersonalForm': PersonalForm,
+        'EducationalForm': EducationalForm,
+        'ProfileForm': ProfileForm,
+        'InterestForm': InterestForm,
     }
     return render(request, 'findtutors/profile-dashboard.html', context)

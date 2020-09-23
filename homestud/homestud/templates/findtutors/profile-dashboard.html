@@ -1,12 +1,147 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
-
+{% block head_title %}
+    Dashboard - Homestud
+{% endblock head_title %}
+{% block extra_head %}
+    <script src="{% static "js/dashboard_chips.js" %}"></script>
+    <script src="{% static "js/dashboard-show-chips.js" %}"></script>
+{% endblock extra_head %}
 {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form|crispy}}
-        <button type="submit">Update</button>
-    </form>
+
+    <div class="container">
+
+         <!-- form display on mobile screens -->
+         <div class="row mt-5 wrapper-form">
+            <!-- Personal info -->
+            <div class="mbox" onclick="openInfo()">
+                <div class="text-center">
+                    <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </div>
+                <p class="text-center">Personal Info</p>
+            </div>
+            <!-- Education -->
+            <div class="mbox" onclick="openEdu()">
+                <div class="text-center">
+                    <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-book-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8.5 2.687v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                    </svg>
+                </div>
+                <p class="text-center">Education</p>
+            </div>
+            <!-- Subjects -->
+            <div class="mbox" onclick="openSub()">
+                <div class="text-center">
+                    <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-journal-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                        <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                </div>
+                <p class="text-center">Subjects</p>
+            </div>
+            <!-- Bio -->
+            <div class="mbox" onclick="openBio()">
+                <div class="text-center">
+                    <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-app-indicator" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5.5 2A3.5 3.5 0 0 0 2 5.5v5A3.5 3.5 0 0 0 5.5 14h5a3.5 3.5 0 0 0 3.5-3.5V8a.5.5 0 0 1 1 0v2.5a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 1 10.5v-5A4.5 4.5 0 0 1 5.5 1H8a.5.5 0 0 1 0 1H5.5z"/>
+                        <path d="M16 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    </svg>
+                </div>
+                <p class="text-center">Bio</p>
+            </div>
+            {% include "findtutors/lightbox.html" %}
+        </div>
+       
+
+        <!-- desktop forms -->
+        <div class="row lg-row-forms mt-5">
+            <div class="col-sm-6">
+                 <!-- tutor personal info form -->
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ PersonalForm }}
+                            <button class="btn btn-dark mt-4" type="submit" name="personal_info">Update</button>
+                        </form>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-sm-6">
+                 <!-- education info form -->
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ EducationalForm }}
+                            <button class="btn btn-dark mt-4" type="submit" name="education">Update</button>
+                        </form>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-sm-6">
+                <!-- Bio info form -->
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ ProfileForm }}
+                            <button class="btn btn-dark mt-4" type="submit" name="tutor_profile">Update</button>
+                        </form>
+                    </div>
+                </div>   
+           </div>
+           <div class="col-sm-6">
+            <!-- Subjects form -->
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ InterestForm }}
+                        <button class="btn btn-dark mt-4" type="submit" name="interest">Update</button>
+                    </form>
+                </div>
+            </div>  
+       </div>
+        </div>
+
+       
+    </div>
+
+    <script>
+        function openInfo() {
+          document.getElementById("p-info").style.display = "block";
+        }
+        function openEdu() {
+            document.getElementById("edu").style.display = "block";
+        }
+        function openSub() {
+            document.getElementById("subjects").style.display = "block";
+        }
+        function openBio() {
+            document.getElementById("bio").style.display = "block";
+        }
+
+        // Close events
+        function closeInfo() {
+          document.getElementById("p-info").style.display = "none";
+        }
+        function closeEdu() {
+            document.getElementById("edu").style.display = "none";
+        }
+        function closeSub() {
+            document.getElementById("subjects").style.display = "none";
+        }
+        function closeBio() {
+            document.getElementById("bio").style.display = "none";
+          }
+        </script>
+
+    
+    
 {% endblock content %}

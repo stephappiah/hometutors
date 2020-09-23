@@ -1,21 +1,24 @@
 
+<div class="navbar-fixed">
+  <nav class="white shadow-sm">
+    <div class="nav-wrapper">
+      <a href="{% url 'findtutors:home' %}" class="brand-logo mint-text" id="myFont-sm">Homestud</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a>
+      <a href="#" class="right pr-4 hide-on-med-and-up"><i class="material-icons black-text">search</i></a>
+      <ul class="right hide-on-med-and-down">
+        {% if user.is_authenticated %}
+        <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
+        <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+        {% else %}
+        <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
+        <li><a class="black-text" href="{% url 'account_signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+</div>
 
-<nav class="white shadow-sm">
-  <div class="nav-wrapper">
-    <a href="{% url 'findtutors:home' %}" class="brand-logo black-text" id="myFont-sm">Homestud</a>
-    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a>
-    <a href="#" class="right pr-4 hide-on-med-and-up"><i class="material-icons black-text">search</i></a>
-    <ul class="right hide-on-med-and-down">
-      {% if user.is_authenticated %}
-      <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
-      <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
-      {% else %}
-      <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
-      <li><a class="black-text" href="{% url 'account_signup' %}">Sign Up</a></li>
-      {% endif %}
-    </ul>
-  </div>
-</nav>
+
 
 <ul class="sidenav" id="mobile-demo">
       {% if user.is_authenticated %}

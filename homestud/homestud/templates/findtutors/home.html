@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% block head_title %}
+      Find Tutors in Ghana- Home Tutoring & Private Home Tutors/Teachers
+{% endblock head_title %}
 {% block extra_head %}
+    
 <script>
     let autocomplete;
     function initAutocomplete(){
@@ -27,6 +31,8 @@
             //Pre-fill lon and lat fields (hidden from user) to be used on the server-side
             $('#lon').val(longitude);
             $('#lat').val(latitude);
+            // Submit form onclick
+            document.forms['searchForm'].submit();
             
         }
     }
@@ -67,18 +73,28 @@
 
         </div>
         <div class="col-sm m-4">
-            <p class="display-text">
-                Find a home tutor now!
+            <p class="lead-text mb-4 text-muted">
+                Find a home tutor anywhere across Ghana!
             </p>
-            <form action="{% url 'findtutors:search' %}" method="get">
+            <form id="searchForm" action="{% url 'findtutors:search' %}" method="get">
                 <div class="form-group">
                     <input name="q" class="form-control shadow-sm" id="search" placeholder="Enter your address or town...">
                 </div>
                 
-                <p class="btn btn-sm btn-light" onclick="getPosition()">Search Near Me</p>
+                {% if errCoord %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ errCoord }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+                
+                
+                <p class="btn text-center btn-sm btn-light" onclick="getPosition()">Search Near Me</p>
                 <input name="lon" class="d-none" id="lon">
                 <input name="lat" class="d-none" id="lat">
-                <button class="btn btn-sm btn-light" type="submit">Search</button>
+                <button class="searchTutor btn btn-sm btn-light" type="submit">Search</button>
             </form>
         </div>
     </div>

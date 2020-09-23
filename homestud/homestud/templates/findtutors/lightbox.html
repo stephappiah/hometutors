@@ -1,0 +1,64 @@
+
+<!-- Person info -->
+<div id="p-info" class="overlay">
+    <span class="closebtn" onclick="closeInfo()" title="Close Overlay">
+        <span class="material-icons">
+            close
+        </span>
+    </span>
+    <div class="overlay-content">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ PersonalForm}}
+            <button class="btn btn-dark" type="submit" name="personal_info">Update</button>
+        </form>
+    </div>
+</div>
+<!-- Education -->
+<div id="edu" class="overlay">
+    <span class="closebtn" onclick="closeEdu()" title="Close Overlay">
+        <span class="material-icons">
+            close
+        </span>
+    </span>
+    <div class="overlay-content">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ EducationalForm}}
+            <button class="btn btn-dark" type="submit" name="education">Update</button>
+        </form>
+    </div>
+</div>
+<!-- Subjects -->
+<div id="subjects" class="overlay">
+    <span class="closebtn" onclick="closeSub()" title="Close Overlay">
+        <span class="material-icons">
+            close
+        </span>
+    </span>
+    <div class="overlay-content">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ InterestForm}}
+            <button class="btn btn-dark" type="submit" name="interest">Update</button>
+        </form>
+    </div>
+</div>
+<!-- Bio -->
+<div id="bio" class="overlay">
+    <span class="closebtn" onclick="closeBio()" title="Close Overlay">
+        <span class="material-icons">
+            close
+        </span>
+    </span>
+    <div class="overlay-content">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ ProfileForm}}
+            <button class="btn btn-dark" type="submit" name="tutor_profile">Update</button>
+        </form>
+    </div>
+</div>
+
+
+

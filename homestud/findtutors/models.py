@@ -15,7 +15,7 @@ class Profile(models.Model):
     lname = models.CharField(max_length=50, blank=True, null=True)
     location = models.PointField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
-    avatar = models.ImageField(blank=True, null=True)
+    avatar = models.ImageField(blank=True, null=True, upload_to='avatar/%Y/%m/%d/')
     dob = models.DateField(null=True, blank=True)
     contact = PhoneNumberField(null=True, blank=True, region='GH')
     
@@ -26,7 +26,7 @@ class Profile(models.Model):
     end_year = models.DateField(null=True, blank=True)
     # Tutor Profile
     bio = models.CharField(max_length=500, blank=True, null=True)
-    highest_education = models.CharField(max_length=20, choices=highest_education_choices, null=True, blank=True)
+    highest_education = models.CharField(max_length=20, choices=highest_education_choices, null=True, blank=False)
     class_type = MultiSelectField(choices=class_type_choices, null=True, blank=True)
     free_lesson_duration = models.IntegerField(choices=free_lesson_choices, null=True, blank=True)
     rate_per_hour = models.IntegerField(null=True, blank=True)
