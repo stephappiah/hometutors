@@ -52,10 +52,13 @@ INSTALLED_APPS = [
     'crispy_forms',
     'phonenumber_field',
     'clearcache', #can be deleted
+    'channels',
 
     # my apps
     'users',
     'findtutors',
+
+    'django_chatter',
 
 
      # Allauth apps
@@ -111,6 +114,7 @@ TEMPLATES = [
     },
 ]
 
+
 AUTHENTICATION_BACKENDS = [
     
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -122,10 +126,23 @@ AUTHENTICATION_BACKENDS = [
 
 AUTH_USER_MODEL = 'users.User' # custom user model
 
+ASGI_APPLICATION = 'homestud.routing.application'
+
 WSGI_APPLICATION = 'homestud.wsgi.application'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # email backends console localhost dev
 
+
+
+#django channels (chatter app)
+CHANNEL_LAYERS = {
+  'default': {
+      'BACKEND': 'channels_redis.core.RedisChannelLayer',
+      'CONFIG': {
+        'hosts': [('127.0.0.1', 6379)],
+      },
+  },
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

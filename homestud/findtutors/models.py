@@ -8,7 +8,7 @@ from .multi_choices import teach_level_choices, free_lesson_choices, highest_edu
 from .courses import courses_choices, programmes_choices
 
 #User Profile
-class Profile(models.Model):
+class TutorProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     
     fname = models.CharField(max_length=50, blank=True, null=True)

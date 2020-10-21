@@ -7,11 +7,15 @@
       <a href="#" class="right pr-4 hide-on-med-and-up"><i class="material-icons black-text">search</i></a>
       <ul class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
+
+        <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
+        <li><a class="black-text" href="{% url 'django_chatter:index' %}">Messages</a></li>
         <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
         <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+        
         {% else %}
         <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a class="black-text" href="{% url 'account_signup' %}">Sign Up</a></li>
+        <li><a class="black-text" href="{% url 'account_signup' %}">Create an Account</a></li>
         {% endif %}
       </ul>
     </div>
@@ -22,6 +26,8 @@
 
 <ul class="sidenav" id="mobile-demo">
       {% if user.is_authenticated %}
+      <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
+        <li><a class="black-text" href="{% url 'django_chatter:index' %}">Messages</a></li>
         <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
         <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
       {% else %}

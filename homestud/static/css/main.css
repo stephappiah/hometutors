@@ -33,18 +33,6 @@ body {
     color: #37BC98 !important;
 }
 
-/* Navbar */
-/* nav{
-    height: 90px;
-}
-.nav-wrapper{
-    padding: 1rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-}
-.nav-wrapper ul li a{
-    font-size: 1.6rem;
-} */
 
 a:hover{
     text-decoration: none;
@@ -267,7 +255,19 @@ p {
 
 /* Desktop and Tablets */
 @media (min-width: 768px){
-   
+
+   /* Navbar */
+    nav{
+        height: 90px;
+    }
+    .nav-wrapper{
+        padding: 1rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .nav-wrapper ul li a{
+        font-size: 20px;
+    } 
     .prof-header{
             display: flex;
             padding-left: 10%;

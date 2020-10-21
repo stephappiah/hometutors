@@ -14,7 +14,7 @@ import os
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, UpdateTutorForm, AvatarForm
-from .models import Profile, UserType
+from .models import TutorProfile, UserType
 from django.forms.models import construct_instance
 from django.core.paginator import Paginator
 
@@ -37,11 +37,11 @@ class OnboardingTutorWizard(SessionWizardView):
             slug = "{0}{1}".format(firstname[:2],lastname).lower()
             x=0
             while True:
-                if x == 0 and Profile.objects.filter(slug=slug).count() == 0:
+                if x == 0 and TutorProfile.objects.filter(slug=slug).count() == 0:
                     return slug
                 else:
                     slug = "{0}{1}".format(slug,x)
-                    if Profile.objects.filter(slug=slug).count() == 0:
+                    if TutorProfile.objects.filter(slug=slug).count() == 0:
                         return slug
                 x += 1
                 if x > 1000000:
@@ -56,7 +56,7 @@ class OnboardingTutorWizard(SessionWizardView):
 
     def done(self, form_list, **kwargs):
         # instantiate model and Add signed-in user to form
-        profile_instance = Profile()
+        profile_instance = TutorProfile()
         profile_instance.user = self.request.user
 
         for form in form_list:
@@ -99,7 +99,7 @@ def onboarding_usertype(request):
 
 def tutor_profile_detail(request, slug_username):
     
-    qs = Profile.objects.get(slug=slug_username)
+    qs = TutorProfile.objects.get(slug=slug_username)
     context = {
         'tutor': qs,
     }
@@ -121,7 +121,7 @@ def SearchTutor(request):
             user_location = Point(longitude, latitude, srid=4326)
             # Queryset filtered within a distance of 20km; annotated and orderd by distance
             dist = Distance('location', user_location)
-            qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+            qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
             paginator = Paginator(qs, 10) #show 10 tutors per page
 
             page_number = request.GET.get('page')
@@ -144,7 +144,7 @@ def SearchTutor(request):
             user_location = Point(longitude, latitude, srid=4326)
             # Queryset filtered within a distance of 20km; annotated and orderd by distance
             dist = Distance('location', user_location)
-            qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+            qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
             paginator = Paginator(qs, 10) #show 10 tutors per page
 
             page_number = request.GET.get('page')
@@ -172,7 +172,7 @@ def FilterSearch(request):
     user_location = Point(longitude, latitude, srid=4326)
     # Queryset filtered within a distance of 20km; annotated and orderd by distance
     dist = Distance('location', user_location)
-    qs = Profile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+    qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
     # Grab search fields
     programme = request.GET.get('programme')
     course = request.GET.get('course')
@@ -197,7 +197,7 @@ def FilterSearch(request):
 @login_required 
 def dashboard_profile(request):
     logged_in_user = request.user
-    data = Profile.objects.get(user=logged_in_user)
+    data = TutorProfile.objects.get(user=logged_in_user)
 
     # PersonalForm = PersonInfoForm(instance=data) 
     # EducationalForm = EducationForm(instance=data) 

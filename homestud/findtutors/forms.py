@@ -1,6 +1,6 @@
 # from django import forms
 from django.contrib.gis import forms
-from .models import Profile, UserType
+from .models import TutorProfile, UserType
 from phonenumber_field.formfields import PhoneNumberField
 from django.forms.widgets import CheckboxSelectMultiple
 from .multi_choices import highest_education_choices
@@ -16,7 +16,7 @@ class AvatarForm(forms.ModelForm):
         self.fields['avatar'].required = True
 
     class Meta: 
-        model = Profile
+        model = TutorProfile
         fields = ('avatar',)
         labels = {
             'avatar': 'Profile Picture'
@@ -34,7 +34,7 @@ class PersonInfoForm(forms.ModelForm):
     contact = PhoneNumberField()
 
     class Meta:
-        model = Profile
+        model = TutorProfile
         fields = ('fname', 'lname', 'dob', 'contact', 'location', 'address', 'slug', )
         
         labels = {
@@ -63,7 +63,7 @@ class EducationForm(forms.ModelForm):
         # self.fields['highest_education'].widget.attrs.update({'class': 'chips_class_type'})
         
     class Meta:
-        model = Profile
+        model = TutorProfile
         fields = ( 'highest_education', 'school', 'programme', 'start_year', 'end_year',)
 
         widgets = {
@@ -83,7 +83,7 @@ class TutorProfileForm(forms.ModelForm):
         self.fields['bio'].widget.attrs.update({'class': 'form-control'})
 
     class Meta:
-        model = Profile
+        model = TutorProfile
         fields = ('class_type', 'rate_per_hour', 'free_lesson_duration', 'bio', )
         widgets = {
             'bio': forms.Textarea(attrs={'cols': '60', 'rows': '3'})
@@ -120,7 +120,7 @@ class TutorInterestForm(forms.ModelForm):
         self.fields['courses_subjects'].widget.attrs.update({'class': 'chips_class_type', })
 
     class Meta:
-        model = Profile
+        model = TutorProfile
         fields = ('teach_levels', 'tutoring_programs', 'courses_subjects', )
 
         labels = {
@@ -135,5 +135,5 @@ class TutorInterestForm(forms.ModelForm):
 
 class UpdateTutorForm(forms.ModelForm):
     class Meta:
-        model = Profile
+        model = TutorProfile
         exclude = ('user', 'slug', 'location',) 

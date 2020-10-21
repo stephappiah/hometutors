@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^admin/clearcache/', include('clearcache.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')), #allauth accounts path
+    path('chat/', include('django_chatter.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
