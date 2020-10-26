@@ -23,13 +23,10 @@
           {% csrf_token %}
           {{ form|crispy }}
 
-          <!-- redirects to onboarding page -->
-          <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'findtutors:onboarding_usertype' %}" />
-          <!-------------------- Commented section is default and redirects with a 'next function' allowing user to be redirected to previous page-->
-          
-          <!-- {% if redirect_field_value %}
+          <!-- redirect with next url -->
+          {% if redirect_field_value %}
           <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %} -->
+          {% endif %}
           
           <button class="btn btn-block btn-dark border-round" type="submit">{% trans "Sign Up" %} &raquo;</button>
           <div class="text-center mt-3">

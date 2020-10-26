@@ -75,33 +75,39 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-sm">
-
+        <div class="col-sm hero-image text-center">
+            <img src="{% static "img/undraw_mathematics_4otb.svg" %}" alt="">
         </div>
-        <div class="col-sm m-4">
-            <p class="lead-text mb-4 text-muted">
-                home tutors close to you.
-            </p>
-            <form id="searchForm" action="{% url 'findtutors:search' %}" method="get">
-                <div class="form-group">
-                    <input name="q" class="form-control shadow-sm" id="search" placeholder="Enter your address or town...">
-                </div>
-                
-                {% if errCoord %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ errCoord }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
+        <div class="col-sm m-4 hero-sub text-center">
+            <div class="hero-content">
+                <p class="hero-text mb-2 text-center">
+                    Find a home tutor.
+                </p>
+                <p class="hero-subtitle text-muted mb-3 text-center">
+                    Schools may close. But learning never stops, unless we choose to!
+                </p>
+                <form id="searchForm" action="{% url 'findtutors:search' %}" method="get">
+                    <div class="form-group">
+                        <input name="q" class="form-control shadow-sm" id="search" placeholder="enter your location...">
                     </div>
-                {% endif %}
-                
-                
-                <p class="btn text-center btn-sm btn-light" onclick="getPosition()">Search Near Me</p>
-                <input name="lon" class="d-none" id="lon">
-                <input name="lat" class="d-none" id="lat">
-                <button class="searchTutor btn btn-sm btn-light" type="submit">Search</button>
-            </form>
+                    
+                    {% if errCoord %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ errCoord }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                    
+                    
+                    <p class="btn text-center btn-sm btn-light" onclick="getPosition()">Search Near Me</p>
+                    <input name="lon" class="d-none" id="lon">
+                    <input name="lat" class="d-none" id="lat">
+                    <button class="searchTutor btn btn-sm btn-light" type="submit">Search</button>
+                </form>
+            </div>
+            
         </div>
     </div>
     

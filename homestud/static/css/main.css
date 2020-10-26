@@ -41,6 +41,17 @@ a:active{
     text-decoration: none;
 }
 
+.hero-sub{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .hero-content{
+    position: absolute;
+    top: 50%;
+} */
+
 /* ---- disable matrialize defaults */
 input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
     border: 1px solid #cccfd3 !important;
@@ -256,6 +267,20 @@ p {
 /* Desktop and Tablets */
 @media (min-width: 768px){
 
+    /* -------------- hero  -------*/
+    .hero-image img {
+        height: 500px;
+        width: 500px;
+    }
+    .hero-text{
+        font-size: 64px;
+        line-height: 76px;
+    }
+    .hero-subtitle{
+        font-size: 24px;
+        line-height: 32px;
+    }
+
    /* Navbar */
     nav{
         height: 90px;
@@ -303,6 +328,21 @@ p {
 
 /* Phone screeens (small) */
 @media screen and (max-width: 767px){
+    /* -------------- hero ------- */
+    .hero-image img {
+        height: 250px;
+        width: 250px;
+    }
+    .hero-text{
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .hero-subtitle{
+        font-size: 18px;
+        line-height: 28px;
+    }
+
     .prof-header{
         text-align: center;
     }

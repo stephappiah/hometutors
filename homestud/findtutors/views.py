@@ -20,7 +20,21 @@ from django.core.paginator import Paginator
 
 
 class OnboardingTutorWizard(SessionWizardView):
-    
+
+    # checks if user has already filled forms; 
+    # redirects to dashboard if true.
+    # else proceed to onboarding
+    def dispatch(self, request, *args, **kwargs):
+        logged_in_user = self.request.user
+
+        if TutorProfile.objects.filter(user=logged_in_user).exists():
+
+            return HttpResponseRedirect(reverse('findtutors:dashboard_profile'))
+        else:
+            return super(OnboardingTutorWizard, self).dispatch(request, *args, **kwargs)
+
+        
+
     template_name = 'findtutors/onboard-tutor.html'
     
     form_list = [PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, AvatarForm] 
@@ -73,28 +87,6 @@ class OnboardingTutorWizard(SessionWizardView):
 def home(request):
     
     return render(request, 'findtutors/home.html')
-
-@login_required 
-def onboarding_usertype(request):
-
-    if request.method == 'POST':
-        form = UserTypeForm(request.POST)
-       
-        current_user = request.user
-        if form.is_valid():
-            user_type_form = form.save(commit=False)
-            user_type_form.user = request.user # silently fill in user field with the logged in user
-            user_type_form.save()
-
-            # Redirect url based on usertype
-            if user_type_form.user_type == 'tutor':
-                return HttpResponseRedirect(reverse('findtutors:onboarding_tutor'))
-            else:
-                return HttpResponseRedirect(reverse('findtutors:home'))
-            
-    else:
-        form = UserTypeForm()
-    return render(request, 'findtutors/onboard-user-type.html', {'form': form}) 
 
 
 def tutor_profile_detail(request, slug_username):
