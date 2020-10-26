@@ -366,7 +366,7 @@ p {
     top: 15%;
     left: 0;
     background-color: white;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
   }
   
   .overlay-content {

@@ -26,8 +26,8 @@
             document.getElementById('search').placeholder = 'Enter a location';
         } else {
             //Get lon and lat of entered location
-            var latitude = place.geometry.location.lat()
-            var longitude = place.geometry.location.lng()
+            let latitude = place.geometry.location.lat()
+            let longitude = place.geometry.location.lng()
             //Pre-fill lon and lat fields (hidden from user) to be used on the server-side
             $('#lon').val(longitude);
             $('#lat').val(latitude);
@@ -38,25 +38,31 @@
     }
 
     function getPosition(){
+        console.log('button clicked');
         // check if user browser supports geolocation
         if ('geolocation' in navigator){
             // Get location coordinates with function (p)
             navigator.geolocation.getCurrentPosition(function(p){
-                var latitude = p.coords.latitude;
-                var longitude = p.coords.longitude;
+                
+                let latitude = p.coords.latitude;
+                let longitude = p.coords.longitude;
 
+                console.log(latitude + ' ' + longitude);
                 //Pre-fill lon and lat fields (hidden from user) to be used on the server-side
                 $('#lon').val(longitude);
                 $('#lat').val(latitude);
                 $('#search').val('My location');
-               // Or use IP lookup if geolocation fails --> function (e)
-            }, function(e){
-                ipLookup();
+
+                //Submit form onclick
+                document.forms['searchForm'].submit();
             });
 
-        } else      //Use IP address instead if geolocation not supported
+        } else  {
+            //Use IP address instead if geolocation not supported
             ipLookup();
-        function ipLookup(){
+            function ipLookup(){
+        }    
+            
 
         }
     }

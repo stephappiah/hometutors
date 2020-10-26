@@ -116,7 +116,7 @@ class TutorInterestForm(forms.ModelForm):
         self.fields['tutoring_programs'].required = True
         self.fields['courses_subjects'].required = True
         self.fields['teach_levels'].widget.attrs.update({'class': 'chips_class_type', })
-        self.fields['tutoring_programs'].widget.attrs.update({'class': 'chips_class_type', })
+        self.fields['tutoring_programs'].widget.attrs.update({'class': 'chips_class_type programs', })
         self.fields['courses_subjects'].widget.attrs.update({'class': 'chips_class_type', })
 
     class Meta:
