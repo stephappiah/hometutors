@@ -6,14 +6,20 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a>
       <a href="#" class="right pr-4 hide-on-med-and-up"><i class="material-icons black-text">search</i></a>
       <ul class="right hide-on-med-and-down">
+
         {% if user.is_authenticated %}
 
-        <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
-        <li><a class="black-text" href="{% url 'django_chatter:index' %}">Messages</a></li>
-        <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
-        
-        <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
+          {% if user.is_tutor %}
+            <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
+            <li><a class="black-text" href="{% url 'django_chatter:index' %}">Messages</a></li>
+            <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
+            <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+          {% else %}
+            <li><a class="black-text" href="{% url 'django_chatter:index' %}">Messages</a></li>
+            <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
+            <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+            <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
+          {% endif %}
         
         {% else %}
         <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
@@ -28,16 +34,23 @@
 <!-- navbar for mobile screens -->
 
 <ul class="sidenav" id="mobile-demo">
-      {% if user.is_authenticated %}
-      <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
-        <li><a class="black-text" href="{% url 'django_chatter:index' %}">Messages</a></li>
-        <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+  {% if user.is_authenticated %}
 
-        <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
-      {% else %}
-        <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a class="black-text" href="{% url 'account_signup' %}">Create an Account</a></li>
-        <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
-      {% endif %}
+    {% if user.is_tutor %}
+      <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
+      <li><a class="black-text" href="{% url 'django_chatter:index' %}">Messages</a></li>
+      <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
+      <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+    {% else %}
+      <li><a class="black-text" href="{% url 'django_chatter:index' %}">Messages</a></li>
+      <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
+      <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+      <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
+    {% endif %}
+
+  {% else %}
+  <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
+  <li><a class="black-text" href="{% url 'account_signup' %}">Create an Account</a></li>
+  <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
+  {% endif %}
 </ul>

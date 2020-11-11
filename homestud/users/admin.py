@@ -6,11 +6,12 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
-        (None, {'fields': ('email', 'username', 'first_name', 'last_name', 'password', 'last_login')}),
+        (None, {'fields': ('email', 'username', 'fullname', 'password', 'last_login')}),
         ('Permissions', {'fields': (
             'is_active', 
             'is_staff', 
             'is_superuser',
+            'is_tutor',
             'groups', 
             'user_permissions',
         )}),
@@ -25,8 +26,8 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
 
-    list_display = ('email', 'username', 'first_name', 'last_name', 'last_login')
-    list_filter = ('is_staff', 'is_active', 'groups')
+    list_display = ('email', 'username', 'fullname', 'last_login')
+    list_filter = ('is_staff', 'is_active', 'groups', 'is_tutor')
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)

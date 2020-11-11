@@ -1,0 +1,22 @@
+
+.avatar{
+    display: none;
+}
+
+#imageInput {
+    display: none;
+}
+
+#previewAvatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin: auto;
+    display: block;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.upload-btn{
+    margin: auto;
+}

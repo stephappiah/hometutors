@@ -11,7 +11,7 @@
         autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('search'),
             {
-                types: ['establishment'],
+                types: [],
                 componentRestrictions: {'country': ['GH']},
                 fields: ['place_id', 'geometry', 'name']
             }
@@ -86,7 +86,7 @@
                 <p class="hero-subtitle text-muted mb-3 text-center">
                     Schools may close. But learning never stops, unless we choose to!
                 </p>
-                <form id="searchForm" action="{% url 'findtutors:search' %}" method="get">
+                <form id="searchForm" autocomplete="off" action="{% url 'findtutors:search' %}" method="get">
                     <div class="form-group">
                         <input name="q" class="form-control shadow-sm" id="search" placeholder="enter your location...">
                     </div>

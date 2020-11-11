@@ -1,16 +1,12 @@
 from django.contrib import admin
 
 from django.contrib.gis.admin import OSMGeoAdmin
-from .models import TutorProfile, UserType
+from .models import TutorProfile
 # from django.contrib.auth.admin import UserAdmin
 # from .models import User
 
 # admin.site.register(User, UserAdmin)
 @admin.register(TutorProfile)
 class ProfileAdmin(OSMGeoAdmin):
-    list_display = ('user', 'fname', 'lname', 'location', 'address', 'teach_levels', 'tutoring_programs',
+    list_display = ('user', 'fullname', 'location', 'address', 'teach_levels', 'tutoring_programs',
      'courses_subjects', 'highest_education', 'class_type', 'bio', 'slug')
-
-@admin.register(UserType)
-class UserTypeAdmin(admin.ModelAdmin):
-    list_display = ('user', 'user_type',)

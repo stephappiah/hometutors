@@ -11,9 +11,17 @@ body {
     position: relative;
 }
 
+.btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    background-color: #63adfc;
+    color: white;
+}
+
 #myFont-sm{
     font-size: 1.6rem;
 }
+
 .turq-color{
     background-color: #149AA4;
     color: white;
@@ -180,6 +188,7 @@ label {
     height: 150px;
     border-radius: 50%;
     text-align: center;
+    object-fit: cover;
 }
 
 .big-circle{
@@ -255,6 +264,7 @@ p {
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .border-round{
@@ -262,6 +272,12 @@ p {
     border-top-right-radius: 4rem;
     border-bottom-left-radius: 4rem;
     border-bottom-right-radius: 4rem;
+}
+
+.back-btn-float{
+    position: absolute;
+    top: 5%;
+    left: 5%;
 }
 
 /* Desktop and Tablets */
@@ -282,11 +298,10 @@ p {
     }
 
    /* Navbar */
-    nav{
+    /* nav{
         height: 90px;
-    }
+    } */
     .nav-wrapper{
-        padding: 1rem;
         padding-left: 4rem;
         padding-right: 4rem;
     }

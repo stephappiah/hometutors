@@ -1,6 +1,6 @@
 # from django import forms
 from django.contrib.gis import forms
-from .models import TutorProfile, UserType
+from .models import TutorProfile
 from phonenumber_field.formfields import PhoneNumberField
 from django.forms.widgets import CheckboxSelectMultiple
 from .multi_choices import highest_education_choices
@@ -14,19 +14,18 @@ class AvatarForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['avatar'].required = True
+        self.fields['avatar'].widget.attrs.update({'class': 'avatar'})
+        self.fields['avatar'].label = False
 
     class Meta: 
         model = TutorProfile
         fields = ('avatar',)
-        labels = {
-            'avatar': 'Profile Picture'
-        }
+
 
 class PersonInfoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fname'].required = True
-        self.fields['lname'].required = True
+        self.fields['fullname'].required = True
         self.fields['dob'].required = True
         self.fields['contact'].required = True
         self.fields['address'].required = True
@@ -35,15 +34,13 @@ class PersonInfoForm(forms.ModelForm):
 
     class Meta:
         model = TutorProfile
-        fields = ('fname', 'lname', 'dob', 'contact', 'location', 'address', 'slug', )
+        fields = ('fullname', 'dob', 'contact', 'location', 'address', 'slug', )
         
         labels = {
-            'avatar': 'Profile Picture',
             'dob': 'Date of Birth',
             'contact': 'Contact',
             'address': 'Address',
-            'fname': 'First name',
-            'lname': 'Last name'
+            'fullname': 'Name',
         }
 
         widgets = {
@@ -94,19 +91,6 @@ class TutorProfileForm(forms.ModelForm):
     #     super().__init__(*args, **kwargs)
     #     self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
     #     self.fields['bio'].widget.attrs.update({'class': 'form-control'})
-
-class UserTypeForm(forms.ModelForm):
-
-    USER_TYPE_CHOICES = (
-        ('student', 'Student'),
-        ('guardian', 'Guardian'),
-        ('tutor', 'Tutor')
-    )
-    user_type = forms.CharField(label='User type', widget=forms.RadioSelect(choices=USER_TYPE_CHOICES))
-
-    class Meta:
-        model = UserType
-        fields = ('user_type',)
 
 
 class TutorInterestForm(forms.ModelForm):

@@ -3,15 +3,20 @@
 {% load static %}
 {% load extra_template_filters %}
 {% block head_title %}
-      {{ tutor.fname }} {{ tutor.lname }}- {{ tutor.address }}
+      {{ tutor.fullname }}- {{ tutor.address }}
 {% endblock head_title %}
 
 {% block content %}
     <div class="prof-header jumbotron">
+        <!-- back button -->
+        <span class="material-icons back-btn-float" onclick="goBack()">
+            keyboard_backspace
+        </span>
+        <!-- profile picture -->
         <div class="profile-pic">
             <img src="{{ tutor.avatar.url }}" alt="">
         </div>
-        <p class="prof-name lead-text">{{ tutor.fname }} {{ tutor.lname }}</p>
+        <p class="prof-name lead-text">{{ tutor.fullname }}</p>
         <div class="call-action">
             <div>
                 <p class="text-center">&#8373;{{ tutor.rate_per_hour }}<small>/hr</small></p>
@@ -118,5 +123,11 @@
         </div>
         <!-- End of row -->
     </div>
+
+    <script>
+        function goBack(){
+            window.history.back();
+        }
+    </script>
 {% endblock content %}
     

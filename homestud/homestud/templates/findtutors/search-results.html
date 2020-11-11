@@ -11,10 +11,17 @@
     <div class="container jumbotron-bwhite mt-4">
         <div class="row">
             <div class="col-sm col-lg-4 mt-4">
-                <form action="{% url 'findtutors:filter' %}" method="get">
-                    <input name="programme" id="search" placeholder="Filter by tutoring programme...">
-                    <input name="course" id="search" placeholder="Filter by course...">
-                    <button class="btn btn-sm btn-light" type="submit">Search</button>
+                <form action="{% url 'findtutors:filter' %}" method="get" autocomplete="off">
+                    <!-- <input name="programme" id="search" placeholder="Filter by tutoring programme..."> -->
+                    <select class="form-control mb-2" id="programme" name="programme"></select>
+                    <input class="form-control" id="course" name="course" list="courseList" placeholder="Filter by subjects/courses">
+                    <datalist id="courseList">
+                        <option value=""></option>
+                    </datalist>
+                    <div class="text-center mt-2">
+                        <button class="btn btn-sm mint-bg" type="submit">Search</button>
+                    </div>
+                    
                 </form>
             </div>
         </div>
@@ -39,7 +46,7 @@
                     
                     <div class="card-body text-center tutor-info">
                         
-                        <p class="lead-text mb-0 mt-2 text-center">{{ tutor.fname }}</p>
+                        <p class="lead-text mb-0 mt-2 text-center">{{ tutor.fullname }}</p>
                         <hr>
                         
                         <!-- Distance -->
@@ -66,7 +73,7 @@
                             {% endfor %}
                         </div>
             
-                        <a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}" class="btn border-round mint-bg mt-3">View Profile</a>
+                        <a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}" class="btn view-profile border-round mint-bg mt-3">View Profile</a>
                     </div>
                 </div>
             {% endfor %}
@@ -98,6 +105,36 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Script fetches programmes and courses into dropdown
+        const courseList = {{ course_list | safe }};
+        const programmeList = {{programme_list | safe}};
+        let progDropdown = $('#programme');
+        let coursDropdown = $('#courseList');
+
+        coursDropdown.empty()
+        //coursDropdown.append('<option selected="true" disabled>Filter by subjects/courses</option>');
+        //coursDropdown.prop('selectedIndex', 0);
+
+        progDropdown.empty()
+        progDropdown.append('<option selected="true" disabled>Filter by programmes</option>');
+        progDropdown.prop('selectedIndex', 0);
+
+        // get courses
+        for(var course_key in courseList) {
+            var course = courseList[course_key];
+            coursDropdown.append($('<option></option>').attr('value', course).text(course));
+          }
+        
+        // get programme
+        for(var programme_key in programmeList) {
+            var programme = programmeList[programme_key];
+            progDropdown.append($('<option></option>').attr('value', programme).text(programme));
+          }
+
+        
+    </script>
 
 {% endblock content %}
     

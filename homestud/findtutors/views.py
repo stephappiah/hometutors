@@ -8,15 +8,19 @@ from django.contrib.gis.measure import D
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .forms import UserTypeForm
+from users.models import User
+from PIL import Image
+from io import StringIO
 
 import os
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, UpdateTutorForm, AvatarForm
-from .models import TutorProfile, UserType
+from .models import TutorProfile
 from django.forms.models import construct_instance
 from django.core.paginator import Paginator
+from .courses import courses_choices, programmes_choices
+import json 
 
 
 class OnboardingTutorWizard(SessionWizardView):
@@ -43,11 +47,12 @@ class OnboardingTutorWizard(SessionWizardView):
     # Prepopulate with user's first and last names
     def get_form_initial(self, step):
         initial = self.initial_dict.get(step, {})
-        firstname = self.request.user.first_name
-        lastname = self.request.user.last_name
+        fullname = self.request.user.fullname
 
         # algorithm generates slug(username, kinda) from first and lastname
-        def generate_slug(firstname, lastname):
+        def generate_slug(fullname):
+            firstname = fullname.split()[0]
+            lastname = fullname.split()[-1]
             slug = "{0}{1}".format(firstname[:2],lastname).lower()
             x=0
             while True:
@@ -62,22 +67,41 @@ class OnboardingTutorWizard(SessionWizardView):
                     raise Exception("Name is super popular!")
             return slug
 
-        slug = generate_slug(firstname, lastname)
+        slug = generate_slug(fullname)
 
-        initial.update({'fname': firstname, 'lname': lastname, 'slug': slug})
+        initial.update({'fullname': fullname, 'slug': slug})
         return initial
 
+    # manipulate form files before saving
+    # def get_form_step_files(self, form):
+    #     image_field = form.files['4-avatar']
+    #     image_file = StringIO(image_field.read())
+    #     image = Image.open(image_file)
 
-    def done(self, form_list, **kwargs):
+    #     image.resize((400,400),Image.ANTIALIAS)
+
+    #     print(form.files['4-avatar'])
+    #     return form.files
+
+
+    def done(self, form_list, form_dict, **kwargs):
         # instantiate model and Add signed-in user to form
         profile_instance = TutorProfile()
         profile_instance.user = self.request.user
+
 
         for form in form_list:
             profile_instance = construct_instance(form, profile_instance, form._meta.fields, form._meta.exclude)
 
             # save form instaces to database(model)
             profile_instance.save()
+
+            #update is_tutor on user.User model to true
+            user_email = self.request.user.email
+            user_model = User.objects.get(email=user_email)
+            user_model.is_tutor = True
+            user_model.save()
+
 
             # redirect to profile dashboard
         return HttpResponseRedirect(reverse('findtutors:dashboard_profile'))
@@ -98,6 +122,9 @@ def tutor_profile_detail(request, slug_username):
     return render(request, 'findtutors/tutor-profile.html', context)
 
 def SearchTutor(request):
+
+    programme_list = json.dumps(dict(programmes_choices))
+    course_list = json.dumps(dict(courses_choices))
 
     #Get coordinates from search form in template
     lat = request.GET.get('lat')
@@ -122,7 +149,9 @@ def SearchTutor(request):
             
             context = {
                 'tutors': page_obj,
-                'total_tutors': qs.count()
+                'total_tutors': qs.count(),
+                'programme_list': programme_list,
+                'course_list': course_list
             }
             return render(request, 'findtutors/search-results.html', context)
         else:
@@ -145,19 +174,26 @@ def SearchTutor(request):
             
             context = {
                 'tutors': page_obj,
-                'total_tutors': qs.count()
+                'total_tutors': qs.count(),
+                'programme_list': programme_list,
+                'course_list': course_list
             }
             return render(request, 'findtutors/search-results.html', context)
 
     # return an error message if latitude and longitude fields are empty
     else:
-        errorMessage = 'Please select a location from the autocomplete list or click on the button below to use your current location.'
+        errorMessage = "Please wait for places to show up as you type or click on 'SEARCH NEAR ME' below to use your current location."
         message = {
             'errCoord': errorMessage
         }
         return render(request, 'findtutors/home.html', message)
 
 def FilterSearch(request):
+    #for dropdown
+    programme_list = json.dumps(dict(programmes_choices))
+    course_list = json.dumps(dict(courses_choices))
+
+
     # coordinates from session
     latitude = request.session['lat']
     longitude = request.session['lon']
@@ -182,7 +218,9 @@ def FilterSearch(request):
 
     context = {
                 'tutors': page_obj,
-                'total_tutors': qs.count()
+                'total_tutors': qs.count(),
+                'programme_list': programme_list,
+                'course_list': course_list
     }
     return render(request, 'findtutors/search-results.html', context)
 

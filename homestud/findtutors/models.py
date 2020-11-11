@@ -11,11 +11,10 @@ from .courses import courses_choices, programmes_choices
 class TutorProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     
-    fname = models.CharField(max_length=50, blank=True, null=True)
-    lname = models.CharField(max_length=50, blank=True, null=True)
+    fullname = models.CharField(max_length=50, blank=True, null=True)
     location = models.PointField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
-    avatar = models.ImageField(blank=True, null=True, upload_to='avatar/%Y/%m/%d/')
+    avatar = models.ImageField(blank=True,default='avatar/no-avatar.png', null=True, upload_to='avatar/%Y/%m/%d/')
     dob = models.DateField(null=True, blank=True)
     contact = PhoneNumberField(null=True, blank=True, region='GH')
     
@@ -40,10 +39,4 @@ class TutorProfile(models.Model):
     def __str__(self):
         return str(self.user)
 
-class UserType(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
-    user_type = models.CharField(max_length=20, choices=user_type_choices, null=True, blank=True)
-
-    def __str__(self):
-        return str(self.user)
         

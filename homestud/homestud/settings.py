@@ -115,6 +115,7 @@ TEMPLATES = [
 ]
 
 
+
 AUTHENTICATION_BACKENDS = [
     
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -150,7 +151,7 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'Demo_3',
+        'NAME': 'Dev_2',
         'USER': 'postgres',
         'PASSWORD': 'scientific',
         'HOST': 'localhost',
