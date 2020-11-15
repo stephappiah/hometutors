@@ -13,6 +13,9 @@
 <script src="{% static "js/onboarding-tutor.js" %}"></script>
 <script src="{% static "js/show-hide-chips.js" %}"></script>
 <script src="{% static "js/avatar.js" %}"></script>
+<script>
+    var spinner = "{% static 'img/spinner.gif' %}";
+</script>
 <!-- cdn for browser image compress -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@latest/dist/browser-image-compression.js"></script>
 <script src="{% static "js/compress-img.js" %}"></script>
@@ -128,7 +131,7 @@
                             <!-- Show 'Submit' on last step -->
                             {% if wizard.steps.index == 4 %}
                             <button class="btn btn-sm btn-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
-                            <input class="btn btn-sm btn-info" type="submit" value="{% trans "Submit" %}"/>
+                            <input class="btn btn-sm btn-info" type="submit" id="submitTutor" value="{% trans "Submit" %}"/>
                             {% endif %}
 
                             <!-- Show 'save and continue' on first step -->

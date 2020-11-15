@@ -13,7 +13,7 @@ class DateInput(forms.DateInput):
 class AvatarForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['avatar'].required = True
+        self.fields['avatar'].required = False
         self.fields['avatar'].widget.attrs.update({'class': 'avatar'})
         self.fields['avatar'].label = False
 

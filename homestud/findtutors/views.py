@@ -44,6 +44,13 @@ class OnboardingTutorWizard(SessionWizardView):
     form_list = [PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, AvatarForm] 
     file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'avatar'))
 
+    # this function returns user to current step in the form they left off at
+    def get(self, request, *args, **kwargs):
+        try:
+            return self.render(self.get_form())
+        except KeyError:
+            return super().get(request, *args, **kwargs)
+
     # Prepopulate with user's first and last names
     def get_form_initial(self, step):
         initial = self.initial_dict.get(step, {})
@@ -74,13 +81,13 @@ class OnboardingTutorWizard(SessionWizardView):
 
     # manipulate form files before saving
     # def get_form_step_files(self, form):
-    #     image_field = form.files['4-avatar']
-    #     image_file = StringIO(image_field.read())
-    #     image = Image.open(image_file)
+    #     # image_field = form.files['4-avatar']
+    #     # image_file = StringIO(image_field.read())
+    #     # image = Image.open(image_file)
 
-    #     image.resize((400,400),Image.ANTIALIAS)
+    #     # image.resize((400,400),Image.ANTIALIAS)
 
-    #     print(form.files['4-avatar'])
+    #     print(form.files)
     #     return form.files
 
 
@@ -88,11 +95,15 @@ class OnboardingTutorWizard(SessionWizardView):
         # instantiate model and Add signed-in user to form
         profile_instance = TutorProfile()
         profile_instance.user = self.request.user
-
+        profile_instance.avatar = self.request.FILES['compressedImage']
+        print(self.request.FILES['compressedImage'])
 
         for form in form_list:
             profile_instance = construct_instance(form, profile_instance, form._meta.fields, form._meta.exclude)
 
+            # print(form.cleaned_data)
+            # print(self.request.FILES['compressedImage'])
+            form.cleaned_data['avatar'] = self.request.FILES['compressedImage']
             # save form instaces to database(model)
             profile_instance.save()
 

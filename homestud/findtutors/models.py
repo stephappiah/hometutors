@@ -14,7 +14,7 @@ class TutorProfile(models.Model):
     fullname = models.CharField(max_length=50, blank=True, null=True)
     location = models.PointField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
-    avatar = models.ImageField(blank=True,default='avatar/no-avatar.png', null=True, upload_to='avatar/%Y/%m/%d/')
+    avatar = models.ImageField(blank=True, null=True, upload_to='avatar/%Y/%m/%d/')
     dob = models.DateField(null=True, blank=True)
     contact = PhoneNumberField(null=True, blank=True, region='GH')
     
