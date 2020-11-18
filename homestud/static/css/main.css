@@ -60,7 +60,16 @@ a:active{
     top: 50%;
 } */
 
+/* class for contact on tutor onboarding */
+.iti {
+    display: block !important; 
+}
+
 /* ---- disable matrialize defaults */
+label {
+    display: block;
+}
+
 input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
     border: 1px solid #cccfd3 !important;
     border-radius: .55rem !important;

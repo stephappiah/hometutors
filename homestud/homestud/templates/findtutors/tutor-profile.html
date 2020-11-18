@@ -14,7 +14,11 @@
         </span>
         <!-- profile picture -->
         <div class="profile-pic">
-            <img src="{{ tutor.avatar.url }}" alt="">
+            {% if  tutor.avatar.url != '' %}
+                <img src="{{ tutor.avatar.url }}" alt="{{ tutor.fullname }}-homestud-tutor">
+            {% else %}
+                <img src='{% static "img/avatar/no-avatar.png" %}' alt="{{ tutor.fullname }}-homestud-tutor">
+            {% endif %}
         </div>
         <p class="prof-name lead-text">{{ tutor.fullname }}</p>
         <div class="call-action">

@@ -9,12 +9,22 @@
     
 
 {% block extra_head %}
+
+<!-- internation telephone input styles -->
+<link rel="stylesheet" href="{% static "build/css/intlTelInput.css" %}">
+<!-- <link rel="stylesheet" href="{% static "build/css/demo.css" %}"> -->
+
 {{ wizard.form.media }}
 <script src="{% static "js/onboarding-tutor.js" %}"></script>
 <script src="{% static "js/show-hide-chips.js" %}"></script>
 <script src="{% static "js/avatar.js" %}"></script>
 <script>
     var spinner = "{% static 'img/spinner.gif' %}";
+    var username = '{{ user.username }}';
+    var today = new Date();
+
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'-'+today.getTime();
+    
 </script>
 <!-- cdn for browser image compress -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@latest/dist/browser-image-compression.js"></script>
@@ -148,9 +158,45 @@
         
     </div>
     
+    <!-- internation telephone input -->
+    <script src="{% static "build/js/intlTelInput.js" %}"></script> 
+
     <script type="text/javascript">
+        var Formstep = '{{wizard.steps.index}}';
+
+        if (Formstep == 0){
+            // runs contact script only on first step
+            // international telephone script
+
+            var input = document.querySelector("#id_0-contact");
+            window.intlTelInput(input, {
+            allowDropdown: false,
+            // autoHideDialCode: false,
+            // autoPlaceholder: "off",
+            //dropdownContainer: document.body,
+            // excludeCountries: ["us"],
+            // formatOnDisplay: false,
+            // geoIpLookup: function(callback) {
+            //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            //     var countryCode = (resp && resp.country) ? resp.country : "";
+            //     callback(countryCode);
+            //   });
+            // },
+            hiddenInput: "0-contact",
+            // initialCountry: "auto",
+            localizedCountries: { 'gh': 'Ghana' },
+            nationalMode: true,
+            // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+            // placeholderNumberType: "MOBILE",
+            preferredCountries: ['gh'],
+            // separateDialCode: true,
+            utilsScript: '{% static "build/js/utils.js" %}',
+            });
+        }
 
         
+
+
         // change active stepper background
         $(document).ready(function(){
             var step = '{{wizard.steps.index}}';
@@ -206,7 +252,7 @@
                 // Second step
                 if (Formstep == 1){
                     //set initial percentage
-
+                    
                     var numValid = 0;
                     $("#tutorForm input[required]").each(function() {
                         if (this.validity.valid) {
@@ -288,9 +334,12 @@
 
         window.onload = function () { 
             // ------------------- update Progress bar on page reload ------------------------
-        
+            
+            // change for attribute for contact
+            $('#id_0-contact').attr('name', 'contact');
 
             var Formstep = '{{wizard.steps.index}}';
+            
                 // First step
             if (Formstep == 0){
                 //set initial percentage
@@ -333,6 +382,8 @@
             // --------------------- Second step --------------------------------------------------
             var Formstep = '{{wizard.steps.index}}';
                 // Second step
+            console.log(numValid);
+            console.log(Formstep);
             if (Formstep == 1){
                 //set initial percentage
                 var numValid = 0;
@@ -341,7 +392,7 @@
                         numValid++;
                     }
                 });
-                console.log(numValid);
+                
                 var progress = $(".progress-bar");
                     // progressMessage = $("#progress-message");
                 

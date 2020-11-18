@@ -40,7 +40,15 @@
                         <div class="rate">
                         <p>&#8373;{{ tutor.rate_per_hour }}<small>/hr</small></p> 
                         </div>
-                        <img src="{{ tutor.avatar.url }}" alt="">
+                        
+                        {% if  tutor.avatar.url != '' %}
+                            <img src="{{ tutor.avatar.url }}" alt="{{ tutor.fullname }}-homestud-tutor">
+                        {% else %}
+                            <img src='{% static "img/avatar/no-avatar.png" %}' alt="{{ tutor.fullname }}-homestud-tutor">
+                        {% endif %}
+                        
+                            
+                        
                     </div>
                     
                     
