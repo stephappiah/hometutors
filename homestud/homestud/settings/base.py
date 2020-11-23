@@ -1,5 +1,6 @@
 
 import os
+import environ
 
 GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal300.dll"
 
@@ -22,6 +23,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'phonenumber_field',
     'channels',
+    'environ',
 
     'users',
     'findtutors',
