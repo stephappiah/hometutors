@@ -23,7 +23,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'phonenumber_field',
     'channels',
-    'environ',
 
     'users',
     'findtutors',
