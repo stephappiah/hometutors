@@ -3,7 +3,7 @@ import django_heroku
 
 env = environ.Env()
 
-environ.Env.read_env()
+environ.Env.read_env(env_file='.env')
 
 SECRET_KEY = env('SECRET_KEY')
 
