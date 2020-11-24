@@ -1,6 +1,6 @@
 
 import os
-import environ
+from decouple import config
 
 GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal300.dll"
 
