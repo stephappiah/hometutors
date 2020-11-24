@@ -1,17 +1,10 @@
 
+import os
 import environ
-
-env = environ.Env()
-# reading .env file
-environ.Env.read_env(env_file='.env')
-
-root = environ.Path(__file__)
-
-public_root = root.path('public/')
 
 GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal300.dll"
 
-BASE_DIR = root()
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 INSTALLED_APPS = [
@@ -74,7 +67,7 @@ ROOT_URLCONF = 'homestud.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [public_root('templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,8 +119,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    public_root('static')
+    os.path.join(BASE_DIR, 'static')
 ]
 
-MEDIA_ROOT = public_root('static/img')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
 MEDIA_URL = '/images/'

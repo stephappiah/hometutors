@@ -1,5 +1,8 @@
 from .base import *
 
+env = environ.Env()
+# reading .env file
+environ.Env.read_env(env_file='.env')
 
 SECRET_KEY = env('SECRET_KEY')
 
@@ -45,7 +48,7 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = public_root('staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
