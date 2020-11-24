@@ -1,7 +1,7 @@
 from .base import *
 
 env = environ.Env()
-# reading .env file
+
 environ.Env.read_env(env_file='.env')
 
 SECRET_KEY = env('SECRET_KEY')
