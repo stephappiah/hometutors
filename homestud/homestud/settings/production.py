@@ -2,7 +2,7 @@ from .base import *
 
 env = environ.Env()
 # reading .env file
-environ.Env.read_env()
+environ.Env.read_env(env_file='.env')
 
 
 
@@ -11,7 +11,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['homestud.co']
+ALLOWED_HOSTS = ['https://homestud.herokuapp.com', '127.0.0.1']
 
 INSTALLED_APPS += [
     'storages',
