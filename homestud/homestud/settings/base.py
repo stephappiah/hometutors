@@ -2,7 +2,7 @@
 import os
 from decouple import config
 
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal300.dll"
+ 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
