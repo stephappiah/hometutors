@@ -40,7 +40,7 @@ X_FRAME_OPTIONS = 'DENY'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('LINODE_DB_NAME'),
         'USER': os.environ.get('LINODE_DB_USER'),
         'PASSWORD': os.environ.get('LINODE_DB_PASSWORD'),
