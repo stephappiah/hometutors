@@ -1,16 +1,11 @@
 from .base import *
 
-import json
-
-with open('/etc/config.json') as config_file:
-    config = json.load(config_file)
-
 
 SECRET_KEY = config['SECRET_KEY']
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['172.105.245.211']
+ALLOWED_HOSTS = ['178.62.30.58']
 
 INSTALLED_APPS += [
     'storages',
