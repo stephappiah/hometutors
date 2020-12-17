@@ -10,14 +10,28 @@
 	~ sudo -H pip3 install virtualenv
 	~ sudo apt install git-all
 	~ sudo apt install libgl1-mesa-glx 	**resolve cv2 issue
+	~ sudo apt install redis-server
 
 	~ adduser steph 	**create user (passwd: notScientifiC1996again)
 	~ su steph 	**log into steph user
 	~ cd /home/steph/ 	*open home directory
 	~ mkdir icecream
+	~cd icecream
 	~ virtualenv venv	*create virtual environment called venv
 	~ source venv/bin/activate 	*activate venv
+	~ mkdir hometutors
 
+	# pull from github (refer to pulling from github section)
+	~ pip install -r requirements.txt
+
+* Installing GeoDjango Dependencies (GEOS, GDAL, and PROJ.4)
+
+	~ apt-get install gdal-bin libgdal-dev
+	~ apt-get install python3-gdal
+	~ apt-get install binutils libproj-dev
+
+* Installing postgis dependencies
+	~ apt-get install postgis postgresql-12-postgis-3
 
 
 * create postgres database
@@ -28,8 +42,41 @@
 	~ ALTER ROLE steph SET default_transaction_isolation TO 'read committed';
 	~ ALTER ROLE steph SET timezone TO 'UTC';
 	~ GRANT ALL PRIVILEGES ON DATABASE django_db TO steph;
+
+	~ psql <database> <user>
 	~ \q
+	## create extension
+	~ sudo -u postgres psql #connect to psql
+	~ \connect <database>;
+	~ CREATE EXTENSION <extension-name>;
+	
+	## extensions installed
+		~postgis ~postgis_topology
+
 
 * credentials
 	AGTEYVRSSXUPZRX2BNBC #public key
 	xzYy+MCqrOjXUFc/9CAGcblN/seuSMckszQZozAzc8A #privatekey
+
+* commands run
+
+	~ sudo ufw allow 8000 #allow traffic on port 8000
+
+* pulling from git
+	# create ssh key
+	~ ssh-keygen -t rsa -b 4096 -C "appstephen8@gmail.com" 
+
+	~ git clone git@github.com:homestud-education/hometutors.git
+	
+	# create an upstream
+	~ git remote add upstream git@github.com:homestud-education/hometutors.git
+
+	# fetch from upstream
+	~ git fetch upstream
+	~ git pull --rebase upstream master ##updates local to remote master
+	~ git push
+
+	
+
+
+	
