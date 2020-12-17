@@ -11,8 +11,8 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.development')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.development')
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.staging')
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.production')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.production')
 
 application = get_asgi_application()
