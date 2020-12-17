@@ -39,7 +39,8 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD')
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': 'localhost'
     }
 }
 
