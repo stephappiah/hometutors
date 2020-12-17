@@ -1,0 +1,35 @@
+
+
+* root password
+	~ passwd 'notScientifiC1996again'
+
+* install server dependencies
+	~ sudo apt update
+	~ sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl
+	~ sudo -H pip3 install --upgrade pip
+	~ sudo -H pip3 install virtualenv
+	~ sudo apt install git-all
+	~ sudo apt install libgl1-mesa-glx 	**resolve cv2 issue
+
+	~ adduser steph 	**create user (passwd: notScientifiC1996again)
+	~ su steph 	**log into steph user
+	~ cd /home/steph/ 	*open home directory
+	~ mkdir icecream
+	~ virtualenv venv	*create virtual environment called venv
+	~ source venv/bin/activate 	*activate venv
+
+
+
+* create postgres database
+	~ sudo -u postgres psql
+	~ CREATE DATABASE django_db;
+	~ CREATE USER steph WITH PASSWORD 'notreallyscientific4196';
+	~ ALTER ROLE steph SET client_encoding TO 'utf8';
+	~ ALTER ROLE steph SET default_transaction_isolation TO 'read committed';
+	~ ALTER ROLE steph SET timezone TO 'UTC';
+	~ GRANT ALL PRIVILEGES ON DATABASE django_db TO steph;
+	~ \q
+
+* credentials
+	AGTEYVRSSXUPZRX2BNBC #public key
+	xzYy+MCqrOjXUFc/9CAGcblN/seuSMckszQZozAzc8A #privatekey
