@@ -2,6 +2,7 @@
 
 * root password
 	~ passwd 'notScientifiC1996again'
+	~ ssh root@178.62.30.58
 
 * install server dependencies
 	~ sudo apt update
@@ -11,6 +12,10 @@
 	~ sudo apt install git-all
 	~ sudo apt install libgl1-mesa-glx 	**resolve cv2 issue
 	~ sudo apt install redis-server
+
+	~sudo add-apt-repository ppa:redislabs/redis
+$ 	~sudo apt-get update
+$ 	~ sudo apt-get install redis
 
 	~ adduser steph 	**create user (passwd: notScientifiC1996again)
 	~ su steph 	**log into steph user

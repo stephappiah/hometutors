@@ -2,8 +2,6 @@
 import os
 from pathlib import Path
 from decouple import config
-
-ALLOWED_HOSTS = ["178.62.30.58",]
  
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
