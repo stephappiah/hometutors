@@ -16,7 +16,7 @@
 
 	~ sudo apt install daphne
 	~ cd /etc/systemd/system/
-	~ sudo nano daphne.service
+	~ sudo nano /etc/systemd/system/daphne.service
 
 [Unit]
 Description=WebSocket Daphne Service
@@ -24,11 +24,51 @@ After=network.target
 
 [Service]
 Type=simple
-User=root
+User=steph
 WorkingDirectory=/home/steph/icecream/hometutors/homestud
 ExecStart=/home/steph/icecream/venv/bin/python /home/steph/icecream/venv/bin/daphne -b 0.0.0.0 -p 8001 homestud.asgi:application
 Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+
+	~ sudo systemctl daemon-reload
+	~ sudo systemctl start daphne.service
+	~ sudo systemctl status daphne.service
+
+###### Starting the daphne Service when Server boots
+	~ cd ~
+	~ sudo touch boot.sh
+	~ sudo nano boot.sh
+	~ paste script below and save
+#!/bin/sh
+sudo systemctl start daphne.service
+
+	~ chmod u+x /root/boot.sh
+
+
+######## Tell systemd to run the bash script when the server boots
+
+
+	~ sudo nano /etc/systemd/system/on_boot.service
+	~ paste the following and save
+
+[Service]
+ExecStart=/root/boot.sh
+
+[Install]
+WantedBy=default.target
+
+	~ systemctl daemon-reload
+	~ sudo systemctl start on_boot
+	~ sudo systemctl enable on_boot
+	~ ufw allow 8001 (allow daphne through firewall)
+	~ sudo shutdown -r now
+	~ systemctl status on_boot.service 	(check status of on_boot.service)
+
+	~ systemctl status daphne.service (check daphne status)
+
+###### logs for troubleshooting 
+ 	~ sudo journalctl -u on_boot.service (for on_boot.service)
+	~ sudo journalctl -u daphne.service (for daphne.service)
 

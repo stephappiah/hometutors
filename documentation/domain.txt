@@ -1,0 +1,10 @@
+
+updating ngix with domain name
+
+	~ cd /etc/nginx/sites-available
+	~ sudo nano homestud
+	~ update host with domain names
+
+	~ sudo systemctl reload nginx
+	~ sudo nginx -t
+

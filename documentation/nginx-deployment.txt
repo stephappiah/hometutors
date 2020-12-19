@@ -3,36 +3,21 @@
 # Testing with gunicorn
 	~ gunicorn --bind 0.0.0.0:8000 homestud.wsgi
 
-# Configure systemd to run gunicorn via gunicorn.socket file
-	~ su root
-	~ cd /etc/systemd/system/
-	~ touch gunicorn.socket
-	~ sudo nano gunicorn.socket 	(open file)
-	~ Add the following and save file
 
-	[Unit]
-Description=gunicorn socket
-
-[Socket]
-ListenStream=/run/gunicorn.sock
-
-[Install]
-WantedBy=sockets.target
 
 # Create gunicorn service to run the WSGI application
 	~ touch gunicorn.service
-	~ sudo nano gunicorn.service 	(open file)
+	~ sudo nano /etc/systemd/system/gunicorn.service 	(open file)
 	~ Add the following and save file
 
 [Unit]
 Description=gunicorn daemon
-Requires=gunicorn.socket
 After=network.target
 
 [Service]
 User=steph
 Group=www-data
-WorkingDirectory=/home/steph/icecream/hometutors
+WorkingDirectory=/home/steph/icecream/hometutors/homestud
 ExecStart=/home/steph/icecream/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
@@ -42,6 +27,8 @@ ExecStart=/home/steph/icecream/venv/bin/gunicorn --access-logfile - --workers 3 
 
 [Install]
 WantedBy=multi-user.target
+
+
 
 	~ sudo systemctl start gunicorn.socket
 	~ sudo systemctl enable gunicorn.socket
@@ -104,3 +91,14 @@ http{
 	~ sudo systemctl restart gunicorn
 	~ service gunicorn restart
 	~ sudo shutdown -r now 		(restart server) 
+
+
+#### Debugging commands
+
+sudo journalctl 				is where all the logs are consolidated to. That's usually where I check.
+sudo tail -F /var/log/nginx/error.log 		View the last entries in the error log
+sudo journalctl -u nginx 			Nginx process logs
+sudo less /var/log/nginx/access.log 		Nginx access logs
+sudo less /var/log/nginx/error.log 		Nginx error logs
+sudo journalctl -u gunicorn 			gunicorn application logs
+sudo journalctl -u gunicorn.socket 		check gunicorn socket logs

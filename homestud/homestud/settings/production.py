@@ -5,7 +5,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["178.62.30.58", "homestud.co"]
+ALLOWED_HOSTS = ["178.62.30.58", "homestud.co", "www.homestud.co"]
 
 INSTALLED_APPS += [
     'storages',
