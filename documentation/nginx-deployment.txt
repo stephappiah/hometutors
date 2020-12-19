@@ -1,0 +1,106 @@
+
+
+# Testing with gunicorn
+	~ gunicorn --bind 0.0.0.0:8000 homestud.wsgi
+
+# Configure systemd to run gunicorn via gunicorn.socket file
+	~ su root
+	~ cd /etc/systemd/system/
+	~ touch gunicorn.socket
+	~ sudo nano gunicorn.socket 	(open file)
+	~ Add the following and save file
+
+	[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+
+# Create gunicorn service to run the WSGI application
+	~ touch gunicorn.service
+	~ sudo nano gunicorn.service 	(open file)
+	~ Add the following and save file
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=steph
+Group=www-data
+WorkingDirectory=/home/steph/icecream/hometutors
+ExecStart=/home/steph/icecream/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          homestud.wsgi:application
+ExecStart=/home/steph/icecream/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/steph/icecream/hometutors/homestud/homestud.sock homestud.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+	~ sudo systemctl start gunicorn.socket
+	~ sudo systemctl enable gunicorn.socket
+
+#### Helpful commands
+
+	~ sudo systemctl daemon-reload
+Must be executed if you change the gunicorn.service file.
+	~ sudo systemctl restart gunicorn
+If you change code on your server you must execute this to see the changes take place.
+	~ sudo systemctl status gunicorn
+	~ sudo shutdown -r now
+restart the server
+
+####### Configure Nginx to Proxy Pass to Gunicorn ################
+	~ cd ~
+	~ cd /etc/nginx/sites-available
+	~ touch homestud
+	~ sudo nano homestud
+	~ Add the following and save file
+
+server {
+    listen 80;
+    server_name 178.62.30.58;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/steph/icecream/hometutors/homestud/homestud;
+    }
+    
+     location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/steph/icecream/hometutors/homestud/homestud.sock;
+    }
+    
+
+}
+
+
+
+
+
+
+######### Update Nginx config file so we can upload large files (images) ##########
+	~ nano /etc/nginx/nginx.conf
+
+http{
+	...
+	client_max_body_size 10M; 
+}
+
+# configure firewall
+	
+	~ sudo ln -s /etc/nginx/sites-available/homestud /etc/nginx/sites-enabled
+	~ sudo nginx -t
+	~ sudo systemctl restart nginx
+	~ sudo ufw delete allow 8000
+	~ sudo ufw delete allow 8080
+	~ sudo ufw allow 'Nginx Full'
+	~ sudo systemctl restart gunicorn
+	~ service gunicorn restart
+	~ sudo shutdown -r now 		(restart server) 

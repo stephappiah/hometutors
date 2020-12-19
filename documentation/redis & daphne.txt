@@ -1,0 +1,34 @@
+
+##### Install and setup redis 
+	~ sudo apt install redis-server
+	~ cd /etc/redis/
+	~ sudo nano redis.conf
+	~ CTRL+W to find 'supervised no'
+	~ sudo systemctl restart redis.service
+	~ sudo systemctl status redis
+
+	~ sudo apt install net-tools
+
+	~ sudo netstat -lnp | grep redis
+	~ sudo systemctl restart redis.service
+
+##### Deploying Django Channels with Daphne & Systemd
+
+	~ sudo apt install daphne
+	~ cd /etc/systemd/system/
+	~ sudo nano daphne.service
+
+[Unit]
+Description=WebSocket Daphne Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/steph/icecream/hometutors/homestud
+ExecStart=/home/steph/icecream/venv/bin/python /home/steph/icecream/venv/bin/daphne -b 0.0.0.0 -p 8001 homestud.asgi:application
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
