@@ -39,4 +39,7 @@ class TutorProfile(models.Model):
     def __str__(self):
         return str(self.user)
 
-        
+
+    class Programmes(models.Model):
+        program = models.CharField(max_length=50, blank=True, null=True)  
+        courses = models.CharField(max_length=50, blank=True, null=True)
