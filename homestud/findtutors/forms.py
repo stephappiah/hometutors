@@ -25,7 +25,8 @@ class AvatarForm(forms.ModelForm):
 class PersonInfoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fullname'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
         self.fields['dob'].required = True
         self.fields['contact'].required = True
         self.fields['address'].required = True
@@ -34,13 +35,14 @@ class PersonInfoForm(forms.ModelForm):
 
     class Meta:
         model = TutorProfile
-        fields = ('fullname', 'dob', 'contact', 'location', 'address', 'slug', )
+        fields = ('first_name', 'last_name', 'dob', 'contact', 'location', 'address', 'slug', )
         
         labels = {
             'dob': 'Date of Birth',
             'contact': 'Contact',
             'address': 'Address',
-            'fullname': 'Name',
+            'first_name': 'First name',
+            'last_name': 'Last name',
         }
 
         widgets = {
