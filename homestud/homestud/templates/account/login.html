@@ -13,7 +13,7 @@
       <div class="col-sm pt-3">
         <div class="container">
           <p class="display-text text-center">{% trans "Welcome Back!" %}</p>
-          <p class="text-center">{% blocktrans %}Not having an account? <a href="{{ signup_url }}">Sign up</a>{% endblocktrans %}</p>
+          <p class="text-center">{% blocktrans %}Not a member yet? <a href="{{ signup_url }}">Sign up</a>{% endblocktrans %}</p>
           
           {% get_providers as socialaccount_providers %}
           {% if socialaccount_providers %}

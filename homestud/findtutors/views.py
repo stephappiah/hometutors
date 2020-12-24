@@ -54,7 +54,7 @@ class OnboardingTutorWizard(SessionWizardView):
     # Prepopulate with user's first and last names
     def get_form_initial(self, step):
         initial = self.initial_dict.get(step, {})
-        fullname = self.request.user.fullname
+        fullname = self.request.user.name
 
         # algorithm generates slug(username, kinda) from first and lastname
         def generate_slug(fullname):
