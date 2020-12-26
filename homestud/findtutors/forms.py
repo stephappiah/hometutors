@@ -76,8 +76,11 @@ class TutorProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['class_type'].required = True
         self.fields['rate_per_hour'].required = True
+        self.fields['rate_per_hour'].help_text = "How much (in GHC) will you charge for a one hour lesson?"
         self.fields['free_lesson_duration'].required = True
+        self.fields['free_lesson_duration'].help_text = "The first lesson offered for free is a chance for you and your student to get to know each other."
         self.fields['bio'].required = True
+        self.fields['bio'].widget.attrs['placeholder'] = 'I am an engineer/teacher/student...I have an experience in tutoring...I have a degree/certificate in...'
         self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
         self.fields['bio'].widget.attrs.update({'class': 'form-control'})
 
@@ -87,6 +90,9 @@ class TutorProfileForm(forms.ModelForm):
         widgets = {
             'bio': forms.Textarea(attrs={'cols': '60', 'rows': '3'})
             
+        }
+        labels = {
+            'bio': 'Write a catchy bio'
         }
 
     # def __init__(self, *args, **kwargs):
