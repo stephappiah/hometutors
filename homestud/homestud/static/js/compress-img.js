@@ -21,8 +21,9 @@ function uploadToServer(compressedFile){
 
     request.send(data);
 
-    e.preventDefault();
+    // e.preventDefault();
     location.reload();
+    
 
   });
 

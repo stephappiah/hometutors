@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
@@ -80,17 +80,6 @@ class OnboardingTutorWizard(SessionWizardView):
 
         initial.update({'first_name': first_name, 'last_name': last_name, 'slug': slug})
         return initial
-
-    # manipulate form files before saving
-    # def get_form_step_files(self, form):
-    #     # image_field = form.files['4-avatar']
-    #     # image_file = StringIO(image_field.read())
-    #     # image = Image.open(image_file)
-
-    #     # image.resize((400,400),Image.ANTIALIAS)
-
-    #     print(form.files)
-    #     return form.files
 
 
     def done(self, form_list, form_dict, **kwargs):
@@ -240,8 +229,9 @@ def FilterSearch(request):
 @login_required 
 def dashboard_profile(request):
     logged_in_user = request.user
-    data = TutorProfile.objects.get(user=logged_in_user)
-
+    # raise html404 when obj not found
+    data = get_object_or_404(TutorProfile, user=logged_in_user)
+   
     # PersonalForm = PersonInfoForm(instance=data) 
     # EducationalForm = EducationForm(instance=data) 
     # ProfileForm = TutorProfileForm(instance=data, auto_id='id-2_%s') 

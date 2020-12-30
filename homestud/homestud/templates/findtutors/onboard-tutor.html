@@ -16,7 +16,6 @@
 
 {{ wizard.form.media }}
 <script src="{% static "js/onboarding-tutor.js" %}"></script>
-<script src="{% static "js/show-hide-chips.js" %}"></script>
 <script src="{% static "js/avatar.js" %}"></script>
 
 <script>
@@ -40,7 +39,7 @@
         autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('id_0-address'),
             {
-                types: ['establishment'],
+                types: [],
                 componentRestrictions: {'country': ['GH']},
                 fields: ['place_id', 'geometry', 'name']
             }
@@ -53,6 +52,10 @@
         if (!place.geometry){
             //User did not selet a prediction; reset the input field --> id_0_address is id for search box
             document.getElementById('id_0-address').placeholder = 'Enter a location';
+            // disable next button
+            $('.savebtn').prop( "disabled", true);
+            console.log('value empty');
+        
         } else {
             //Get lon and lat of entered location
             var latitude = place.geometry.location.lat()
@@ -61,6 +64,10 @@
             var point = `SRID=4326;POINT(${longitude} ${latitude})`
             $('#id_0-location').val(point);
             console.log(point)
+
+            // enable next button on place clicked
+            $('.savebtn').prop( "disabled", false);
+            console.log('value not empty');
         }
     }
 
@@ -496,6 +503,15 @@
                     
             } // End of fourth step 
 
+            // ------ disable continue if pointfield is empty ------//
+            var pointField = $('#id_0-location');
+
+            if (pointField.val() == ''){
+                $('.savebtn').prop( "disabled", true);
+            }else {
+                $('.savebtn').prop( "disabled", false);
+            }
+
             // ---------- BIO WORDS LEFT ------ on reload
             var wordLen = 40,
                 len; // Maximum word length
@@ -504,7 +520,11 @@
             wordsLeft = (wordLen) - len.length;
 
             // display words left in wordcount box
-            $('.wordCount').text(wordsLeft + ' words left');
+            if (wordsLeft === 1){
+                $('.wordCount').text(wordsLeft + ' word left');
+            }else{
+                $('.wordCount').text(wordsLeft + ' words left');
+            }
 
             //---- change box color when word count <= 0 -----
             if (wordsLeft <= 0){

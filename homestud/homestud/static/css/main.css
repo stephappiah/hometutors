@@ -318,6 +318,14 @@ p {
     border-radius: 5px;
 }
 
+.currLoc{
+    text-align: center;
+    color: #2c9176;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
 
 
 /* Desktop and Tablets */

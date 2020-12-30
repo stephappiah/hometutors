@@ -30,6 +30,12 @@ class PersonInfoForm(forms.ModelForm):
         self.fields['dob'].required = True
         self.fields['contact'].required = True
         self.fields['address'].required = True
+        self.fields['location'].required = True
+        self.fields['address'].widget.attrs['placeholder'] = 'Town, City'
+        self.fields['address'].help_text = 'Select a location from the autocomplete as you type to continue.'
+        self.fields['location'].error_messages.update({
+            'required': 'Please wait for places autocomplete to show up as you type and select your address.',
+        })
 
     contact = PhoneNumberField()
 
@@ -88,7 +94,7 @@ class TutorProfileForm(forms.ModelForm):
         model = TutorProfile
         fields = ('class_type', 'rate_per_hour', 'free_lesson_duration', 'bio', )
         widgets = {
-            'bio': forms.Textarea(attrs={'cols': '60', 'rows': '3'})
+            'bio': forms.Textarea(attrs={'cols': '60', 'rows': '4'})
             
         }
         labels = {

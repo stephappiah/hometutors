@@ -3,7 +3,7 @@
 // this is for when document is fully loaded
 // on reload function is found in onboard-tutor.html
 $(document).ready(function(){
-
+    
     // create a wordcount box after bio field
     $("<p class='wordCount'></p>").insertAfter('#id_2-bio');
 
@@ -21,7 +21,12 @@ $(document).ready(function(){
         wordsLeft = (wordLen) - len.length;
 
         // display words left in wordcount box
-        $('.wordCount').text(wordsLeft + ' words left');
+        if (wordsLeft === 1){
+            $('.wordCount').text(wordsLeft + ' word left');
+        }else{
+            $('.wordCount').text(wordsLeft + ' words left');
+        }
+        
 
         // change box color when word count <= 0
         if (wordsLeft <= 0){
@@ -32,6 +37,10 @@ $(document).ready(function(){
             $('.wordCount').text('Done!');
             $('.savebtn').prop( "disabled", false );
         } else {
+            $('.wordCount').css({
+                'background-color': '#343a40',
+                'color': 'white'
+            });
             $('.savebtn').prop( "disabled", true );
         }
         
