@@ -17,15 +17,33 @@ function uploadToServer(compressedFile){
     
     // submit the data via XHR
     var request = new XMLHttpRequest();
-    request.open("POST", "/onboarding-tutor/", true);
 
-    request.send(data);
+    async function sendData(){
+      request.open("POST", "/onboarding-tutor/", true);
 
-    // e.preventDefault();
-    location.reload();
+      request.send(data);
+
+      e.preventDefault();
+   
+      location.reload();
+    }
+    // function delays a few seconds after data is sent
+    function wait(milliseconds) {
+      return new Promise(resolve => setTimeout(resolve, milliseconds));
+    }
+
+    async function reloadDashbord(){
+      await sendData();
+      // wait 3 seconds before executing
+      await wait(3000);
+      window.location.replace("/dashboard/profile");
+    }
+
+    sendData();
+    reloadDashbord();
     
-
   });
+
 
 }
 
@@ -54,7 +72,7 @@ async function handleImageUpload(event) {
     function onProgress(p){
       // if p is not 100, load spinner
       if (p != 100){
-        // load spinner
+        // load spinner...spinner variable is set in a script at oboard-tutor.html
         document.getElementById('previewAvatar').src = spinner;
         
         // disable submit button
@@ -77,8 +95,6 @@ async function handleImageUpload(event) {
       
     } catch (error) {
       console.log(error);
-
-      
 
     }
    

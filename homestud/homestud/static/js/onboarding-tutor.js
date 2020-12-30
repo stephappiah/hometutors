@@ -47,7 +47,7 @@ $(document).ready(function(){
     });
 
     // ------ Bio description helper --------------//
-    $("<p class='bioHelper'>You'll need to provide a brief description of yourself: your interest, education, and experience with your subjects.</p>").insertAfter('.wordCount');
+    $("<p class='bioHelper'>You'll need to provide a brief description of yourself: your interest, education, and experience with teaching your subjects.</p>").insertAfter('.wordCount');
 
     // ----------------------------- highlight (style) chips on click ------------------------------------// 
     // define variables

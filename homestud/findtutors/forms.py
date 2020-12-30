@@ -13,7 +13,7 @@ class DateInput(forms.DateInput):
 class AvatarForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['avatar'].required = False
+        self.fields['avatar'].required = False #required set to false to allow form to be submitted without image field, thus making it possible to compress and submit image via xhr
         self.fields['avatar'].widget.attrs.update({'class': 'avatar'})
         self.fields['avatar'].label = False
 
