@@ -26,6 +26,7 @@ INSTALLED_APPS = [
 
     'users',
     'findtutors',
+    'chat',
 
     'allauth',
     'allauth.account',
