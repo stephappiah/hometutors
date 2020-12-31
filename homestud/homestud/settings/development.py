@@ -26,6 +26,9 @@ DATABASES = {
 }
 
 
+STATIC_URL = '/static/'
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.contrib.gis.db.backends.postgis',

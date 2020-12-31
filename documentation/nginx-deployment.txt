@@ -102,3 +102,6 @@ sudo less /var/log/nginx/access.log 		Nginx access logs
 sudo less /var/log/nginx/error.log 		Nginx error logs
 sudo journalctl -u gunicorn 			gunicorn application logs
 sudo journalctl -u gunicorn.socket 		check gunicorn socket logs
+
+## see app error logs
+sudo systemctl status gunicorn
