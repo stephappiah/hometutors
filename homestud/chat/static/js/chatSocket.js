@@ -107,14 +107,14 @@ $('#send-button').click( function() {
 
 		// code below belongs to me
 		// temporary solution to echoeing message to user ##development
-		// var sender = username;
-		// var received_room_id = room_id;
-		// var date_created = '12/02/2020';
-		// // append message to bottom
-		// addSenderMessage(message, sender, received_room_id, date_created, 'append');
-		// // scroll top
-		// document.getElementById('chat-dialog').scrollTop = document.getElementById('chat-dialog').scrollHeight;
+		var sender = username;
+		var received_room_id = room_id;
+		var date_created = '12/02/2020';
+		// append message to bottom
+		addSenderMessage(message, sender, received_room_id, date_created, 'append');
+		// scroll top
+		document.getElementById('chat-dialog').scrollTop = document.getElementById('chat-dialog').scrollHeight;
 
-		// messageInput.val(''); //set input text to empty after user hits enter #mycode
+		messageInput.val(''); //set input text to empty after user hits enter #mycode
 	}
 });
