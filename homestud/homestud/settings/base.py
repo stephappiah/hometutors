@@ -43,12 +43,32 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+SOCIALACCOUNT_AUTO_SIGNUP = True
+
+SOCIALACCOUNT_ADAPTER = 'users.adapter.MySocialAccountAdapter'
 
 LOGIN_REDIRECT_URL = '/'
+
 ACCOUNT_FORMS = { 
     
     'signup': 'users.forms.CustomSignupForm', 
 } 
+
+SOCIALACCOUNT_FORMS = {
+    'signup': 'users.forms.CustomSocialSignupForm'
+}
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 
 MIDDLEWARE = [
@@ -115,7 +135,7 @@ USE_TZ = True
 
 
 
-# STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')

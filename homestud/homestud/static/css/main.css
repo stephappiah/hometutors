@@ -138,7 +138,7 @@ ul.chips_class_type li label::before {
     font-weight: 900;
     font-size: 12px;
     padding: 2px 6px 2px 2px !important;
-    content: "\f067";
+    /* content: "\f067"; */
     transition: transform .3s ease-in-out !important;
 }
 /* for checkbox */
@@ -288,6 +288,45 @@ p {
     top: 5%;
     left: 5%;
 }
+
+.helptext {
+    font-size: .9rem;
+    /* color: #555555; */
+    display: inline-block;
+    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+    color: darkolivegreen;
+}
+
+.wordCount{
+    background-color: #000;
+    color: white;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.bioHelper{
+    background-color: #2c9176;
+    color: white;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.currLoc{
+    text-align: center;
+    color: #2c9176;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
 
 /* Desktop and Tablets */
 @media (min-width: 768px){

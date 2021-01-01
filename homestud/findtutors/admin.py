@@ -8,5 +8,5 @@ from .models import TutorProfile
 # admin.site.register(User, UserAdmin)
 @admin.register(TutorProfile)
 class ProfileAdmin(OSMGeoAdmin):
-    list_display = ('user', 'fullname', 'location', 'address', 'teach_levels', 'tutoring_programs',
+    list_display = ('user', 'first_name', 'last_name', 'location', 'address', 'teach_levels', 'tutoring_programs',
      'courses_subjects', 'highest_education', 'class_type', 'bio', 'slug')

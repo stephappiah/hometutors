@@ -1,6 +1,6 @@
 
 teach_level_choices = (
-        ('preschool', 'preschool'),
+        ('preschool', 'Preschool'),
         ('primary', 'Primary'),
         ('juniorhigh', 'Junior High'),
         ('seniorhigh', 'Senior High')

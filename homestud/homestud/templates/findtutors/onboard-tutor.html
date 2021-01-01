@@ -16,8 +16,8 @@
 
 {{ wizard.form.media }}
 <script src="{% static "js/onboarding-tutor.js" %}"></script>
-<script src="{% static "js/show-hide-chips.js" %}"></script>
 <script src="{% static "js/avatar.js" %}"></script>
+
 <script>
     var spinner = "{% static 'img/spinner.gif' %}";
     var username = '{{ user.username }}';
@@ -39,7 +39,7 @@
         autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('id_0-address'),
             {
-                types: ['establishment'],
+                types: [],
                 componentRestrictions: {'country': ['GH']},
                 fields: ['place_id', 'geometry', 'name']
             }
@@ -52,6 +52,10 @@
         if (!place.geometry){
             //User did not selet a prediction; reset the input field --> id_0_address is id for search box
             document.getElementById('id_0-address').placeholder = 'Enter a location';
+            // disable next button
+            $('.savebtn').prop( "disabled", true);
+            console.log('value empty');
+        
         } else {
             //Get lon and lat of entered location
             var latitude = place.geometry.location.lat()
@@ -60,6 +64,10 @@
             var point = `SRID=4326;POINT(${longitude} ${latitude})`
             $('#id_0-location').val(point);
             console.log(point)
+
+            // enable next button on place clicked
+            $('.savebtn').prop( "disabled", false);
+            console.log('value not empty');
         }
     }
 
@@ -116,8 +124,15 @@
             <!-- Registration form -->
             <div class="col-lg-8 order-lg-1">
                 <div class="container registration card shadow-sm pt-3">
-                    <!-- <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-                    <p class="lead text-center mt-3">Form Title</p> -->
+                    {% if wizard.steps.index == 0 %}
+                        <p class="lead text-center text-dark mt-3">Personal Info</p>
+                    {% elif wizard.steps.index == 1 %}
+                        <p class="lead text-center text-dark mt-3">Education Histoy</p>
+                    {% elif wizard.steps.index == 2 %}
+                        <p class="lead text-center text-dark mt-3">Tutor Profile Details</p>
+                    {% endif %} 
+                    
+
                     <form id="tutorForm" action="" method="post" enctype="multipart/form-data" autocomplete="off">
                         {% csrf_token %}
                         
@@ -135,18 +150,18 @@
                         <div class="container text-center mt-4 mb-4">
                             {% if wizard.steps.index > 0 and wizard.steps.index < 4 %}
                             <button class="btn btn-sm btn-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
-                            <input class="btn btn-sm btn-info" type="submit" value="{% trans "Save & Continue" %}"/>
+                            <input class="savebtn btn btn-sm btn-info" type="submit" value="{% trans 'Save & Continue' %}"/>
                             {% endif %}
                     
                             <!-- Show 'Submit' on last step -->
                             {% if wizard.steps.index == 4 %}
                             <button class="btn btn-sm btn-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous" %}</button>
-                            <input class="btn btn-sm btn-info" type="submit" id="submitTutor" value="{% trans "Submit" %}"/>
+                            <input class="btn btn-sm btn-info" type="submit" id="submitTutor" value="{% trans 'Submit' %}"/>
                             {% endif %}
 
                             <!-- Show 'save and continue' on first step -->
                             {% if wizard.steps.index == 0 %}
-                            <input class="btn btn-sm btn-info" type="submit" value="{% trans "Save & Continue" %}"/>
+                            <input class="savebtn btn btn-sm btn-info" type="submit" value="{% trans 'Save & Continue' %}"/>
                             {% endif %}
                         </div>
                         
@@ -488,680 +503,135 @@
                     
             } // End of fourth step 
 
+            // ------ disable continue if pointfield is empty ------//
+            var pointField = $('#id_0-location');
 
+            if (pointField.val() == ''){
+                $('.savebtn').prop( "disabled", true);
+            }else {
+                $('.savebtn').prop( "disabled", false);
+            }
 
+            // ---------- BIO WORDS LEFT ------ on reload
+            var wordLen = 40,
+                len; // Maximum word length
+            len = $('#id_2-bio').val().split(/[\s]+/);
+    
+            wordsLeft = (wordLen) - len.length;
+
+            // display words left in wordcount box
+            if (wordsLeft === 1){
+                $('.wordCount').text(wordsLeft + ' word left');
+            }else{
+                $('.wordCount').text(wordsLeft + ' words left');
+            }
+
+            //---- change box color when word count <= 0 -----
+            if (wordsLeft <= 0){
+                $('.wordCount').css({
+                    'background-color': '#2c9176',
+                    'color': 'white'
+                });
+                $('.wordCount').text('Done!');
+                $('.savebtn').prop( "disabled", false );
+            } else {
+                $('.savebtn').prop( "disabled", true );
+            }
+
+            //---------------------------------   Style chips    ------------------------------------------------
+            
             //---------------------------------   Style chips    ------------------------------------------------
             
             // define variables
             const colorStyle = {
-                "border":"2px solid #1bdbf8",
-                "background-color":"#12bbd4",
+                "border":"2px solid #1ba883",
+                "background-color":"#1ba883",
                 "color": "#fff",
                 "transition": "all .2s"
                 },
                 defaultStyle = {
                     "border":"2px solid rgba(139, 139, 139, .3)",
                     "background-color":"rgba(255, 255, 255, .9)",
-                    "color": "#adadad",
+                    "color": "#555555",
                     "transition": "all .2s"
-                },
-                individualChips = $('#id_2-class_type_0'),
-                groupChips = $('#id_2-class_type_1'),
-                onlineChips = $('#id_2-class_type_2');
+                };
+            
+            
+            // run a function to get all the ids of the class 
+            // grab the id
+            // check if it's checked or not, 
+            // then style appropriately
+            
+            $('.chips_class_type').each(function (){
 
-        /* ------------------------------------ Class Type Chips ----------------------------- */
-        
-            // chip id 0 for class-type
-            if (individualChips.is(':checked')){
-                individualChips.closest('label').css(colorStyle);
-            } else {
-            
-                individualChips.closest('label').css(defaultStyle);
-            
+                var id = $(this).attr('id');
+                var elemID = `#${id}`;
+                var grabID = $(`${elemID}`);
+
+                if (grabID.is(':checked')){
+                    grabID.closest('label').css(colorStyle);
+                } else {
+                    grabID.closest('label').css(defaultStyle);
+                }
+            });
+
+            // ----------------------------- show or hide courses chips based on program clicked ------------------------------------// 
+
+            function getProgName(courseID){
+                // takes courseID and returns name of course
+                return {
+                    'id_3-tutoring_programs_0': 'musicCourses',
+                    'id_3-tutoring_programs_1': 'photographyCourses',
+                    'id_3-tutoring_programs_2': 'ITCourses',
+                    'id_3-tutoring_programs_3': 'testPrepCourses',
+                    'id_3-tutoring_programs_4': 'earlyCourses', 
+                    'id_3-tutoring_programs_5': 'primjhsCourses',
+                    'id_3-tutoring_programs_6': 'artCourses',
+                    'id_3-tutoring_programs_7': 'sciCourses',
+                    'id_3-tutoring_programs_8': 'vsaCourses',
+                    'id_3-tutoring_programs_9': 'busCourses',
+                    'id_3-tutoring_programs_10': 'hmeCourses',
+                    'id_3-tutoring_programs_11': 'tecCourses'
+                }[courseID];
             }
-            // chip id 1 for class-type
-            if (groupChips.is(':checked')){
-                groupChips.closest('label').css(colorStyle);
-            } else {
-            
-                groupChips.closest('label').css(defaultStyle);
 
+            function getCourses(programme){
+                // takes program as parameter and returns set of courses
+                return {
+                    testPrepCourses: $("#id_3-courses_subjects_32, #id_3-courses_subjects_33, #id_3-courses_subjects_34"),
+                    musicCourses: $("#id_3-courses_subjects_35, #id_3-courses_subjects_36, #id_3-courses_subjects_37, #id_3-courses_subjects_38"),
+                    photographyCourses: $("#id_3-courses_subjects_39, #id_3-courses_subjects_40, #id_3-courses_subjects_41"),
+                    ITCourses: $("#id_3-courses_subjects_42, #id_3-courses_subjects_43, #id_3-courses_subjects_44 , #id_3-courses_subjects_45"),
+
+                    earlyCourses: $("#id_3-courses_subjects_0, #id_3-courses_subjects_1, #id_3-courses_subjects_2"),
+                    primjhsCourses: $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5"),
+                    artCourses: $("#id_3-courses_subjects_6, #id_3-courses_subjects_7, #id_3-courses_subjects_8, #id_3-courses_subjects_9, #id_3-courses_subjects_10, #id_3-courses_subjects_11, #id_3-courses_subjects_12"),
+                    sciCourses: $("#id_3-courses_subjects_13, #id_3-courses_subjects_14, #id_3-courses_subjects_15, #id_3-courses_subjects_28"),
+                    vsaCourses: $("#id_3-courses_subjects_16, #id_3-courses_subjects_17, #id_3-courses_subjects_18, #id_3-courses_subjects_19, #id_3-courses_subjects_20, #id_3-courses_subjects_21, #id_3-courses_subjects_22, #id_3-courses_subjects_23"),
+                    busCourses: $("#id_3-courses_subjects_24, #id_3-courses_subjects_25, #id_3-courses_subjects_26, #id_3-courses_subjects_27, #id_3-courses_subjects_28"),
+                    hmeCourses: $("#id_3-courses_subjects_29, #id_3-courses_subjects_30, #id_3-courses_subjects_31"),
+                    tecCourses: $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5")
+                }[programme];
             }
-            // chip id 2 for class-type
-            if (onlineChips.is(':checked')){
-                onlineChips.closest('label').css(colorStyle);
-            } else {
-            
-                onlineChips.closest('label').css(defaultStyle);
 
-            }
 
-             /* ------------------------------- Style Teaching level ------------------------------*/ 
-             const preschool = $('#id_3-teach_levels_0'),
-             primlevel = $('#id_3-teach_levels_1'),
-             jhighlevel = $('#id_3-teach_levels_2'),
-             senhighlevel = $('#id_3-teach_levels_3');
-   
-           // preschool
-           
-            if (preschool.is(':checked')){
+            $('.programs').each(function(){
+
+                var id = $(this).attr('id');
+                var elemID = `#${id}`;
+                var grabID = $(`${elemID}`);
                 
-                preschool.closest('label').css(colorStyle);
-            } else {
-        
-                preschool.closest('label').css(defaultStyle);
-        
-            }
-        
-           // Primary level
-           
-            if (primlevel.is(':checked')){
-                
-                primlevel.closest('label').css(colorStyle);
-            } else {
-        
-                primlevel.closest('label').css(defaultStyle);
-        
-            }
-           
-           // jhs level
-           
-            if (jhighlevel.is(':checked')){
-                
-                jhighlevel.closest('label').css(colorStyle);
-            } else {
-        
-                jhighlevel.closest('label').css(defaultStyle);
-        
-            }
-             
-           // shs level
-           
-            if (senhighlevel.is(':checked')){
-                
-                senhighlevel.closest('label').css(colorStyle);
-            } else {
-        
-                senhighlevel.closest('label').css(defaultStyle);
-        
-            }
-            
-
-            /* ------------------------------- Courses/subjects chips ------------------------------*/ 
-
-        // 
-            // define variables 
-            const early = $('#id_3-tutoring_programs_0'), 
-            prjhs = $('#id_3-tutoring_programs_1'),
-            art = $('#id_3-tutoring_programs_2'),
-            sci = $('#id_3-tutoring_programs_3'),
-            vsa = $('#id_3-tutoring_programs_4'),
-            bus = $('#id_3-tutoring_programs_5'),
-            hme = $('#id_3-tutoring_programs_6'),
-            tec = $('#id_3-tutoring_programs_7');
-            
-            // list of courses under programme
-            const earlyCourses = $("#id_3-courses_subjects_0, #id_3-courses_subjects_1, #id_3-courses_subjects_2"),
-                primjhsCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5"),
-                artCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_6, #id_3-courses_subjects_7, #id_3-courses_subjects_8, #id_3-courses_subjects_9, #id_3-courses_subjects_10, #id_3-courses_subjects_11, #id_3-courses_subjects_12"),
-                sciCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_13, #id_3-courses_subjects_14, #id_3-courses_subjects_15, #id_3-courses_subjects_28"),
-                vsaCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_16, #id_3-courses_subjects_17, #id_3-courses_subjects_18, #id_3-courses_subjects_19, #id_3-courses_subjects_20, #id_3-courses_subjects_21, #id_3-courses_subjects_22, #id_3-courses_subjects_23"),
-                busCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_24, #id_3-courses_subjects_25, #id_3-courses_subjects_26, #id_3-courses_subjects_27, #id_3-courses_subjects_28"),
-                hmeCourses = $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_29, #id_3-courses_subjects_30, #id_3-courses_subjects_32");
-
-            // ---------- Style tutoring programmes colors  ------------------------------
-            
-            if (early.is(':checked')){
-                
-                early.closest('label').css(colorStyle);
-            } else {
-                early.closest('label').css(defaultStyle);
-
-            }
-            //primjhs
-            if (prjhs.is(':checked')){
-                
-                prjhs.closest('label').css(colorStyle);
-            } else {
-                prjhs.closest('label').css(defaultStyle);
-
-            }
-            //art
-            if (art.is(':checked')){
-                
-                art.closest('label').css(colorStyle);
-            } else {
-                art.closest('label').css(defaultStyle);
-
-            }
-            //sci
-            if (sci.is(':checked')){
-                
-                sci.closest('label').css(colorStyle);
-            } else {
-                sci.closest('label').css(defaultStyle);
-
-            }
-            //vsa
-            if (vsa.is(':checked')){
-                
-                vsa.closest('label').css(colorStyle);
-            } else {
-                vsa.closest('label').css(defaultStyle);
-
-            }
-            //bus
-            if (bus.is(':checked')){
-                
-                bus.closest('label').css(colorStyle);
-            } else {
-                bus.closest('label').css(defaultStyle);
-
-            }
-            //hme
-            if (hme.is(':checked')){
-                
-                hme.closest('label').css(colorStyle);
-            } else {
-                hme.closest('label').css(defaultStyle);
-
-            }
-            //tec
-            if (tec.is(':checked')){
-                
-                tec.closest('label').css(colorStyle);
-            } else {
-                tec.closest('label').css(defaultStyle);
-
-            }
-
-            // --------------------- Show or hide courses on reload ---------------------------
-
-            // if early years chips is checked -- show courses
-            if (early.is(':checked')){
-                // show courses
-                earlyCourses.closest('label').css({
-                    "display":"inline-block",   
-                });
-            } else {
-                // hide courses
-                earlyCourses.closest('label').css({
-                    "display":"none"
-                });
-
-            }
-
-            // if  primary/jhs chips is checked -- show courses
-            if (prjhs.is(':checked')){
-                // show courses
-                primjhsCourses.closest('label').css({
-                    "display":"inline-block",   
-                });
-            } else {
-                // hide courses
-                primjhsCourses.closest('label').css({
-                    "display":"none"
-                });
-
-            }
-            
-            // if  art chips is checked -- show courses
-            if (art.is(':checked')){
-                // show courses
-                artCourses.closest('label').css({
-                    "display":"inline-block",   
-                });
-            } else {
-                // hide courses
-                artCourses.closest('label').css({
-                    "display":"none"
-                });
-
-            }
-
-            // if  sci chips is checked -- show courses
-            if (sci.is(':checked')){
-                // show courses
-                sciCourses.closest('label').css({
-                    "display":"inline-block",   
-                });
-            } else {
-                // hide courses
-                sciCourses.closest('label').css({
-                    "display":"none"
-                });
-
-            }
-
-            // if  vsa chips is checked -- show courses
-            if (vsa.is(':checked')){
-                // show courses
-                vsaCourses.closest('label').css({
-                    "display":"inline-block",   
-                });
-            } else {
-                // hide courses
-                vsaCourses.closest('label').css({
-                    "display":"none"
-                });
-
-            }
-
-            // if  bus chips is checked -- show courses
-            if (bus.is(':checked')){
-                // show courses
-                busCourses.closest('label').css({
-                    "display":"inline-block",   
-                });
-            } else {
-                // hide courses
-                busCourses.closest('label').css({
-                    "display":"none"
-                });
-
-            }
-            // if  hme chips is checked -- show courses
-            if (hme.is(':checked')){
-                // show courses
-                hmeCourses.closest('label').css({
-                    "display":"inline-block",   
-                });
-            } else {
-                // hide courses
-                hmeCourses.closest('label').css({
-                    "display":"none"
-                });
-
-            }
-
-            /* -------------------Courses Chips color styling -> onclick -------------------------------*/ 
-            const wrt = $('#id_3-courses_subjects_0'),
-            red = $('#id_3-courses_subjects_1'),
-            num = $('#id_3-courses_subjects_2'),
-            eng = $('#id_3-courses_subjects_3'),
-            mat = $('#id_3-courses_subjects_4'),
-            scn = $('#id_3-courses_subjects_5'),
-            lit = $('#id_3-courses_subjects_6'),
-            eco = $('#id_3-courses_subjects_7'),
-            his = $('#id_3-courses_subjects_8'),
-            gov = $('#id_3-courses_subjects_9'),
-            geo = $('#id_3-courses_subjects_10'),
-            rst = $('#id_3-courses_subjects_11'),
-            fre = $('#id_3-courses_subjects_12'),
-            bio = $('#id_3-courses_subjects_13'),
-            phy = $('#id_3-courses_subjects_14'),
-            che = $('#id_3-courses_subjects_15'),
-            grp = $('#id_3-courses_subjects_16'),
-            pmk = $('#id_3-courses_subjects_17'),
-            bsk = $('#id_3-courses_subjects_18'),
-            cer = $('#id_3-courses_subjects_19'),
-            scp = $('#id_3-courses_subjects_20'),
-            jew = $('#id_3-courses_subjects_21'),
-            ltw = $('#id_3-courses_subjects_22'),
-            gka = $('#id_3-courses_subjects_23'),
-            bsm = $('#id_3-courses_subjects_24'),
-            acc = $('#id_3-courses_subjects_25'),
-            prc = $('#id_3-courses_subjects_26'),
-            bum = $('#id_3-courses_subjects_27'),
-            emt = $('#id_3-courses_subjects_28'),
-            mil = $('#id_3-courses_subjects_29'),
-            fdn = $('#id_3-courses_subjects_30'),
-            txt = $('#id_3-courses_subjects_31');
-
-        // to do: use for loop to simplify code
-
-        // style chips on click
-        
-        if (wrt.is(':checked')){
-            
-            wrt.closest('label').css(colorStyle);
-        } else {
-
-            wrt.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (red.is(':checked')){
-            
-            red.closest('label').css(colorStyle);
-        } else {
-
-            red.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (num.is(':checked')){
-            
-            num.closest('label').css(colorStyle);
-        } else {
-
-            num.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (eng.is(':checked')){
-            
-            eng.closest('label').css(colorStyle);
-        } else {
-
-            eng.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (mat.is(':checked')){
-            
-            mat.closest('label').css(colorStyle);
-        } else {
-
-            mat.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (scn.is(':checked')){
-            
-            scn.closest('label').css(colorStyle);
-        } else {
-
-            scn.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (lit.is(':checked')){
-            
-            lit.closest('label').css(colorStyle);
-        } else {
-
-            lit.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (eco.is(':checked')){
-            
-            eco.closest('label').css(colorStyle);
-        } else {
-
-            eco.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (his.is(':checked')){
-            
-            his.closest('label').css(colorStyle);
-        } else {
-
-            his.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (geo.is(':checked')){
-            
-            geo.closest('label').css(colorStyle);
-        } else {
-
-            geo.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (gov.is(':checked')){
-            
-            gov.closest('label').css(colorStyle);
-        } else {
-
-            gov.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (rst.is(':checked')){
-            
-            rst.closest('label').css(colorStyle);
-        } else {
-
-            rst.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (fre.is(':checked')){
-            
-            fre.closest('label').css(colorStyle);
-        } else {
-
-            fre.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (bio.is(':checked')){
-            
-            bio.closest('label').css(colorStyle);
-        } else {
-
-            bio.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (phy.is(':checked')){
-            
-            phy.closest('label').css(colorStyle);
-        } else {
-
-            phy.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (che.is(':checked')){
-            
-            che.closest('label').css(colorStyle);
-        } else {
-
-            che.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (grp.is(':checked')){
-            
-            grp.closest('label').css(colorStyle);
-        } else {
-
-            grp.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (pmk.is(':checked')){
-            
-            pmk.closest('label').css(colorStyle);
-        } else {
-
-            pmk.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (bsk.is(':checked')){
-            
-            bsk.closest('label').css(colorStyle);
-        } else {
-
-            bsk.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (cer.is(':checked')){
-            
-            cer.closest('label').css(colorStyle);
-        } else {
-
-            cer.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (scp.is(':checked')){
-            
-            scp.closest('label').css(colorStyle);
-        } else {
-
-            scp.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (jew.is(':checked')){
-            
-            jew.closest('label').css(colorStyle);
-        } else {
-
-            jew.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (ltw.is(':checked')){
-            
-            ltw.closest('label').css(colorStyle);
-        } else {
-
-            ltw.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (gka.is(':checked')){
-            
-            gka.closest('label').css(colorStyle);
-        } else {
-
-            gka.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (bsm.is(':checked')){
-            
-            bsm.closest('label').css(colorStyle);
-        } else {
-
-            bsm.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (acc.is(':checked')){
-            
-            acc.closest('label').css(colorStyle);
-        } else {
-
-            acc.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (prc.is(':checked')){
-            
-            prc.closest('label').css(colorStyle);
-        } else {
-
-            prc.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (bum.is(':checked')){
-            
-            bum.closest('label').css(colorStyle);
-        } else {
-
-            bum.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (emt.is(':checked')){
-            
-            emt.closest('label').css(colorStyle);
-        } else {
-
-            emt.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (mil.is(':checked')){
-            
-            mil.closest('label').css(colorStyle);
-        } else {
-
-            mil.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (fdn.is(':checked')){
-            
-            fdn.closest('label').css(colorStyle);
-        } else {
-
-            fdn.closest('label').css(defaultStyle);
-
-        }
-
-        // style chips on click
-        
-        if (txt.is(':checked')){
-            
-            txt.closest('label').css(colorStyle);
-        } else {
-
-            txt.closest('label').css(defaultStyle);
-
-        }
-
+                if (grabID.is(':checked')){ 
+
+                    let prog = getProgName(id);
+                    // get set of courses from programme
+                    let courses = getCourses(prog);
+                    // show courses
+                    courses.closest('label').css({
+                        "display":"inline-block",   
+                    });
+                } 
+            });
 
 
         }; // end of widow reload

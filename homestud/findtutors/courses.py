@@ -1,5 +1,11 @@
 
 programmes_choices = (
+
+    ('Music', 'Music'),
+    ('Photography', 'Photography'),
+    ('IT', 'IT'),
+    ('Test Prep', 'Test Prep'),
+    
     ('Early Years', 'Early Years'),
     ('Primary & Junior High', 'Primary & Junior High'),
     ('Gen Arts', 'Gen Arts'),
@@ -8,6 +14,7 @@ programmes_choices = (
     ('Business', 'Business'),
     ('Home Economics', 'Home Economics'),
     ('Technical', 'Technical'),
+    
 )
 
 courses_choices = (
@@ -50,5 +57,23 @@ courses_choices = (
     ('Management in Living', 'Management in Living'),
     ('Food and Nutrition', 'Food and Nutrition'),
     ('Textiles', 'Textiles'),
+
+    ('SAT', 'SAT'),
+    ('GRE', 'GRE'),
+    ('IELTS', 'IELTS'),
+
+    ('Piano', 'Piano'),
+    ('Guitar', 'Guitar'),
+    ('Saxophone', 'Saxophone'),
+    ('Drums', 'Drums'),
+
+    ('Photography', 'Photography'),
+    ('Photoshop', 'Photoshop'),
+    ('Lightroom', 'Lightroom'),
+
+    ('HTML', 'HTML'),
+    ('CSS', 'CSS'),
+    ('JavaScript', 'JavaScript'),
+    ('Python', 'Python')
 
 )

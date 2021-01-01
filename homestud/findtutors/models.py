@@ -11,7 +11,8 @@ from .courses import courses_choices, programmes_choices
 class TutorProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     
-    fullname = models.CharField(max_length=50, blank=True, null=True)
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
     location = models.PointField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
     avatar = models.ImageField(blank=True, null=True, upload_to='avatar/%Y/%m/%d/')
@@ -39,4 +40,17 @@ class TutorProfile(models.Model):
     def __str__(self):
         return str(self.user)
 
-        
+    def get_full_name(self):
+
+        if self.first_name != None and self.last_name != None:
+            return self.first_name + '' + self.last_name
+        elif self.first_name == None:
+            return self.last_name
+        else:
+            return self.first_name 
+
+    def get_short_name(self):
+        if self.first_name == None:
+            return self.last_name
+        else:
+            return self.first_name 

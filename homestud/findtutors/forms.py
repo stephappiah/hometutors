@@ -13,7 +13,7 @@ class DateInput(forms.DateInput):
 class AvatarForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['avatar'].required = False
+        self.fields['avatar'].required = False #required set to false to allow form to be submitted without image field, thus making it possible to compress and submit image via xhr
         self.fields['avatar'].widget.attrs.update({'class': 'avatar'})
         self.fields['avatar'].label = False
 
@@ -25,22 +25,30 @@ class AvatarForm(forms.ModelForm):
 class PersonInfoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['fullname'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
         self.fields['dob'].required = True
         self.fields['contact'].required = True
         self.fields['address'].required = True
+        self.fields['location'].required = True
+        self.fields['address'].widget.attrs['placeholder'] = 'Town, City'
+        self.fields['address'].help_text = 'Select a location from the autocomplete as you type to continue.'
+        self.fields['location'].error_messages.update({
+            'required': 'Please wait for places autocomplete to show up as you type and select your address.',
+        })
 
     contact = PhoneNumberField()
 
     class Meta:
         model = TutorProfile
-        fields = ('fullname', 'dob', 'contact', 'location', 'address', 'slug', )
+        fields = ('first_name', 'last_name', 'dob', 'contact', 'location', 'address', 'slug', )
         
         labels = {
             'dob': 'Date of Birth',
             'contact': 'Contact',
             'address': 'Address',
-            'fullname': 'Name',
+            'first_name': 'First name',
+            'last_name': 'Last name',
         }
 
         widgets = {
@@ -74,8 +82,11 @@ class TutorProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['class_type'].required = True
         self.fields['rate_per_hour'].required = True
+        self.fields['rate_per_hour'].help_text = "How much (in GHC) will you charge for a one hour lesson?"
         self.fields['free_lesson_duration'].required = True
+        self.fields['free_lesson_duration'].help_text = "The first lesson offered for free is a chance for you and your student to get to know each other."
         self.fields['bio'].required = True
+        self.fields['bio'].widget.attrs['placeholder'] = 'I am an engineer/teacher/student...I have an experience in tutoring...I have a degree/certificate in...'
         self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
         self.fields['bio'].widget.attrs.update({'class': 'form-control'})
 
@@ -83,8 +94,11 @@ class TutorProfileForm(forms.ModelForm):
         model = TutorProfile
         fields = ('class_type', 'rate_per_hour', 'free_lesson_duration', 'bio', )
         widgets = {
-            'bio': forms.Textarea(attrs={'cols': '60', 'rows': '3'})
+            'bio': forms.Textarea(attrs={'cols': '60', 'rows': '4'})
             
+        }
+        labels = {
+            'bio': 'Write a catchy bio'
         }
 
     # def __init__(self, *args, **kwargs):
