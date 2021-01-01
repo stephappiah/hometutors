@@ -67,10 +67,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
     
     def get_full_name(self):
-        return self.first_name + '' + self.last_name
+        if self.first_name != None and self.last_name != None:
+            return self.first_name + '' + self.last_name
+        elif self.first_name == None:
+            return self.last_name
+        else:
+            return self.first_name 
 
     def get_short_name(self):
-        return self.first_name 
+        if self.first_name == None:
+            return self.last_name
+        else:
+            return self.first_name
 
     def get_username(self):
         return self.username
