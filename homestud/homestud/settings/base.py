@@ -27,8 +27,6 @@ INSTALLED_APPS = [
     'users',
     'findtutors',
 
-    'django_chatter',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
