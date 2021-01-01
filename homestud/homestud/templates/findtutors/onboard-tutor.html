@@ -11,12 +11,12 @@
 {% block extra_head %}
 
 <!-- internation telephone input styles -->
-<link rel="stylesheet" href="{% static "build/css/intlTelInput.css" %}">
-<!-- <link rel="stylesheet" href="{% static "build/css/demo.css" %}"> -->
+<link rel="stylesheet" href="{% static 'telinput/css/intlTelInput.css' %}">
+<!-- <link rel="stylesheet" href="{% static "telinput/css/demo.css" %}"> -->
 
 {{ wizard.form.media }}
-<script src="{% static "js/onboarding-tutor.js" %}"></script>
-<script src="{% static "js/avatar.js" %}"></script>
+<script src="{% static 'js/onboarding-tutor.js' %}"></script>
+<script src="{% static 'js/avatar.js' %}"></script>
 
 <script>
     var spinner = "{% static 'img/spinner.gif' %}";
@@ -174,7 +174,7 @@
     </div>
     
     <!-- internation telephone input -->
-    <script src="{% static "build/js/intlTelInput.js" %}"></script> 
+    <script src="{% static "telinput/js/intlTelInput.js" %}"></script> 
 
     <script type="text/javascript">
         var Formstep = '{{wizard.steps.index}}';
@@ -205,7 +205,7 @@
             // placeholderNumberType: "MOBILE",
             preferredCountries: ['gh'],
             // separateDialCode: true,
-            utilsScript: '{% static "build/js/utils.js" %}',
+            utilsScript: '{% static "telinput/js/utils.js" %}',
             });
         }
 
