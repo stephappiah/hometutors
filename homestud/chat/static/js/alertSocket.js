@@ -11,8 +11,11 @@
 //Global variable to modify HREF to tailor to secure or non-secure connections.
 var ws_or_wss = window.location.protocol == "https:" ? "wss://" : "ws://";
 
-websocket_url = ws_or_wss + window.location.host + '/ws/django_chatter/users/' + username + '/'; // username variable in chat-window.html
+// development
+// websocket_url = ws_or_wss + window.location.host + '/ws/django_chatter/users/' + username + '/'; // username variable in chat-window.html
 
+// production
+websocket_url = ws_or_wss + window.location.host + '/ws/django_chatter/users/' + username + ':8001/'; // username variable in chat-window.html
 /*
 AI-------------------------------------------------------------------
 	The following opens a websocket with the current URL,

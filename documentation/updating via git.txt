@@ -2,8 +2,10 @@
 
 
 * root password
-	~ passwd 'notScientifiC1996again'
+	~ old passwd 'notScientifiC1996again'
+	~ new passwd:  'djfdfieHkDGgd3837&^Cs£2cC(*.cx2570F~?hdg78656'
 	~ ssh root@178.62.30.58
+	~ ssh steph@178.62.30.58
 
 ##### update codebase
 

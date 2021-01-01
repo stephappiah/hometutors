@@ -1,0 +1,6 @@
+##### ssh config
+
+	~ cd /
+	~ sudo nano /etc/ssh/sshd_config
+	# change settings
+	~ sudo systemctl restart sshd

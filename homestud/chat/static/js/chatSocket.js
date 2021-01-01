@@ -12,7 +12,10 @@ AI-------------------------------------------------------------------
 //Global variable to modify HREF to tailor to secure or non-secure connections.
 var ws_or_wss = window.location.protocol == "https:" ? "wss://" : "ws://";
 
-websocket_url = ws_or_wss + window.location.host + '/ws/django_chatter/chatrooms/' + room_id + '/'; 
+// development
+// websocket_url = ws_or_wss + window.location.host + '/ws/django_chatter/chatrooms/' + room_id + '/';
+// production
+websocket_url = ws_or_wss + window.location.host + '/ws/django_chatter/chatrooms/' + room_id + ':8001/'; 
 
 
 
