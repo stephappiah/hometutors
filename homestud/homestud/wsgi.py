@@ -12,7 +12,6 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.development')
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.staging')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.production')
 
 application = get_wsgi_application()
