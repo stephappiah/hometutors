@@ -26,7 +26,7 @@
                 <p class="text-center">&#8373;{{ tutor.rate_per_hour }}<small>/hr</small></p>
                 <p class="text-center">1st lesson free</p>
             </div>
-            <form class="search-form" action="{% url 'django_chatter:get_chat_url' %}" method="post">
+            <form class="search-form" action="{% url 'chat:get_chat_url' %}" method="post">
                 {% csrf_token %}
                 <input class="d-none" name="target_user" type="text" value="{{ tutor.user.username }}">
                 <button class="btn border-round mint-bg" type="submit" href="">Book a class</button>

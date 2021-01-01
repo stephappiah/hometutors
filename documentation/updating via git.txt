@@ -1,0 +1,24 @@
+#####  Update codebase with remote master and restart gunicorn ################
+
+
+* root password
+	~ passwd 'notScientifiC1996again'
+	~ ssh root@178.62.30.58
+
+##### update codebase
+
+	# fetch from upstream
+
+	~ git fetch upstream
+	~ git pull --rebase upstream master ##updates local to remote master
+	~ git push
+
+### restart gunicorn
+
+~ sudo systemctl daemon-reload
+Must be executed if you change the gunicorn.service file.
+	~ sudo systemctl restart gunicorn
+If you change code on your server you must execute this to see the changes take place.
+	~ sudo systemctl status gunicorn
+	~ sudo shutdown -r now
+restart the server
