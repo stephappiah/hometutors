@@ -99,7 +99,7 @@ $('#send-button').click( function() {
 		const messageInput = $('#send-message');
 		const message = messageInput.val();
 		chatSocket.send(JSON.stringify({
-      'message_type': 'text',
+      		'message_type': 'text',
 			'message': message,
 			'room_id': room_id,
 			'sender': username
