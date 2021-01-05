@@ -51,9 +51,6 @@ alertSocket.onmessage = function(e) {
   // Highlight it
   $last_room.find('.chat-list-item').css('font-weight', 'bold');
 
-  //mycode
-  $('.mini-text').css('color', 'red');
-
   // Add the new message preview
   updateOpponentMessagePreview(received_room_id, sender, message);
 };
