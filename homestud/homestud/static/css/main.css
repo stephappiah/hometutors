@@ -40,6 +40,9 @@ body {
 .mint-text{
     color: #37BC98 !important;
 }
+/* .black-text{
+    color: black !important;
+} */
 
 
 a:hover{
@@ -393,8 +396,8 @@ p {
 @media screen and (max-width: 767px){
     /* -------------- hero ------- */
     .hero-image img {
-        height: 250px;
-        width: 250px;
+        max-width:100%;
+        max-height:100%;
     }
     .hero-text{
         font-size: 32px;
@@ -582,10 +585,29 @@ p {
 /* end */
 
 .searchTutor{
-    visibility: hidden;
+    display: none;
 }
 
 .class-es{
     display: flex;
     justify-content: center;
+}
+
+/* ---------------   Tutor search icon on search   ----------------- */
+
+.has-search .form-control {
+    padding-left: 2.375rem !important;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+    padding: 5px 0;
 }

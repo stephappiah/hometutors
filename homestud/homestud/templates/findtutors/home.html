@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block head_title %}
-      Find Tutors in Ghana- Home Tutoring & Private Home Tutors/Teachers
+      Homestud | Find Tutors in Ghana- Home Tutoring & Private Home Tutors/Teachers
 {% endblock head_title %}
 {% block extra_head %}
-    
+<link rel="stylesheet" href="{% static 'css/slider.css' %}">
+<link rel="stylesheet" href="{% static 'css/nav-pills.css' %}">
 <script>
     let autocomplete;
     function initAutocomplete(){
@@ -75,20 +76,31 @@
 
 <div class="container mt-5">
     <div class="row">
+        <!-- illustration slideshow -->
         <div class="col-sm hero-image text-center">
-            <img src="{% static "img/undraw_mathematics_4otb.svg" %}" alt="">
+            <div class="mySlides fade">
+                <img src="{% static 'illustration/scene1.svg' %}" alt="">
+            </div>
+            <div class="mySlides fade">
+                <img src="{% static 'illustration/scene2.svg' %}" alt="">
+            </div>
+            <div class="mySlides fade">
+                <img src="{% static 'illustration/scene3.svg' %}" alt="">
+            </div>
         </div>
+
         <div class="col-sm m-4 hero-sub text-center">
             <div class="hero-content">
                 <p class="hero-text mb-2 text-center">
                     Find a home tutor.
                 </p>
                 <p class="hero-subtitle text-muted mb-3 text-center">
-                    Schools may close. But learning never stops, unless we choose to!
+                    A new way to get help learning anything from the comfort of your home.  
                 </p>
                 <form id="searchForm" autocomplete="off" action="{% url 'findtutors:search' %}" method="get">
-                    <div class="form-group">
-                        <input name="q" class="form-control shadow-sm" id="search" placeholder="enter your location...">
+                    <div class="form-group has-search">
+                        <span class="material-icons form-control-feedback">search</span>
+                        <input name="q" type="text" class="form-control shadow-sm" autocomplete="off" id="search" placeholder="Search your location...">
                     </div>
                     
                     {% if errCoord %}
@@ -109,9 +121,35 @@
             </div>
             
         </div>
-    </div>
+    </div> 
+    <!-- end of first row -->
+
+    {% include 'findtutors/tabs-pill.html' %}
+
     
 
 </div>
+
+    <script>
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            
+            for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+            }
+
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            
+            slides[slideIndex-1].style.display = "block";  
+            
+            setTimeout(showSlides, 9000); // Change image every 5 seconds
+        }
+
+    </script>
 
 {% endblock content %}
