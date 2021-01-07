@@ -19,9 +19,15 @@
     border-bottom:solid 2px #1ba883;
 }
 
+.pill-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .pill-info img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 2rem;
 }
 
 .pill-paragraph{
@@ -38,7 +44,7 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 24px !important;
     line-height: 32px !important;
-    margin-bottom: 18px;
+    margin-bottom: 0.6rem;
     padding-left: 10px;
     padding-right: 10px;
 }
