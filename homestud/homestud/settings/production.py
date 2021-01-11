@@ -74,4 +74,4 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
-BASE_URL = "http://178.62.30.58"
+BASE_URL = "https://homestud.co"
