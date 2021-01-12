@@ -24,7 +24,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=steph
+User=root
 WorkingDirectory=/home/steph/icecream/hometutors/homestud
 ExecStart=/home/steph/icecream/venv/bin/python /home/steph/icecream/venv/bin/daphne -b 0.0.0.0 -p 8001 homestud.asgi:application
 Restart=on-failure

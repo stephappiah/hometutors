@@ -1,3 +1,9 @@
+* root password
+	~ old passwd 'notScientifiC1996again'
+	~ new passwd:  'djfdfieHkDGgd3837&^Cs£2cC(*.cx2570F~?hdg78656'
+	~ ssh root@178.62.30.58
+	~ ssh steph@178.62.30.58
+
 
 updating ngix with domain name
 
@@ -34,7 +40,7 @@ updating ngix with domain name
 # Update /etc/nginx/sites-available
 
 	~ cd /etc/nginx/sites-available
-	~ sudo nano homestud
+	~ sudo nano /etc/nginx/sites-available/homestud
 
 location /ws/ {
         proxy_http_version 1.1;
@@ -48,7 +54,7 @@ location /ws/ {
 
 # Update daphne.service
 	~ cd /etc/systemd/system
-	~ sudo nano daphne.service
+	~ sudo nano /etc/systemd/system/daphne.service
 
 
 -e ssl:8001:privateKey=/etc/letsencrypt/live/homestud.co/privkey.pem:certKey=/etc/letsencrypt/live/homestud.co/fullchain.pem homestud.asgi:application 
@@ -75,4 +81,31 @@ IMPORTANT NOTES:
 
    Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
    Donating to EFF:                    https://eff.org/donate-le
+
+
+###########################
+removed from nginx config
+
+server {
+    if ($host = www.homestud.co) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = homestud.co) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name 178.62.30.58 homestud.co www.homestud.co;
+    return 404; # managed by Certbot
+
+
+
+
+}
+
+#dependency conflict
+daphne 2.5.0 requires asgiref~=3.2, but you'll have asgiref 2.3.2 which is incompatible.
 
