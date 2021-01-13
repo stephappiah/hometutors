@@ -25,6 +25,8 @@ from .models import Room, Message
 import json
 from uuid import UUID
 
+from django.core.mail import send_mail
+
 
 '''
 AI-------------------------------------------------------------------
@@ -196,6 +198,24 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                             'room_id': room_id,
                         }
                     )
+
+                    # ----------- Email notification to receiver ---------------
+                    print('username:', username)
+
+                    user_model = get_user_model()
+                    receiver_email = user_model.objects.get(username=username)
+                    print('email:', receiver_email)
+
+                    # send email here
+                    await send_mail(
+                        'New Message',
+                        'Here is the message.',
+                        'from@example.com',
+                        [receiver_email],
+                        fail_silently=False,
+                    )
+
+                    # -------------- end of email notification -------------
 
     async def send_to_websocket(self, event):
         await self.send_json(event)
