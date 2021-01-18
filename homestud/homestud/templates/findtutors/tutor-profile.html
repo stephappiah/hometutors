@@ -3,7 +3,7 @@
 {% load static %}
 {% load extra_template_filters %}
 {% block head_title %}
-      {{ tutor.fullname }}- {{ tutor.address }}
+      {{ tutor.get_full_name }}- {{ tutor.address }}
 {% endblock head_title %}
 
 {% block content %}
@@ -15,21 +15,21 @@
         <!-- profile picture -->
         <div class="profile-pic">
             {% if  tutor.avatar.url != '' %}
-                <img src="{{ tutor.avatar.url }}" alt="{{ tutor.fullname }}-homestud-tutor">
+                <img src="{{ tutor.avatar.url }}" alt="{{ tutor.get_full_name }}-homestud-tutor">
             {% else %}
-                <img src='{% static "img/avatar/no-avatar.png" %}' alt="{{ tutor.fullname }}-homestud-tutor">
+                <img src='{% static "img/avatar/no-avatar.png" %}' alt="{{ tutor.get_full_name }}-homestud-tutor">
             {% endif %}
         </div>
-        <p class="prof-name lead-text">{{ tutor.fullname }}</p>
+        <p class="prof-name lead-text">{{ tutor.get_full_name }}</p>
         <div class="call-action">
             <div>
-                <p class="text-center">&#8373;{{ tutor.rate_per_hour }}<small>/hr</small></p>
-                <p class="text-center">1st lesson free</p>
+                <p class="lead text-center">&#8373;{{ tutor.rate_per_hour }}<small>/hr</small></p>
+                <p class="mint-text text-center">1st lesson free</p>
             </div>
             <form class="search-form" action="{% url 'chat:get_chat_url' %}" method="post">
                 {% csrf_token %}
                 <input class="d-none" name="target_user" type="text" value="{{ tutor.user.username }}">
-                <button class="btn border-round mint-bg" type="submit" href="">Book a class</button>
+                <button class="btn border-round link-theme" type="submit" href="">Book a class</button>
             </form>  
             
             <div style="clear: both;"></div>
@@ -43,16 +43,27 @@
                 <!-- Education -->
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <p class="lead-text">Education</p>
-                        <p class="lead">{{ tutor.school }}</p>
-                        <p>{{ tutor.programme }}</p>
-                        <p>{{ tutor.start_year }} - {{ tutor.end_year }}</p>
+                        <p class="lead-text mb-2">Education History</p>
+                        <div class="tutor-info-box">
+                            <span class="material-icons text-muted">school</span>
+                            <p class="lead ml-3">{{ tutor.school }}</p>
+                        </div>
+                        <!-- programme of study -->
+                        <div class="tutor-info-box">
+                            <span class="material-icons text-muted">local_library</span>
+                            <p class="lead ml-3">{{ tutor.programme }}</p>
+                        </div>
+                        <!-- graduation dates -->
+                        <div class="tutor-info-box">
+                            <span class="material-icons text-muted">event</span>
+                            <p class="lead ml-3">{{ tutor.start_year }} - {{ tutor.end_year }}</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Lesson details -->
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <p class="mb-1">Class Type</p>
+                        <p class="lead-text mb-2">Class Type</p>
                         <div class="class-es text-center mt-4">
                             {% for class in tutor.class_type %}
                                 
@@ -81,21 +92,21 @@
                         </div>
                         <!-- programmes -->
                         <div class="course-chips-container mt-4">
-                            <p class="mb-1">Teaching Programs</p>
+                            <p class="lead-text mb-3">Teaching Programs</p>
                             {% for program in tutor.tutoring_programs %}
                                 <div class="course-chips card-sm-txt">{{ program }}</div>
                             {% endfor %}
                         </div>
                         <!-- Courses -->
                         <div class="course-chips-container mt-4">
-                            <p class="mb-1">Courses</p>
+                            <p class="lead-text mb-3">Courses</p>
                             {% for course in tutor.courses_subjects %}
                                 <div class="course-chips card-sm-txt">{{ course }}</div>
                             {% endfor %}
                         </div>
                         <!-- Levels -->
                         <div class="course-chips-container mt-4">
-                            <p class="mb-1">Levels</p>
+                            <p class="lead-text mb-3">Levels</p>
                             {% for level in tutor.teach_levels %}
                                 <div class="course-chips card-sm-txt">{{ level }}</div>
                             {% endfor %}
@@ -108,14 +119,14 @@
                         <!-- Bio -->
                 <div class="card shadow-sm p-4">
                     <div class="card-body">
-                        <p>Bio</p>
+                        <p class="lead-text mb-2">Bio</p>
                         <p>{{ tutor.bio }}</p>
                     </div>
                 </div>
                     <!-- First Lesson Policy -->
                 <div class="card shadow-sm p-4">
                     <div class="card-body">
-                        <p>Booking Details</p>
+                        <p class="lead-text mb-2">Booking Details</p>
                         <p>First {{ tutor.free_lesson_duration }}mins available for free. This will be an introductory 
                             lesson to work out if the tutoring can work out. <br>
                             If all goes smoothly, tutoring will begin with agreed upon rates and scheduled days and time.

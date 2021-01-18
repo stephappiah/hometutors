@@ -1,6 +1,6 @@
 
 body {
-    font-family: Apercu Pro,-apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-family: "Roboto", Arial, sans-serif;;
     font-style: normal;
     font-weight: 400;
     font-size: 100%;
@@ -13,13 +13,22 @@ body {
 
 .btn:focus {
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-    background-color: #63adfc;
+    box-shadow: 0 0 0 0.2rem #07fffc30;
+    background-color:#26a69a;
     color: white;
+}
+
+.btn:hover {
+    color: white;
+    text-decoration: none;
 }
 
 #myFont-sm{
     font-size: 1.6rem;
+}
+
+.tutor-info-box{
+    display: flex;
 }
 
 .turq-color{
@@ -217,10 +226,23 @@ label {
     display: inline-block;
     margin-bottom: 5px;
     border-radius: 25px;
-    padding: 0.3rem;
+    padding: 8px 16px;
+    line-height: 14px;
+    min-width: 36px;
     text-align: center;
-    font-size: 0.7rem;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    background-color:#e8fefc;
+    border-color: #157b71;
+    color: #16847a;
     
+}
+
+.link-theme{
+    background-color: #ffffff;
+    color: #26a69a;
+    border-color: #26a69a;
 }
 
 .icon-text{
@@ -329,7 +351,17 @@ p {
     font-weight: bold;
 }
 
+.prof-header{
+    background-color: #26a69a1a !important;
+}
 
+/* .thumb{
+    height: 30px !important;
+    width: 30px !important;
+    top: 85px !important;
+    margin-left: -7px !important;
+    left: 195.3px !important;
+} */
 
 /* Desktop and Tablets */
 @media (min-width: 768px){
@@ -362,6 +394,7 @@ p {
     .prof-header{
             display: flex;
             padding-left: 10%;
+            
     }
     .prof-name{
         margin-top: auto;

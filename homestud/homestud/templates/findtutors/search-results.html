@@ -18,15 +18,27 @@
                     <datalist id="courseList">
                         <option value=""></option>
                     </datalist>
+                    <!-- range input for distance -->
+                    <!-- <div class="form-group">
+                        <label for="formControlRange">Distance</label>
+                        <input type="range" class="form-control-range" id="formControlRange" name="distance">
+                      </div> -->
                     <div class="text-center mt-2">
-                        <button class="btn btn-sm mint-bg" type="submit">Search</button>
+                        <button class="btn btn-sm link-theme" type="submit">Search</button>
                     </div>
                     
                 </form>
             </div>
         </div>
 
-        <p class="text-center"> {{ total_tutors }} Tutors Nearby</p>
+        <!-- number of tutors nearby -->
+        {% if total_tutors == 1 %}
+            <p class="text-center"> {{ total_tutors }} Tutor Nearby</p>
+        {% else %}
+            <p class="text-center"> {{ total_tutors }} Tutors Nearby</p>
+        {% endif %}
+        
+        <!-- list of tutors -->
         <div class="row">
             
             {% if tutors %}
@@ -59,33 +71,41 @@
                         
                         <!-- Distance -->
                         <div class="icon-text ">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="mr-1 bi bi-compass" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M8 15.016a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zm0 1a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15z"/>
-                                <path d="M6 1a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H7a1 1 0 0 1-1-1zm.94 6.44l4.95-2.83-2.83 4.95-4.95 2.83 2.83-4.95z"/>
-                                </svg>
-                            <p class="card-sm-txt">{{ tutor.distance.km|dividebyth }} km away</p> 
+                            <span class="material-icons">
+                                commute
+                                </span>
+                            <p class="card-sm-txt ml-2">{{ tutor.distance.km|dividebyth }} km away</p> 
                         </div>
                         <!-- Address -->
                         <div class="icon-text "> 
                             <!-- class="icon-text small-text" -->
-                            <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" class="mr-1 bi bi-geo-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                            </svg>
+                            <span class="material-icons">
+                                place
+                                </span>
                             <p class="card-sm-txt">{{ tutor.address|title }}</p>
                         </div>
                         <!-- list of courses/Subjects -->
                         <div class="course-chips-container mt-4">
-                            <p class="text-muted mb-2">Teaches subjects in:</p>
+                            <p class="lead mb-3">Teaches subjects in:</p>
                             {% for program in tutor.tutoring_programs %}
                                 <div class="course-chips card-sm-txt">{{ program }}</div>
                             {% endfor %}
                         </div>
             
-                        <a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}" class="btn view-profile border-round mint-bg mt-3">View Profile</a>
+                        <a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}" class="btn view-profile border-round link-theme mt-4">View Profile</a>
                     </div>
                 </div>
             {% endfor %}
-    
+
+            {% else %}
+                <!-- if there are no tutors -->
+                <div class="col text-center">
+                    <img src="{% static 'img/svgs/no-search-result.svg' %}" width="200px" height="200px" alt="">
+                    <p class="lead-text">Oops!</p>
+                    <p class="hero-subtitle">
+                        How about you tweak your search?</p>
+                </div>
+                
             {% endif %}
         </div>
         <div class="row">

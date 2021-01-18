@@ -140,9 +140,9 @@ def SearchTutor(request):
             longitude = request.session['lon']
 
             user_location = Point(longitude, latitude, srid=4326)
-            # Queryset filtered within a distance of 20km; annotated and orderd by distance
+            # Queryset filtered within a distance of 100km; annotated and orderd by distance
             dist = Distance('location', user_location)
-            qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+            qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
             paginator = Paginator(qs, 10) #show 10 tutors per page
 
             page_number = request.GET.get('page')
@@ -165,9 +165,9 @@ def SearchTutor(request):
 
             
             user_location = Point(longitude, latitude, srid=4326)
-            # Queryset filtered within a distance of 20km; annotated and orderd by distance
+            # Queryset filtered within a distance of 100km; annotated and orderd by distance
             dist = Distance('location', user_location)
-            qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+            qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
             paginator = Paginator(qs, 10) #show 10 tutors per page
 
             page_number = request.GET.get('page')
@@ -202,7 +202,8 @@ def FilterSearch(request):
     user_location = Point(longitude, latitude, srid=4326)
     # Queryset filtered within a distance of 20km; annotated and orderd by distance
     dist = Distance('location', user_location)
-    qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=20))).annotate(distance=dist).order_by('distance')
+    qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
+
     # Grab search fields
     programme = request.GET.get('programme')
     course = request.GET.get('course')
