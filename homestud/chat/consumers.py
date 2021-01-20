@@ -210,7 +210,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                     await send_mail(
                         'New Message',
                         'Here is the message.',
-                        'from@example.com',
+                        'hello.homestud.co',
                         [receiver_email],
                         fail_silently=False,
                     )
