@@ -25,7 +25,10 @@ from .models import Room, Message
 import json
 from uuid import UUID
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string, get_template
+from django.utils.html import strip_tags
+from django.shortcuts import render
 
 
 '''
@@ -200,19 +203,29 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                     )
 
                     # ----------- Email notification to receiver ---------------
-                    print('username:', username)
+                    # print('username:', username)
 
                     user_model = get_user_model()
                     receiver_email = user_model.objects.get(username=username)
-                    print('email:', receiver_email)
+                    first_name = receiver_email.first_name
+                    # print(first_name)
+                    # print('email:', receiver_email)
+                    
+                    subject = 'You have a new message!'
+                    from_email = 'Homestud <donotreply@homestud.co>'
+                    context = {'firstname': first_name}
+                    template = get_template('chat/email/new_message.html')
+                    html_message = template.render(context)
+                    text_message = strip_tags(html_message)
+                    # text_message = 'Someone sent you a messaage on homestud.co... click below to view message'
 
                     # send email here
-                    await send_mail(
-                        'New Message',
-                        'Here is the message.',
-                        'hello.homestud.co',
+                    send_mail(
+                        subject,
+                        text_message,
+                        from_email,
                         [receiver_email],
-                        fail_silently=False,
+                        html_message=html_message
                     )
 
                     # -------------- end of email notification -------------
