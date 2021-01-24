@@ -4,7 +4,7 @@ $(document).ready(function (){
     $( '<input type="file" accept="image/*" name="compressedImage" id="imageInput" onchange="handleImageUpload(event); loadFile();" />' ).insertBefore( "#tutorForm" );
 
     // insert img element right before input file
-    $( "<img id='previewAvatar' alt='your image' onclick='uploadImage()' crossorigin='anonymous' width='100' height='100' />" ).insertBefore( "#id_4-avatar" );
+    $( "<img id='previewAvatar' alt='your image' onclick='uploadImage()' crossorigin='use-credentials' width='100' height='100' />" ).insertBefore( "#id_4-avatar" );
     // insert upload button
     $("<p style='display:block;width:120px; ' class='btn upload-btn text-center mint-bg' onclick='uploadImage()'>Upload</p>").insertAfter('#previewAvatar');
 
