@@ -73,7 +73,7 @@ async function handleImageUpload(event) {
       // if p is not 100, load spinner
       if (p != 100){
         // load spinner...spinner variable is set in a script at oboard-tutor.html
-        document.getElementById('previewAvatar').src = spinner;
+        document.getElementById('previewAvatar').src = '/static/img/spinner.gif';
         
         // disable submit button
         $('#submitTutor').attr("disabled", true);
