@@ -28,9 +28,9 @@
 </script>
 <!-- cdn for browser image compress -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@latest/dist/browser-image-compression.js"></script>
-<script src="{% static "js/compress-img.js" %}"></script>
+<script src="{% static 'js/compress-img.js' %}"></script>
 <!-- style avatar css -->
-<link rel="stylesheet" href="{% static "css/avatar.css" %}">
+<link rel="stylesheet" href="{% static 'css/avatar.css' %}">
 {{ geoform.media }}
 
 <script>
@@ -174,10 +174,12 @@
     </div>
     
     <!-- internation telephone input -->
-    <script src="{% static "telinput/js/intlTelInput.js" %}"></script> 
+    <script src="{% static 'telinput/js/intlTelInput.js' %}"></script>
+    <script src="{% static 'telinput/js/utils.js' %}"></script>  
 
     <script type="text/javascript">
         var Formstep = '{{wizard.steps.index}}';
+        var utilPath = '{% static "telinput/js/utils.js" %}';
 
         if (Formstep == 0){
             // runs contact script only on first step
@@ -205,7 +207,7 @@
             // placeholderNumberType: "MOBILE",
             preferredCountries: ['gh'],
             // separateDialCode: true,
-            utilsScript: '{% static "telinput/js/utils.js" %}',
+            utilsScript: utilPath,
             });
         }
 
