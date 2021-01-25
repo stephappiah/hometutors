@@ -1,12 +1,18 @@
 
 
-function uploadToServer(compressedFile){
 
+function uploadToServer(compressedFile){
+  var submit = $('#submitTutor');
   var formElem = document.querySelector('form');
-  var submit = document.querySelector('#submitTutor');
   var filename = username + '-' + date + '.png';
-  
-  submit.addEventListener('click', function (e){
+
+  submit.on('click', function (event){
+    // prevent default send behaviour
+    event.preventDefault();
+
+    // disable btns on click --> to do: show loading spinner instead
+    $('.btn').prop('disabled', true);
+    
 
     // Get the form data from the event object
     var data = new FormData(formElem);
@@ -14,41 +20,33 @@ function uploadToServer(compressedFile){
     for (var value of data.values()) {
       console.log(value);
     }
-    
-    // submit the data via XHR
-    var request = new XMLHttpRequest();
-
-    async function sendData(){
-      request.open("POST", "/onboarding-tutor/", true);
-
-      request.send(data);
-
-      e.preventDefault();
-      
-      // await wait(3000);
-      location.reload();
-    }
-    // send data
-    sendData();
-    // function delays a few seconds after data is sent
-    function wait(milliseconds) {
-      return new Promise(resolve => setTimeout(resolve, milliseconds));
-    }
-
-    async function reloadDashbord(){
-      // await sendData();
-      // wait 3 seconds before executing
-      await wait(5000);
-      window.location.replace("/dashboard/profile");
-    }
 
     
-    reloadDashbord();
-    
-  });
+    // post form via ajax
+    $.ajax({
+      url: "/onboarding-tutor/",
+      type: "POST",
+      data: data,
 
+      success: function(){
+        console.log('Submitted successfully');
+        // redirect to dashboard
+        window.location.replace("/dashboard/profile");
+      },
 
-}
+      error: function(){
+        console.log('Submission failed!!');
+      },
+
+      cache: false,
+      contentType: false,
+      processData: false
+  })
+    // end of ajax
+  }); //end of onsubmit
+  
+} //end of upload-to-server func
+
 
 // function previews compressed image to user
 function loadFile(compressedFile){
