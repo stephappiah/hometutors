@@ -24,22 +24,25 @@ function uploadToServer(compressedFile){
       request.send(data);
 
       e.preventDefault();
-   
+      
+      // await wait(3000);
       location.reload();
     }
+    // send data
+    sendData();
     // function delays a few seconds after data is sent
     function wait(milliseconds) {
       return new Promise(resolve => setTimeout(resolve, milliseconds));
     }
 
     async function reloadDashbord(){
-      await sendData();
+      // await sendData();
       // wait 3 seconds before executing
-      await wait(3000);
+      await wait(5000);
       window.location.replace("/dashboard/profile");
     }
 
-    sendData();
+    
     reloadDashbord();
     
   });
