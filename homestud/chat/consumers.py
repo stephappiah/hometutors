@@ -212,20 +212,19 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                     print('email:', f'{receiver_email}')
                     
                     subject = 'You have a new message!'
-                    from_email = 'Homestud <hello@homestud.co>'
                     context = {'first_name': first_name}
                     template = get_template('chat/email/new_message.html')
                     html_message = template.render(context)
-                    # text_message = strip_tags(html_message)
-                    text_message = 'Someone sent you a messaage on homestud.co... click below to view message'
-                    print(from_email)
+                    text_message = strip_tags(html_message)
+                    #text_message = 'Someone sent you a messaage on homestud.co... click below to view message'
+                    
                     # send email here
                     send_mail(
                         subject,
                         text_message,
                         'Homestud <hello@homestud.co>',
-                        ['appstephen8@gmail.com'],
-                        # html_message=html_message
+                        [f'{receiver_email}'],
+                        html_message=html_message
                     )
 
                     # -------------- end of email notification -------------
