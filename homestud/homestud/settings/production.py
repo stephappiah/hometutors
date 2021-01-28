@@ -64,6 +64,8 @@ STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+# for dkim backend
+EMAIL_BACKEND = 'django_dkim.backends.smtp.EmailBackend'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtpout.secureserver.net'
@@ -75,6 +77,25 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Homestud <hello@homestud.co'
 
 SERVER_EMAIL = config('EMAIL_HOST_USER')
+
+# dkim backend settings
+DKIM_SELECTOR = '1611859132.homestud'
+DKIM_DOMAIN = 'homestud.co'
+DKIM_PRIVATE_KEY = '''-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQC8+4DWT81eONsPD9Hv7MOLsUh7oIlPhIczCqv6TPo97Z+8dqpw
+rkelDiG61h/h4vtBGg7d3JqisNrDIdxppGZb8IhdKjFVDj6mky8xbhMTqRHtT20N
+VToKdU6mC3SH8Qpy5yuTTFW+jUyEcjpHm3V4dfFWYVQ1iutA2rWNOWcfewIDAQAB
+AoGBAJQEnVW+rYkGGTXD21gDZunMEoyaIdJBaC+nRSpIDpxguQNBIqAdMQprdinD
+urcPNGI6SbimKAwTX1UE+YFY/b3dhwPmHvdaQ+GQdWKuWqSZAo18V+jatg2p8u5M
+XwGt71Y63cR6GPKWwdoHfKoCyZJIYpI8OtpWs8moh8tCQyORAkEA7pG4gUro+XCf
+bYML8ujfMoEsEYvFKa3gQ6JaxY3cQVuOpBAyDRsyGYgX0H+v80381OuIZ89dK9L3
+E8JcX57DWQJBAMrKS2cHgAyMvF8s8jf0iFIA1KM6jXHbq2YATEEIMIvvPwTXXf74
+kvJzcU7fVf4bPSi3Wiq/XhyLZZlwa+T1AvMCQQDnkp11K0Cv+ClZBO6RUIhvHsGn
+GnQ8u+HH5Q2VW9lju7re+DWNUUu1SsxK/9bMJnR4PVS/56I6CuL41B4UVyipAkBM
+k8+dfGuSUaLgnexpzOGddcrWSMoY8Mbsobgp5pnOfe3iOiG4os162LU0/4lNh6O0
+uGhINDOpu8oGAzn7H7qZAkAULBUJtOb8mYNMCAnT1XO0KJAvbMWBn8596rEFHY9F
+v/LwzIVxW1EFCzGUDJmjtJFcQJAs5NwACGEvbt2sOPP6
+-----END RSA PRIVATE KEY-----'''
 
 
 BASE_URL = "https://homestud.co"
