@@ -8,6 +8,7 @@
 
 .myPills nav a {
     color: rgba(3, 27, 78, 0.6) !important;
+    font-size: 16px;
 }
 
 .myPills .nav-tabs {
@@ -17,6 +18,7 @@
 /* highlight when active */
 .nav-tabs .nav-link.active {
     border-bottom:solid 2px #1ba883;
+    color: #1ba883 !important;
 }
 
 .pill-info {
@@ -32,7 +34,7 @@
 
 .pill-paragraph{
     font-family: "Roboto",Arial,sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 28px;
     color: #202124;
 
@@ -47,5 +49,6 @@
     margin-bottom: 0.6rem;
     padding-left: 10px;
     padding-right: 10px;
+    color: #26a69a;
 }
 
