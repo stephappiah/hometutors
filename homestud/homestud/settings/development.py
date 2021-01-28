@@ -12,6 +12,8 @@ INSTALLED_APPS += [
     
 ]
 
+SITE_ID=2
+
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
