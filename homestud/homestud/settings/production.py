@@ -44,7 +44,7 @@ DATABASES = {
     }
 }
 
-SITE_ID=1
+SITE_ID=2
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
