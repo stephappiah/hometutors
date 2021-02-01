@@ -12,6 +12,8 @@ function uploadToServer(compressedFile){
 
     // disable btns on click --> to do: show loading spinner instead
     $('.btn').prop('disabled', true);
+    // loading spinner
+    $('<div class="text-center mt-3"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>').insertAfter('.avatar')
     
 
     // Get the form data from the event object
@@ -30,8 +32,8 @@ function uploadToServer(compressedFile){
 
       success: function(){
         console.log('Submitted successfully');
-        // redirect to dashboard
-        window.location.replace("/dashboard/profile");
+        // redirect users to share profile page
+        window.location.replace("/share-profile");
       },
 
       error: function(){

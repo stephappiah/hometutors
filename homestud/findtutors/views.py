@@ -105,8 +105,8 @@ class OnboardingTutorWizard(SessionWizardView):
             user_model.save()
 
 
-            # redirect to profile dashboard
-        return HttpResponseRedirect(reverse('findtutors:dashboard_profile'))
+            # redirect users to share site on social media
+        return HttpResponseRedirect(reverse('findtutors:share_profile'))
 
 # ------ End of onboarding-tutor view ---------------------------------------------------
 
@@ -114,6 +114,8 @@ def home(request):
     
     return render(request, 'findtutors/home.html')
 
+def share_profile(request):
+    return render(request, 'findtutors/tutor-share.html')
 
 def tutor_profile_detail(request, slug_username):
     

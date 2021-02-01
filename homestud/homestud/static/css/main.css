@@ -18,6 +18,18 @@ body {
     color: white;
 }
 
+.btn-twitter{
+    background-color: #0ea8ea;      
+    color: white;
+    font-weight: 600;
+}
+
+.btn-fb{
+    background-color: #0c53b5f5;
+    color: white;
+    font-weight: 600;
+}
+
 .btn:hover {
     color: white;
     text-decoration: none;
@@ -65,6 +77,10 @@ a:active{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.share-box img {
+    height: 250px;
 }
 
 /* .hero-content{
@@ -220,7 +236,9 @@ label {
     text-align: center;
     margin: auto;
 }
-
+.brand-logo img {
+    width: 120px;
+}
 .course-chips{
     border: 1px solid #37BC98;
     display: inline-block;
@@ -380,6 +398,19 @@ p {
         line-height: 32px;
     }
 
+    /* social media share page --> box  */
+    .share-box{
+        padding: 0 200px;
+    }
+
+    .share-body{
+        padding: 0 60px;
+    }
+
+    .share-social{
+        padding: 1.5rem 80px !important;
+    }
+
    /* Navbar */
     /* nav{
         height: 90px;
@@ -502,7 +533,7 @@ p {
     display: none;
     position: absolute;
     z-index: 1;
-    top: 15%;
+    top: 5%;
     left: 0;
     background-color: white;
     /* overflow-y: scroll; */

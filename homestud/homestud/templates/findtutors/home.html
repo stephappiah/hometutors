@@ -6,6 +6,13 @@
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/slider.css' %}">
 <link rel="stylesheet" href="{% static 'css/nav-pills.css' %}">
+
+<!-- open graph markup: this helps facebook display shared link of website correctly -->
+<meta property="og:url"                content="http://homestud.co" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="Find Tutors in Ghana" />
+<meta property="og:description"        content="Homestud is the place for both tutors and students." />
+<meta property="og:image"              content="{% static 'img/illustration/scene3.svg' %}" />
 <script>
     let autocomplete;
     function initAutocomplete(){

@@ -4,6 +4,7 @@
 // on reload function is found in onboard-tutor.html
 $(document).ready(function(){
     
+    
     // create a wordcount box after bio field
     $("<p class='wordCount'></p>").insertAfter('#id_2-bio');
 
