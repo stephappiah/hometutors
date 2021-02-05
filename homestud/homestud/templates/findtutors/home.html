@@ -89,7 +89,7 @@
                 <img src="{% static 'illustration/scene1.svg' %}" alt="">
             </div>
             <div class="mySlides fade">
-                <img src="{% static 'illustration/scene2.svg' %}" alt="">
+                <img src="{% static 'illustration/scene-9.svg' %}" alt="">
             </div>
             <div class="mySlides fade">
                 <img src="{% static 'illustration/scene3.svg' %}" alt="">
@@ -102,7 +102,7 @@
                     Find a home tutor.
                 </p>
                 <p class="hero-subtitle text-muted mb-3 text-center">
-                    A new way to get help learning anything from the comfort of your home.  
+                    Learn from home. It's the only way to get the best out of the learning experience.
                 </p>
                 <form id="searchForm" autocomplete="off" action="{% url 'findtutors:search' %}" method="get">
                     <div class="form-group has-search">
@@ -129,13 +129,94 @@
             
         </div>
     </div> 
-    <!-- end of first row -->
-
-    {% include 'findtutors/tabs-pill.html' %}
-
-    
-
 </div>
+
+
+<!-- list of subjects  -->
+<div class="jumbotron overflow-auto fx-overflw courseJumbo">
+    <h3 class="text-center">Home school. Master a subject. Develop a skill. </h3>
+    <p class="lead text-center">Learn or improve in more than 100 subjects and skills.</p>
+
+    <div class="course-list fx-overflw overflow-auto">
+        
+        <!-- courses list -->
+        <div class="course-home">
+            <h4 class="">Basic</h4>
+            <ul>
+                <li><p>English</p></li>
+                <li><p>Math</p></li>
+                <li><p>Science</p></li>
+                <li><p>Reading</p></li>
+                <li><p>Writing</p></li>
+                <li><p>Numeracy</p></li>
+            </ul>
+        </div>
+
+        <!-- courses list -->
+        <div class="course-home">
+            <h4 class="">Highschool</h4>
+            <ul>
+                <li><p>Arts</p></li>
+                <li><p>Science</p></li>
+                <li><p>Business</p></li>
+                <li><p>Home Economics</p></li>
+                <li><p>Visual Arts</p></li>
+                <li><p>Technical</p></li>
+            </ul>
+        </div>
+
+        <!-- courses list -->
+        <div class="course-home">
+            <h4 class="">International</h4>
+            <ul>
+                <li><p>IELTS</p></li>
+                <li><p>GRE</p></li>
+                <li><p>SAT</p></li>
+            </ul>
+        </div>
+
+        <!-- courses list -->
+        <div class="course-home">
+            <h4 class="">Music</h4>
+            <ul>
+                <li><p>Piano</p></li>
+                <li><p>Guitar</p></li>
+                <li><p>Drums</p></li>
+                <li><p>Saxophone</p></li>
+            </ul>
+        </div>
+
+         <!-- courses list -->
+         <div class="course-home">
+            <h4 class="">Photography</h4>
+            <ul>
+                <li><p>Photography</p></li>
+                <li><p>Photoshop</p></li>
+                <li><p>Lightroom</p></li>
+            </ul>
+        </div>
+
+        <!-- courses list -->
+        <div class="course-home">
+            <h4 class="">IT</h4>
+            <ul>
+                <li><p>Python</p></li>
+                <li><p>HTML</p></li>
+                <li><p>CSS</p></li>
+                <li><p>JavaScript</p></li>
+            </ul>
+        </div>
+        
+
+    </div>
+</div>
+
+
+<!-- tab pills learners/students -->
+<div class="container-fluid">
+    {% include 'findtutors/tabs-pill.html' %}
+</div>
+
 
     <script>
         var slideIndex = 0;
