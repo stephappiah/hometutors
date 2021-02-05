@@ -1,0 +1,35 @@
+{% extends "account/base.html" %}
+{% load static %}
+
+{% block head_title %}
+    Homestud | Find Tutors in Ghana
+{% endblock head_title %}
+
+
+{% block content %}
+    <div class="container p-4">
+        <h1 class="mt-4">Learn from home, wherever you are in Ghana</h1>
+        <img src="{% static 'img/svgs/scene-7.svg' %}" alt="">
+        <div class="list-cities mt-3">
+            <ul>
+                <li><a href="/search/?q=Accra%2C+Ghana&lon=-0.1869644&lat=5.6037168">Accra</a></li>
+                <li><a href="/search/?q=Cape+Coast%2C+Ghana&lon=-1.2794744&lat=5.13151">Cape Coast</a></li>
+                <li><a href="/search/?q=Tema%2C+Ghana&lon=0.0302354&lat=5.7348119">Tema</a></li>
+                <li><a href="/search/?q=Kumasi%2C+Ghana&lon=-1.6162709&lat=6.6666004">Kumasi</a></li>
+                <li><a href="/search/?q=Takoradi%2C+Ghana&lon=-1.7830973&lat=4.9015794">Takoradi</a></li>
+                <li><a href="/search/?q=Winneba%2C+Ghana&lon=-0.6298922&lat=5.3622295">Winneba</a></li>
+                <li><a href="/search/?q=Ho%2C+Ghana&lon=0.4785495&lat=6.6101493">Ho</a></li>
+                <li><a href="/search/?q=Tamale%2C+Ghana&lon=-0.8424159999999999&lat=9.403422599999999">Tamale</a></li>
+                <li><a href="/search/?q=Wa%2C+Ghana&lon=-2.5098914&lat=10.0600742">Wa</a></li>
+                <li><a href="/search/?q=Sunyani%2C+Ghana&lon=-2.3123031&lat=7.3349414">Sunyani</a></li>
+                <li><a href="/search/?q=Techiman%2C+Ghana&lon=-1.9343555&lat=7.5908801">Techiman</a></li>
+                <li><a href="/search/?q=Obuasi%2C+Ghana&lon=-1.6912512&lat=6.2012073">Obuasi</a></li>
+                <li><a href="/search/?q=Teshie%2C+Accra%2C+Ghana&lon=-0.1046082&lat=5.5831665">Teshie</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="/search/?q=Bolgatanga%2C+Ghana&lon=-0.8579818&lat=10.7875419">Bolgatanga</a></li>
+                <li><a href="?q=Ashaiman%2C+Tema%2C+Ghana&lon=-0.0326531&lat=5.6931346">Ashaiman</a></li>
+
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

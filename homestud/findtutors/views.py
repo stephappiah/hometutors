@@ -293,3 +293,7 @@ def dashboard_profile(request):
         'InterestForm': InterestForm,
     }
     return render(request, 'findtutors/profile-dashboard.html', context)
+
+def cities(request):
+
+    return render(request, 'findtutors/cities.html')

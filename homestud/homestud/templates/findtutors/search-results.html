@@ -3,7 +3,7 @@
 {% load static %}
 {% load extra_template_filters %}
 {% block head_title %}
-      Find home tutors near you!
+     
 {% endblock head_title %}
 
 
@@ -32,12 +32,9 @@
         </div>
 
         <!-- number of tutors nearby -->
-        {% if total_tutors == 1 %}
-            <p class="text-center"> {{ total_tutors }} Tutor Nearby</p>
-        {% else %}
-            <p class="text-center"> {{ total_tutors }} Tutors Nearby</p>
-        {% endif %}
-        
+     
+        <p class="text-center tutorNumText"></p>
+       
         <!-- list of tutors -->
         <div class="row">
             
@@ -140,6 +137,7 @@
         const programmeList = {{programme_list | safe}};
         let progDropdown = $('#programme');
         let coursDropdown = $('#courseList');
+        let tutorNum = {{ total_tutors }};
 
         coursDropdown.empty()
         //coursDropdown.append('<option selected="true" disabled>Filter by subjects/courses</option>');
@@ -162,6 +160,33 @@
           }
 
         
+        // steps to extract location name from url
+
+        var url = window.location.href; 
+        // removes % from url
+        var decodeURL = decodeURIComponent(url);
+        // splits string at =
+        var fff = decodeURL.split('=');
+        // this returns string as followed: Patasi,+Kumasi,+Ghana&lon
+        // separate string at &
+        // fff returns an array: ['homestud.co/search/q', 'location', 'lon', lan]
+        var fields = fff[1].split('&');
+        var withSpecialChar = fields[0];
+        console.log({withSpecialChar});
+        // turns ',+' into a regex, then 'g' stands for replacing all instances
+        
+        var locName = withSpecialChar.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ' ');
+
+        // title and number of tutors available indicator
+        if (tutorNum == 1){
+            $('.tutorNumText').text(`${tutorNum} home tutor in ${locName}`);
+            $('title').html(`${tutorNum} home tutor in ${locName} | Homestud`);
+        } else {
+            $('.tutorNumText').text(`${tutorNum} home tutors in ${locName}`);
+            $('title').html(`${tutorNum} home tutors in ${locName} | Homestud`);
+        }
+        
+        console.log({locName});
     </script>
 
 {% endblock content %}

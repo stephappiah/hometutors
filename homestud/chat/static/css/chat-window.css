@@ -241,3 +241,22 @@ It's a textarea element to enable scroll.*/
     max-width: 100%;
   }
 }
+
+.text-suggestion{
+	padding: 0 10px;
+	display: flex;
+}
+
+.suggestion-bubble{
+	border: 1px solid #08d18e;
+    color: #606060;
+	border-radius: 25px;
+	width: fit-content;
+	display: flex;
+	padding: 5px 10px;
+	line-height: 14px;
+	
+	font-size: small;
+    margin-right: 4px;
+}
+
