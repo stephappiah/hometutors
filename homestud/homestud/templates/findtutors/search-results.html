@@ -6,13 +6,84 @@
      
 {% endblock head_title %}
 
+{% block extra_head %}
+    <script>
+        let autocomplete;
+        function initAutocomplete(){
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('place'),
+                {
+                    types: [],
+                    componentRestrictions: {'country': ['GH']},
+                    fields: ['place_id', 'geometry', 'name']
+                }
+            );
+            autocomplete.addListener('place_changed', onPlaceChanged);
+        }
+        function onPlaceChanged(){
+            var place = autocomplete.getPlace();
+
+            if (!place.geometry){
+                //User did not selet a prediction; reset the input field --> place is id for search box
+                document.getElementById('place').placeholder = 'Enter a location';
+            } else {
+                //Get lon and lat of entered location
+                let latitude = place.geometry.location.lat()
+                let longitude = place.geometry.location.lng()
+                //Pre-fill lon and lat fields (hidden from user) to be used on the server-side
+                $('#longitude').val(longitude);
+                $('#latitude').val(latitude);
+                
+                // Submit form onclick
+                //document.forms['searchForm'].submit();
+                
+            }
+        }
+
+        function getPosition(){
+            console.log('button clicked');
+            // check if user browser supports geolocation
+            if ('geolocation' in navigator){
+                // Get location coordinates with function (p)
+                navigator.geolocation.getCurrentPosition(function(p){
+                    
+                    let latitude = p.coords.latitude;
+                    let longitude = p.coords.longitude;
+
+                    console.log(latitude + ' ' + longitude);
+                    //Pre-fill lon and lat fields (hidden from user) to be used on the server-side
+                    $('#longitude').val(longitude);
+                    $('#latitude').val(latitude);
+                    $('#place').val('My location');
+
+                    //Submit form onclick
+                    //document.forms['searchForm'].submit();
+                });
+
+            } else  {
+                //Use IP address instead if geolocation not supported
+                ipLookup();
+                function ipLookup(){
+            }    
+                
+
+            }
+        }
+    </script>
+    <!-- Google maps api url and callback function -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
+{% endblock extra_head %}
+
 
 {% block content %}
     <div class="container jumbotron-bwhite mt-4">
         <div class="row">
             <div class="col-sm col-lg-4 mt-4">
                 <form action="{% url 'findtutors:filter' %}" method="get" autocomplete="off">
-                    <!-- <input name="programme" id="search" placeholder="Filter by tutoring programme..."> -->
+                    <!-- autocomplete location search -->
+                    <input name="place" type="text" class="form-control shadow-sm" autocomplete="off" id="place" placeholder="Search your location...">
+                    <input name="longitude" class="d-none" id="longitude">
+                    <input name="latitude" class="d-none" id="latitude">
                     <select class="form-control mb-2" id="programme" name="programme"></select>
                     <input class="form-control" id="course" name="course" list="courseList" placeholder="Filter by subjects/courses">
                     <datalist id="courseList">

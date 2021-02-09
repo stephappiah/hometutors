@@ -197,12 +197,34 @@ def FilterSearch(request):
     programme_list = json.dumps(dict(programmes_choices))
     course_list = json.dumps(dict(courses_choices))
 
+    # check if search form has coordinates
+    # else use coordinates from session
+    def get_latitude():
+        if request.GET.get('latitude') is not None or '':
+            # coordinates from search form
+            latitude = request.GET.get('latitude')
+            return latitude
+        else:
+            # coordinates from session
+            latitude = request.session['lat']
+            return latitude
 
-    # coordinates from session
-    latitude = request.session['lat']
-    longitude = request.session['lon']
+    def get_longitude():
+        if request.GET.get('longitude') is not None or '':
+            # coordinates from search form
+            longitude = request.GET.get('longitude')
+            return longitude
+        else:
+            # coordinates from session
+            longitude = request.session['lon']
+            return longitude
+    
+    # get coordinates
+    longitude = float(get_longitude())
+    latitude = float(get_latitude())
+    print(longitude, latitude)
     user_location = Point(longitude, latitude, srid=4326)
-    # Queryset filtered within a distance of 20km; annotated and orderd by distance
+    # Queryset filtered within a distance of 100km; annotated and orderd by distance
     dist = Distance('location', user_location)
     qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
 
