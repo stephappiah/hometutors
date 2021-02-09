@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class UserManager(BaseUserManager):
 
-    def _create_user(self, email, password, is_staff, is_superuser, first_name, last_name):
+    def _create_user(self, email, contact, password, is_staff, is_superuser, first_name, last_name):
         if not email:
             raise ValueError('Users must have an email address')
         if not first_name:
@@ -18,6 +19,7 @@ class UserManager(BaseUserManager):
 
         user = self.model(
             email=email,
+            contact=contact,
             is_staff=is_staff, 
             is_active=True,
             is_tutor=False,
@@ -31,11 +33,11 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password, first_name, last_name):
-        return self._create_user(email, password, False, False, first_name, last_name) 
+    def create_user(self, email, contact, password, first_name, last_name):
+        return self._create_user(email, contact, password, False, False, first_name, last_name) 
 
-    def create_superuser(self, email, password, first_name, last_name):
-        user=self._create_user(email, password, True, True, first_name, last_name)
+    def create_superuser(self, email, contact, password, first_name, last_name):
+        user=self._create_user(email, contact, password, True, True, first_name, last_name)
         user.save(using=self._db)
         return user
 
@@ -46,6 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=60, unique=True, blank=True, null=True) 
     first_name = models.CharField(max_length=254, null=True, blank=True)
     last_name = models.CharField(max_length=254, null=True, blank=True)
+    contact = PhoneNumberField(null=True, blank=True, region='GH')
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -73,6 +76,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.last_name
         else:
             return self.first_name 
+
+    def get_call_contact(self):
+        return self.contact
 
     def get_short_name(self):
         if self.first_name == None:

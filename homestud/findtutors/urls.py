@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from . import views
-from .views import OnboardingTutorWizard, SearchTutor, FilterSearch, dashboard_profile, share_profile, cities
+from .views import OnboardingTutorWizard, SearchTutor, FilterSearch, dashboard_profile, share_profile, cities, privacyPolicy, termsNCondition
 from .forms import PersonInfoForm, EducationForm, TutorProfileForm
 
 app_name = 'findtutors'
@@ -16,6 +16,8 @@ urlpatterns = [
     path('filter/', FilterSearch, name='filter'),
     path('dashboard/profile', dashboard_profile, name='dashboard_profile'),
     path('share-profile/', share_profile, name='share_profile'),
-    path('cities/', cities, name='cities')
+    path('cities/', cities, name='cities'),
+    path('privacy-policy/', privacyPolicy, name='privacy'),
+    path('terms-and-conditions/', termsNCondition, name='terms')
 
 ]

@@ -10,8 +10,6 @@
 
 {% block extra_head %}
 
-<!-- internation telephone input styles -->
-<link rel="stylesheet" href="{% static 'telinput/css/intlTelInput.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- <link rel="stylesheet" href="{% static "telinput/css/demo.css" %}"> -->
 
@@ -173,47 +171,9 @@
         </div> <!------------------ END Registration AREA ----------------->
         
     </div>
-    
-    <!-- internation telephone input -->
-    <script src="{% static 'telinput/js/intlTelInput.js' %}"></script>
-    <script src="{% static 'telinput/js/utils.js' %}"></script>  
 
     <script type="text/javascript">
         var Formstep = '{{wizard.steps.index}}';
-        var utilPath = '{% static "telinput/js/utils.js" %}';
-
-        if (Formstep == 0){
-            // runs contact script only on first step
-            // international telephone script
-
-            var input = document.querySelector("#id_0-contact");
-            window.intlTelInput(input, {
-            allowDropdown: false,
-            // autoHideDialCode: false,
-            // autoPlaceholder: "off",
-            //dropdownContainer: document.body,
-            // excludeCountries: ["us"],
-            // formatOnDisplay: false,
-            // geoIpLookup: function(callback) {
-            //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-            //     var countryCode = (resp && resp.country) ? resp.country : "";
-            //     callback(countryCode);
-            //   });
-            // },
-            hiddenInput: "0-contact",
-            // initialCountry: "auto",
-            localizedCountries: { 'gh': 'Ghana' },
-            nationalMode: true,
-            // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-            // placeholderNumberType: "MOBILE",
-            preferredCountries: ['gh'],
-            // separateDialCode: true,
-            utilsScript: utilPath,
-            });
-        }
-
-        
-
 
         // change active stepper background
         $(document).ready(function(){

@@ -79,14 +79,21 @@ class ChatRoomView(LoginRequiredMixin, TemplateView):
 				message.recipients.add(user)
 			if all_members.count() == 1:
 				room_name = "Notes to Yourself"
+				# get user's contact in template --> my code
+				contact = ''
 			elif all_members.count() == 2:
 				room_name = all_members.exclude(pk=user.pk)[0].get_full_name()
+
+				# get user's contact in template --> my code
+				contact = all_members.exclude(pk=user.pk)[0].get_call_contact()
 			else:
 				room_name = room.__str__()
+
 			context['room_uuid_json'] = kwargs.get('uuid')
 			context['latest_messages_curr_room'] = latest_messages_curr_room
 			context['room_name'] = room_name
 			context['base_template'] = import_base_template()
+			context['contact'] = contact
 
 			# Add rooms with unread messages
 			rooms_list = Room.objects.filter(members=self.request.user)\

@@ -1,8 +1,14 @@
 {% extends "account/base.html" %}
 {% load i18n %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block head_title %}{% trans "Create an account." %}{% endblock %}
+
+{% block extra_head %}
+<!-- internation telephone input styles -->
+<link rel="stylesheet" href="{% static 'telinput/css/intlTelInput.css' %}">
+{% endblock extra_head %}
 
 {% block content %}
   <div class="container">
@@ -30,12 +36,49 @@
           
           <button class="btn btn-block btn-dark border-round" type="submit">{% trans "Sign Up" %} &raquo;</button>
           <div class="text-center mt-3">
-            <small class="text-center p-2">By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policies</a> .</small>
+            <small class="text-center p-2">By signing up, you agree to our <a href="{% url 'findtutors:terms' %}">Terms of Service</a> and <a href="{% url 'findtutors:privacy' %}">Privacy Policies</a> .</small>
           </div>
         </form>
       </div>
     </div>
   </div>
 
+  <!-- internation telephone input -->
+  <script src="{% static 'telinput/js/intlTelInput.js' %}"></script>
+  <script src="{% static 'telinput/js/utils.js' %}"></script>  
+
+  <script type="text/javascript">
+
+      var utilPath = '{% static "telinput/js/utils.js" %}';
+      // international telephone script
+
+      var input = document.querySelector("#id_contact");
+
+      window.intlTelInput(input, {
+        
+        allowDropdown: false,
+        // autoHideDialCode: false,
+        // autoPlaceholder: "off",
+        //dropdownContainer: document.body,
+        // excludeCountries: ["us"],
+        // formatOnDisplay: false,
+        // geoIpLookup: function(callback) {
+        //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+        //     var countryCode = (resp && resp.country) ? resp.country : "";
+        //     callback(countryCode);
+        //   });
+        // },
+        hiddenInput: "contact",
+        // initialCountry: "auto",
+        localizedCountries: { 'gh': 'Ghana' },
+        nationalMode: true,
+        // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+        // placeholderNumberType: "MOBILE",
+        preferredCountries: ['gh'],
+        // separateDialCode: true,
+        utilsScript: utilPath,
+      });
+
+    </script>
 
 {% endblock %}

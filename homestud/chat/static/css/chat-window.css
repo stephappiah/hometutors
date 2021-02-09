@@ -260,3 +260,9 @@ It's a textarea element to enable scroll.*/
     margin-right: 4px;
 }
 
+.call {
+	position: absolute;
+    color: #08d18e;
+    right: 20px;
+}
+

@@ -297,3 +297,11 @@ def dashboard_profile(request):
 def cities(request):
 
     return render(request, 'findtutors/cities.html')
+
+def privacyPolicy(request):
+
+    return render(request, 'findtutors/privacy.html')
+
+def termsNCondition(request):
+
+    return render(request, 'findtutors/terms.html')

@@ -39,6 +39,10 @@
 						<img id="back-button" src="{% static 'img/left-arrow.svg' %}">
 					</div>
 					<div>{{room_name|title}}</div>
+					<!-- call button -->
+					<a class="call" href="tel:{{ contact }}">
+						<i class="fas fa-phone"></i>
+					</a>
 				</div>
 				<div id = "chat-dialog">
 					<!--AI==========================================================

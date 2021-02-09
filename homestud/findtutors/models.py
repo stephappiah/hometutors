@@ -3,7 +3,6 @@ from django.contrib.gis.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from multiselectfield import MultiSelectField
-from phonenumber_field.modelfields import PhoneNumberField
 from .multi_choices import teach_level_choices, free_lesson_choices, highest_education_choices, class_type_choices, user_type_choices
 from .courses import courses_choices, programmes_choices
 
@@ -17,7 +16,6 @@ class TutorProfile(models.Model):
     address = models.CharField(max_length=100, blank=True, null=True)
     avatar = models.ImageField(blank=True, null=True, upload_to='avatar/%Y/%m/%d/')
     dob = models.DateField(null=True, blank=True)
-    contact = PhoneNumberField(null=True, blank=True, region='GH')
     
     # Education
     school = models.CharField(max_length=100, blank=True, null=True)

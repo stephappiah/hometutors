@@ -28,7 +28,6 @@ class PersonInfoForm(forms.ModelForm):
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
         self.fields['dob'].required = True
-        self.fields['contact'].required = True
         self.fields['address'].required = True
         self.fields['location'].required = True
         self.fields['address'].widget.attrs['placeholder'] = 'Town, City'
@@ -37,15 +36,12 @@ class PersonInfoForm(forms.ModelForm):
             'required': 'Please wait for places autocomplete to show up as you type and select your address.',
         })
 
-    contact = PhoneNumberField()
-
     class Meta:
         model = TutorProfile
-        fields = ('first_name', 'last_name', 'dob', 'contact', 'location', 'address', 'slug', )
+        fields = ('first_name', 'last_name', 'dob', 'location', 'address', 'slug', )
         
         labels = {
             'dob': 'Date of Birth',
-            'contact': 'Contact',
             'address': 'Address',
             'first_name': 'First name',
             'last_name': 'Last name',
