@@ -4,6 +4,8 @@ from .base import *
 SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = False
+# admins get notified of errors
+ADMINS = [('Steph', 'noreply.homestud@gmail.com'),]
 
 ALLOWED_HOSTS = ["178.62.30.58", "homestud.co", "www.homestud.co"]
 
@@ -77,7 +79,7 @@ EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Homestud <hello@homestud.co'
 
-SERVER_EMAIL = config('EMAIL_HOST_USER')
+SERVER_EMAIL = 'server@homestud.co'
 
 # dkim backend settings
 DKIM_SELECTOR = '1611859132.homestud'
