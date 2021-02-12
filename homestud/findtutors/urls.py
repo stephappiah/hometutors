@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('', views.home, name="home"),
     path("tutor/<str:slug_username>", views.tutor_profile_detail, name="view_tutor_profile"),
-    url(r'^onboarding-tutor/$', login_required(OnboardingTutorWizard.as_view()), name="onboarding_tutor"),
+    url(r'^onboarding-tutor/$', login_required(OnboardingTutorWizard.as_view(), login_url='account_signup'), name="onboarding_tutor"),
     path("search/", SearchTutor, name="search"),
     path('filter/', FilterSearch, name='filter'),
     path('dashboard/profile', dashboard_profile, name='dashboard_profile'),

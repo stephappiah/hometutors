@@ -15,7 +15,7 @@
           <p class="display-text text-center">{% trans "Welcome Back!" %}</p>
           <p class="text-center">{% blocktrans %}Not a member yet? <a href="{{ signup_url }}">Sign up</a>{% endblocktrans %}</p>
           
-          {% get_providers as socialaccount_providers %}
+          <!-- {% get_providers as socialaccount_providers %}
           {% if socialaccount_providers %}
 
             <div class="socialaccount_ballot mt-5 mb-3">
@@ -34,7 +34,7 @@
             <p>{% blocktrans %}If you have not created an account yet, then please
             <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
             {% endif %}
-        </div>
+        </div> -->
         
 
         <form class="login" method="POST" action="{% url 'account_login' %}">

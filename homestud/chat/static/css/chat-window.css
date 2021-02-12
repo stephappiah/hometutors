@@ -260,9 +260,23 @@ It's a textarea element to enable scroll.*/
     margin-right: 4px;
 }
 
-.call {
-	position: absolute;
-    color: #08d18e;
-    right: 20px;
+/* Desktop and Tablets */
+@media (min-width: 768px){
+	.call {
+		position: absolute;
+		color: #08d18e;
+		right: 70px;        
+		/* only difference it has with small screen is value of right: 70px */
+	}
 }
+
+/* Phone screeens (small) */
+@media only screen and (max-width: 767px){
+	.call {
+		position: absolute;
+		color: #08d18e;
+		right: 20px;
+	}
+}
+
 

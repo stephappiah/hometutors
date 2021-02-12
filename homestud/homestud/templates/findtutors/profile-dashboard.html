@@ -6,8 +6,23 @@
     Dashboard - Homestud
 {% endblock head_title %}
 {% block extra_head %}
-    <script src="{% static "js/dashboard_chips.js" %}"></script>
-    <script src="{% static "js/dashboard-show-chips.js" %}"></script>
+    <script src="{% static 'js/dashboard_chips.js' %}"></script>
+    <script src="{% static 'js/dashboard-show-chips.js' %}"></script>
+    <script src="{% static 'js/dashboard-avatar.js' %}"></script>
+
+    <!-- cdn for browser image compress -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@latest/dist/browser-image-compression.js"></script>
+
+    <script>
+        var avatarLink = '{{ userAvatarLink }}';
+        var username = '{{ user.username }}';
+        var today = new Date();
+
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'-'+today.getTime();
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/avatar.css' %}">
+
 {% endblock extra_head %}
 {% block content %}
 
@@ -15,6 +30,16 @@
 
          <!-- form display on mobile screens -->
          <div class="row mt-5 wrapper-form">
+             <!-- avatar -->
+            <div class="mbox" onclick="openAvatar()">
+                <div class="text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">
+                        <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z"/>
+                      </svg>
+                </div>
+                <p class="text-center">Avatar</p>
+            </div>
             <!-- Personal info -->
             <div class="mbox" onclick="openInfo()">
                 <div class="text-center">
@@ -60,6 +85,18 @@
 
         <!-- desktop forms -->
         <div class="row lg-row-forms mt-5">
+            <div class="col-sm-6">
+                <!-- avatar form -->
+               <div class="card shadow">
+                   <div class="card-body p-5">
+                       <form action="" class="avatarForm" enctype="multipart/form-data" method="post">
+                           {% csrf_token %}
+                           {{ AvatarForm }}
+                           <button class="btn btn-dark mt-4" type="submit" name="avatar">Update</button>
+                       </form>
+                   </div>
+               </div> 
+           </div>
             <div class="col-sm-6">
                  <!-- tutor personal info form -->
                 <div class="card shadow">
@@ -114,6 +151,9 @@
     </div>
 
     <script>
+        function openAvatar() {
+            document.getElementById("avatar").style.display = "block";
+          }
         function openInfo() {
           document.getElementById("p-info").style.display = "block";
         }
@@ -128,6 +168,9 @@
         }
 
         // Close events
+        function closeAvatar() {
+            document.getElementById("avatar").style.display = "none";
+          }
         function closeInfo() {
           document.getElementById("p-info").style.display = "none";
         }

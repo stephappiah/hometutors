@@ -271,6 +271,7 @@ def dashboard_profile(request):
             EducationalForm = EducationForm(instance=data, prefix='education') 
             ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
             InterestForm = TutorInterestForm(instance=data, prefix='interest')
+            AvtForm = AvatarForm(instance=data, prefix='avatar')
 
         elif 'education' in request.POST:
             EducationalForm = EducationForm(request.POST, prefix='education', instance=data)
@@ -280,6 +281,7 @@ def dashboard_profile(request):
             PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
             ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
             InterestForm = TutorInterestForm(instance=data, prefix='interest')
+            AvtForm = AvatarForm(instance=data, prefix='avatar')
 
         elif 'tutor_profile' in request.POST:
             ProfileForm = TutorProfileForm(request.POST, prefix='tutor_profile', instance=data)
@@ -289,6 +291,7 @@ def dashboard_profile(request):
             PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
             EducationalForm = EducationForm(instance=data, prefix='education') 
             InterestForm = TutorInterestForm(instance=data, prefix='interest')
+            AvtForm = AvatarForm(instance=data, prefix='avatar')
 
         elif 'interest' in request.POST:
             InterestForm = TutorInterestForm(request.POST, prefix='interest', instance=data)
@@ -298,12 +301,34 @@ def dashboard_profile(request):
             PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
             EducationalForm = EducationForm(instance=data, prefix='education') 
             ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
+            AvtForm = AvatarForm(instance=data, prefix='avatar')
+
+        elif 'avatar' or '' in request.POST:
+            AvtForm = AvatarForm(request.POST, prefix='avatar', instance=data)
+            if AvtForm.is_valid():
+                AvtForm.save()
+
+                if request.FILES.get('compressedImage', None) != None:
+                    try:
+                        os.remove(data.avatar.url)
+                    except Exception as e:
+                        #print(data.avatar.url)
+                        print('Exception in removing old profile image: ', e)
+                    img = request.FILES['compressedImage']
+                    data.avatar = img
+                    data.save()
+
+            PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
+            EducationalForm = EducationForm(instance=data, prefix='education') 
+            ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
+            InterestForm = TutorInterestForm(instance=data, prefix='interest')
 
     else:
         PersonalForm = PersonInfoForm(instance=data, prefix='personal_info') 
         EducationalForm = EducationForm(instance=data, prefix='education') 
         ProfileForm = TutorProfileForm(instance=data, prefix='tutor_profile') 
         InterestForm = TutorInterestForm(instance=data, prefix='interest')
+        AvtForm = AvatarForm(instance=data, prefix='avatar')
 
         
 
@@ -313,6 +338,8 @@ def dashboard_profile(request):
         'EducationalForm': EducationalForm,
         'ProfileForm': ProfileForm,
         'InterestForm': InterestForm,
+        'AvatarForm': AvtForm,
+        'userAvatarLink': data.avatar.url,
     }
     return render(request, 'findtutors/profile-dashboard.html', context)
 

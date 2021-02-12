@@ -1,4 +1,20 @@
 
+<!-- avatar -->
+<div id="avatar" class="overlay">
+    <span class="closebtn" onclick="closeAvatar()" title="Close Overlay">
+        <span class="material-icons">
+            close
+        </span>
+    </span>
+    <div class="overlay-content">
+        <form action="" class="avatarForm" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ AvatarForm}}
+            <button class="btn btn-dark avt-btn" type="submit" name="avatar">Update</button>
+        </form>
+    </div>
+</div>
+
 <!-- Person info -->
 <div id="p-info" class="overlay">
     <span class="closebtn" onclick="closeInfo()" title="Close Overlay">
