@@ -119,7 +119,8 @@ def share_profile(request):
 
 def tutor_profile_detail(request, slug_username):
     
-    qs = TutorProfile.objects.get(slug=slug_username)
+    # qs = TutorProfile.objects.get(slug=slug_username)
+    qs = get_object_or_404(TutorProfile, slug=slug_username)
     context = {
         'tutor': qs,
     }
