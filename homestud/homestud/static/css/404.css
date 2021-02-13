@@ -15,5 +15,6 @@ h2 {
 
 .home{
     margin: auto;
+    display: block;
 }
 
