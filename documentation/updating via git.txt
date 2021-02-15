@@ -26,3 +26,7 @@ If you change code on your server you must execute this to see the changes take 
 restart the server
 
 new passwd:  'djfdfieHkDGgd3837&^Cs£2cC(*.cx2570F~?hdg78656'
+
+##### accessing log files
+
+	~ sudo nano /var/log/django.log

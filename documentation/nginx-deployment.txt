@@ -95,6 +95,17 @@ http{
 
 #### Debugging commands
 
+## create gunicorn logs
+
+# Create logging folder for gunicorn.
+	~ sudo mkdir -p /var/log/gunicorn
+	~ sudo nano /etc/systemd/system/gunicorn.service 	(open file)
+
+# add the ff to gunicorn.service
+	--error-logfile /var/log/gunicorn/error.log --access-logfile /var/log/gunicorn/access.log
+
+###################
+
 sudo journalctl 				is where all the logs are consolidated to. That's usually where I check.
 sudo tail -F /var/log/nginx/error.log 		View the last entries in the error log
 sudo journalctl -u nginx 			Nginx process logs
