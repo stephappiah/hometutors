@@ -238,15 +238,29 @@
         var decodeURL = decodeURIComponent(url);
         // splits string at =
         var fff = decodeURL.split('=');
+        console.log({fff});
         // this returns string as followed: Patasi,+Kumasi,+Ghana&lon
         // separate string at &
         // fff returns an array: ['homestud.co/search/q', 'location', 'lon', lan]
         var fields = fff[1].split('&');
+        console.log({fields});
         var withSpecialChar = fields[0];
         console.log({withSpecialChar});
         // turns ',+' into a regex, then 'g' stands for replacing all instances
         
         var locName = withSpecialChar.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ' ');
+
+        // lon from url
+        var urlLon = fff[2].split('&')[0];
+        console.log({urlLon});
+        // lat from url
+        var urlLat = fff[3].split('&')[0];
+        console.log({urlLat});
+
+        //insert locname, urllat, urllon into search fields as initial values
+        $('#place').val(locName);
+        $('#latitude').val(urlLat);
+        $('#longitude').val(urlLon);
 
         // title and number of tutors available indicator
         if (tutorNum == 1){
