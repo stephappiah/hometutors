@@ -204,11 +204,11 @@
 
     <script>
         // Script fetches programmes and courses into dropdown
-        const courseList = {{ course_list | safe }};
-        const programmeList = {{programme_list | safe}};
+        const courseList = '{{ course_list | safe }}';
+        const programmeList = '{{programme_list | safe}}';
         let progDropdown = $('#programme');
         let coursDropdown = $('#courseList');
-        let tutorNum = {{ total_tutors }};
+        let tutorNum = '{{ total_tutors }}';
 
         coursDropdown.empty()
         //coursDropdown.append('<option selected="true" disabled>Filter by subjects/courses</option>');

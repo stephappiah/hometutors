@@ -22,6 +22,7 @@ from django.core.paginator import Paginator
 from .courses import courses_choices, programmes_choices
 import json 
 
+from homestud.decorators import subcribed_user
 
 class OnboardingTutorWizard(SessionWizardView):
 
@@ -109,7 +110,8 @@ class OnboardingTutorWizard(SessionWizardView):
         return HttpResponseRedirect(reverse('findtutors:share_profile'))
 
 # ------ End of onboarding-tutor view ---------------------------------------------------
-
+@login_required
+# @subcribed_user
 def home(request):
     
     return render(request, 'findtutors/home.html')
@@ -355,3 +357,7 @@ def privacyPolicy(request):
 def termsNCondition(request):
 
     return render(request, 'findtutors/terms.html')
+
+def bookClass(request):
+    
+    pass

@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'channels',
 
     'users',
+    'payments',
     'findtutors',
     'chat',
 
@@ -146,3 +147,6 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
 MEDIA_URL = '/img/'
+
+PAYSTACK_PUBLIC_KEY = 'pk_test_1301ae5f94c2cf0e0de6689629f73a96b7bfa8bb'
+PAYSTACK_SECRET_KEY = 'sk_test_989169108aaf6ab394c715e8db93bba227abcd4d'
