@@ -110,8 +110,7 @@ class OnboardingTutorWizard(SessionWizardView):
         return HttpResponseRedirect(reverse('findtutors:share_profile'))
 
 # ------ End of onboarding-tutor view ---------------------------------------------------
-@login_required
-# @subcribed_user
+
 def home(request):
     
     return render(request, 'findtutors/home.html')
