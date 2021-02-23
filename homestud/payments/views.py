@@ -49,7 +49,7 @@ def checkout(request):
 
     if subscriptionStatus() == 'inactive':
         email = request.user.email
-        amount = 33
+        amount = 29
         print(email)
         print(request.path)
 

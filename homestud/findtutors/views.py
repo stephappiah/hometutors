@@ -356,10 +356,3 @@ def privacyPolicy(request):
 def termsNCondition(request):
 
     return render(request, 'findtutors/terms.html')
-
-
-@login_required
-#@subcribed_user
-def bookClass(request):
-    
-    return redirect()
