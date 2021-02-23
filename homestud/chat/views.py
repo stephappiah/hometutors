@@ -11,6 +11,9 @@ from django.views.generic.base import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
 
+from homestud.decorators import subcribed_user
+
+
 from .models import Room, Message
 from .utils import create_room
 
@@ -130,10 +133,16 @@ def users_list(request):
 
 
 @login_required
+@subcribed_user 
 def get_chat_url(request):
-	user = get_user_model().objects.get(username=request.user.username)
-	target_user = get_user_model().objects.get(username=request.POST.get('target_user')) #changed from pk to username mycode
+
+	# user = get_user_model().objects.get(username=request.user.username)
+	user = get_object_or_404(get_user_model(), username=request.user.username) #my code
+	# target_user = get_user_model().objects.get(username=request.POST.get('target_user')) #changed from pk to username mycode
+	target_user = get_object_or_404(get_user_model(), username=request.GET.get('target_user')) #my code
 	
+	print(user)
+	print(target_user)
 	'''
 	AI-------------------------------------------------------------------
 		Use the util room creation function to create room for one/two

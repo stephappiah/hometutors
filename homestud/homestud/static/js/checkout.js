@@ -3,6 +3,20 @@ $(document).ready(function(){
     // insert loading div into top of document
     $('body').prepend("<div class='loading hidden'><div class='uil-ring-css' style='transform:scale(0.79);'><div></div>");
 
+    // get next url for redirect
+    var url = window.location.href; 
+    // removes % from url
+    var decodeURL = decodeURIComponent(url);
+    // splits string at =
+    var fff = decodeURL.split('?');
+    // url index 1
+    var mainUrl = fff[1].split('=')[1];
+    var target_user = fff[2];
+    // concatenate 
+    nextUrl = mainUrl + '?' + target_user
+    console.log({nextUrl});
+
+
     function payWithPaystack() {
 
         let handler = PaystackPop.setup({
@@ -52,7 +66,7 @@ $(document).ready(function(){
                         // set text
                         $('.alert-message').text('Transaction successful!');
                         // redirect to next page --> chat
-
+                        window.location.href = nextUrl;
                       } else {
 
                           // show alert

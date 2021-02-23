@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
+from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from pypaystack import Transaction, Customer, Plan
 from datetime import timedelta, datetime
@@ -18,16 +19,49 @@ secret_key = settings.PAYSTACK_SECRET_KEY
 def checkout(request):
     # to-do: check whenever url is visited to see if user has active subscription
     # if true, redirect; else continue
-    email = request.user.email
-    amount = 33
+    current_user = request.user
+    url = request.get_full_path()
+    print(url)
+    def subscriptionStatus():
+        '''
+            returns active or inactive status of user subscription
+        '''
+        try: 
+            # user subscription exist in database
+            user_subscription = Subscription.objects.get(user=current_user)
 
-    context = {
-        'pk_public': public_key,
-        'email': email,
-        'amount': amount
-    }
-    
-    return render(request, 'payments/checkout.html', context)   
+            expiry_date = user_subscription.expiry_date
+            todays_date = datetime.today().date()
+            # check if expiry date is up
+            if todays_date > expiry_date:
+                # subscription expired
+                # return inactive status
+                return 'inactive'
+            else:
+                # subscription active
+                # return active
+                return 'active'          
+        except Subscription.DoesNotExist:
+            # user subscription does not exist in database
+            # user isn't subscribed!
+            # return inactive status
+            return 'inactive'
+
+    if subscriptionStatus == 'inactive':
+        email = request.user.email
+        amount = 33
+        print(email)
+        print(request.path)
+
+        context = {
+            'pk_public': public_key,
+            'email': email,
+            'amount': amount
+        }
+        
+        return render(request, 'payments/checkout.html', context)
+    else:
+        return redirect(request.GET.get('next'))   
 
 @login_required
 def verify_payment(request, id):
@@ -75,7 +109,8 @@ def verify_payment(request, id):
             subs_exits.expiry_date = transaction_date + relativedelta(months=+1)
 
             subs_exits.save()
-
+            # redirect
+            #redirect(request.GET.get('next'))
         else:
             # save new model
             user_subscription = Subscription()
@@ -85,7 +120,9 @@ def verify_payment(request, id):
             user_subscription.expiry_date = transaction_date + relativedelta(months=+1)
 
             # save subscription
-            user_subscription.save()      
+            user_subscription.save()
+            # redirect
+            #redirect(request.GET.get('next'))      
     else:
         pass
     
