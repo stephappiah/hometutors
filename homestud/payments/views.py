@@ -47,7 +47,7 @@ def checkout(request):
             # return inactive status
             return 'inactive'
 
-    if subscriptionStatus == 'inactive':
+    if subscriptionStatus() == 'inactive':
         email = request.user.email
         amount = 33
         print(email)
