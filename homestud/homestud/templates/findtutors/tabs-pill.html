@@ -4,8 +4,8 @@
     <!-- nav -->
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">For Learners</a>
-          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">For Tutors</a>
+          <a class="nav-item nav-link active" id="nav-learners-tab" data-toggle="tab" href="#nav-learners" role="tab" aria-controls="nav-learners" aria-selected="true">For Learners</a>
+          <a class="nav-item nav-link" id="nav-tutors-tab" data-toggle="tab" href="#nav-tutors" role="tab" aria-controls="nav-tutors" aria-selected="false">For Tutors</a>
         </div>
     </nav>
 
@@ -13,9 +13,9 @@
     <div class="tab-content mt-4 pt-3" id="nav-tabContent">
 
         <!--------------------------------- for learners/students -------------------------------------->
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-        <div class="row">
-            <div class="col-sm pill-info text-center">
+    <div class="tab-pane fade show active" id="nav-learners" role="tabpanel" aria-labelledby="nav-learners-tab">
+        <div class="row tutor-onboard-ad">
+            <div class="col-sm col-lg-6 pill-info text-center">
                 <img src="{% static 'illustration/learner-search.svg' %}" alt="">
 
                 <p class="pill-lead">Search on homestud.co</p>
@@ -24,7 +24,7 @@
                 </p>
             </div>
 
-            <div class="col-sm pill-info text-center">
+            <div class="col-sm col-lg-6 pill-info text-center">
                 <img src="{% static 'illustration/learner-browse.svg' %}" alt="">
 
                 <p class="pill-lead">Browse. Filter. Contact.</p>
@@ -34,7 +34,7 @@
                 </p>
             </div>
 
-            <div class="col-sm pill-info text-center">
+            <div class="col-sm col-lg-6 pill-info text-center">
                 <img src="{% static 'illustration/learner-schedule.svg' %}" alt="">
 
                 <p class="pill-lead">Schedule a lesson.</p>
@@ -44,7 +44,7 @@
                 </p>
             </div>
 
-            <div class="col-sm pill-info text-center">
+            <div class="col-sm col-lg-6 pill-info text-center">
                 <img src="{% static 'illustration/learner-home.svg' %}" alt="">
 
                 <p class="pill-lead">Home or Online.</p>
@@ -60,7 +60,7 @@
 
 
         <!--------------------------------- for tutors ---------------------------------->
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div class="tab-pane fade" id="nav-tutors" role="tabpanel" aria-labelledby="nav-tutors-tab">
         
         <!-- <div class="text-center">
             <p class="lead"> Share & Earn</p>
@@ -73,9 +73,9 @@
             </p>
         </div> -->
 
-        <div class="row">
+        <div class="row tutor-onboard-ad">
 
-            <div class="col-sm pill-info text-center">
+            <div class="col-sm col-lg-6 pill-info text-center">
                 <img src="{% static 'illustration/tutor-signup.svg' %}" alt="">
 
                 <p class="pill-lead">Create an account for free!</p>
@@ -85,7 +85,7 @@
                 </p>
             </div>
 
-            <div class="col-sm pill-info text-center">
+            <div class="col-sm col-lg-6 pill-info text-center">
                 <img src="{% static 'illustration/tutor-profile.svg' %}" alt="">
 
                 <p class="pill-lead">Set up a tutor profile.</p>
@@ -94,7 +94,7 @@
                 </p>
             </div>
 
-            <div class="col-sm pill-info text-center">
+            <div class="col-sm col-lg-6 pill-info text-center">
                 <img src="{% static 'illustration/profile-boss.svg' %}" alt="">
 
                 <p class="pill-lead">You're your own boss!.</p>
@@ -103,7 +103,7 @@
                 </p>
             </div>
 
-            <div class="col-sm pill-info text-center">
+            <div class="col-sm col-lg-6 pill-info text-center">
                 <img src="{% static 'illustration/tutor-discovery.svg' %}" alt="">
 
                 <p class="pill-lead">Get discovered.</p>
@@ -111,7 +111,12 @@
                     Sit back and get discovered by hundreds of potential students around you. Easy, right? 
                     We know!
                 </p>
+                
             </div>
+
+        </div>
+        <div class="mt-5 text-center mb-5">
+            <a href="{% url 'findtutors:onboarding_tutor' %}" class="btn btn-dark">Create a Profile</a>
         </div>
     </div>
 

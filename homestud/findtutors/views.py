@@ -356,3 +356,10 @@ def privacyPolicy(request):
 def termsNCondition(request):
 
     return render(request, 'findtutors/terms.html')
+
+def about(request):
+
+    return render(request, 'findtutors/about.html')
+
+def forTutors(request):
+    return render(request, 'findtutors/for-tutors.html')

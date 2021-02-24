@@ -61,7 +61,10 @@ def checkout(request):
         
         return render(request, 'payments/checkout.html', context)
     else:
-        return redirect(request.GET.get('next'))   
+        if redirect(request.GET.get('next') is not None or ''):
+            return redirect(request.GET.get('next'))
+        else:
+            return redirect('/')   
 
 @login_required
 def verify_payment(request, id):

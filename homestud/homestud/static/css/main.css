@@ -736,3 +736,41 @@ p {
     color: #aaa;
     padding: 5px 0;
 }
+
+/* Phone screeens (small) */
+@media only screen and (max-width: 767px){
+    .svg-container svg{
+        width: 300px;
+        height: 300px;
+    }
+}
+
+/* Desktop and Tablets */
+@media (min-width: 768px){
+    .svg-container svg{
+        width: 600px;
+        height: 600px;
+    }
+
+    .tutor_ad{
+        padding: 0 20rem;
+    }
+    .tutor-onboard-ad{
+        padding: 0 15rem;
+    }
+    .nav-tabs{
+        padding: 0 15rem;
+    }
+    .course-list{
+        padding: 0 15rem;
+    }
+}
+
+.about-content{
+    margin: 0 12rem;
+}
+
+.pad-around{
+    padding: 0 3rem;
+}
+
