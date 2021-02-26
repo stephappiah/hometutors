@@ -22,14 +22,18 @@
         </div>
         <p class="prof-name lead-text">{{ tutor.get_full_name }}</p>
         <div class="call-action">
-            <div>
-                <p class="lead text-center">&#8373;{{ tutor.rate_per_hour }}<small>/hr</small></p>
-                <p class="mint-text text-center">1st lesson free</p>
+            <div class="tutor-prof-sticky">
+                <div>
+                    <p class="lead text-center">&#8373;{{ tutor.rate_per_hour }}<small>/hr</small></p>
+                    <p class="mint-text text-center">1st lesson free</p>
+                </div>
+                <div class="hmst-w-100">
+                    <form class="search-form" action="{% url 'chat:get_chat_url' %}" method="get">
+                        <input class="d-none" name="target_user" type="text" value="{{ tutor.user.username }}">
+                        <button class="btn btn-block semi-round btn-theme-color" type="submit">Book a class</button>
+                    </form>
+                </div>
             </div>
-            <form class="search-form" action="{% url 'chat:get_chat_url' %}" method="get">
-                <input class="d-none" name="target_user" type="text" value="{{ tutor.user.username }}">
-                <button class="btn border-round link-theme" type="submit">Book a class</button>
-            </form>
             
             <div style="clear: both;"></div>
         </div>

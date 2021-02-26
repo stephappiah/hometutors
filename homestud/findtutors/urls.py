@@ -20,6 +20,6 @@ urlpatterns = [
     path('privacy-policy/', privacyPolicy, name='privacy'),
     path('terms-and-conditions/', termsNCondition, name='terms'),
     path('about/', about, name='about'),
-    path('for-tutors/', forTutors, name='for-tutors'),
+    path('become-a-tutor/', forTutors, name='for-tutors'),
 
 ]

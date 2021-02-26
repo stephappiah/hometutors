@@ -8,7 +8,7 @@
 
 {% block extra_head %}
     <script>
-        let autocomplete;
+       /* let autocomplete;
         function initAutocomplete(){
             autocomplete = new google.maps.places.Autocomplete(
                 document.getElementById('place'),
@@ -19,7 +19,7 @@
                 }
             );
             autocomplete.addListener('place_changed', onPlaceChanged);
-        }
+        } */
         function onPlaceChanged(){
             var place = autocomplete.getPlace();
 
@@ -95,7 +95,7 @@
                         <input type="range" class="form-control-range" id="formControlRange" name="distance">
                       </div> -->
                     <div class="text-center mt-2">
-                        <button class="btn btn-sm link-theme" type="submit">Search</button>
+                        <button class="btn btn-lg border-round link-theme" type="submit">Search</button>
                     </div>
                     
                 </form>
@@ -104,7 +104,7 @@
 
         <!-- number of tutors nearby -->
      
-        <p class="text-center tutorNumText"></p>
+        <p class="lead text-center tutorNumText"></p>
        
         <!-- list of tutors -->
         <div class="row">
