@@ -16,17 +16,20 @@
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
             <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+            <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
           {% else %}
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
             <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
-            <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
+            <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
+            <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
           {% endif %}
         
         {% else %}
         <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
         <li><a class="black-text" href="{% url 'account_signup' %}">Create an Account</a></li>
-        <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
+        <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
+        <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
         {% endif %}
       </ul>
     </div>
@@ -35,7 +38,7 @@
 
 <!-- navbar for mobile screens -->
 
-<ul class="sidenav" id="mobile-demo">
+<ul class="sidenav p-3" id="mobile-demo">
   {% if user.is_authenticated %}
 
     {% if user.is_tutor %}
@@ -43,16 +46,19 @@
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
       <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+      <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
     {% else %}
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
       <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
-      <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
+      <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
+      <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
     {% endif %}
 
   {% else %}
   <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
   <li><a class="black-text" href="{% url 'account_signup' %}">Create an Account</a></li>
-  <li><a class="black-text" href="{% url 'findtutors:onboarding_tutor' %}">Become a tutor</a></li>
+  <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
+  <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
   {% endif %}
 </ul>

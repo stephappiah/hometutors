@@ -83,7 +83,7 @@
     <h3 class="text-center">Home school. Master a subject. Develop a skill. </h3>
     <p class="lead text-center">Learn or improve in more than 100 subjects and skills.</p>
 
-    <div class="course-list fx-overflw overflow-auto">
+    <div class="course-list fx-overflw overflow-auto" id="courseList">
         
         <!-- courses list -->
         <div class="course-home shadow">
@@ -183,6 +183,18 @@
             
             setTimeout(showSlides, 5000); // Change image every 5 seconds
         }
+
+        const courseContainer = document.getElementById('courseList');
+        const courseScrollWidth = courseContainer.scrollWidth;
+        console.log({courseScrollWidth});
+        window.addEventListener('load', () => {
+        self.setInterval(() => {
+            if (courseContainer.scrollLeft !== courseScrollWidth) {
+
+                courseContainer.scrollTo(courseContainer.scrollLeft + 1, 0);
+            }
+        }, 15);
+        });
 
     </script>
 

@@ -242,7 +242,10 @@ label {
 .card{
     border: none;
 }
-
+.tutor-card{
+    box-shadow: 0px 0px 20px 0px rgb(50 56 66 / 10%) !important;
+    border-radius: 8px !important;
+}
 .big-circle img{
     width: 150px;
     height: 150px;
@@ -310,7 +313,7 @@ p {
 
 .lead-text {
     font-size: 5vw;
-    font-weight: 500;
+    font-weight: 300;
 }
 .rate{
     position: absolute;

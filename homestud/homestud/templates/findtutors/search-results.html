@@ -113,7 +113,7 @@
             
 
             {% for tutor in tutors  %}
-                <div class="card col-sm col-lg-4 shadow ml-3 mr-3">
+                <div class="card col-sm col-lg-4 tutor-card ml-3 mr-3">
                     <!-- Profile image -->
                     
                     <div class="big-circle pt-4">
@@ -139,7 +139,7 @@
                         
                         <!-- Distance -->
                         <div class="icon-text ">
-                            <span class="material-icons">
+                            <span class="material-icons md-18">
                                 commute
                                 </span>
                             <p class="card-sm-txt ml-2">{{ tutor.distance.km|dividebyth }} km away</p> 
@@ -147,7 +147,7 @@
                         <!-- Address -->
                         <div class="icon-text "> 
                             <!-- class="icon-text small-text" -->
-                            <span class="material-icons">
+                            <span class="material-icons md-18">
                                 place
                                 </span>
                             <p class="card-sm-txt">{{ tutor.address|title }}</p>
@@ -204,8 +204,8 @@
 
     <script>
         // Script fetches programmes and courses into dropdown
-        const courseList = '{{ course_list | safe }}';
-        const programmeList = '{{programme_list | safe}}';
+        const courseList = {{ course_list | safe }};
+        const programmeList = {{programme_list | safe}};
         let progDropdown = $('#programme');
         let coursDropdown = $('#courseList');
         let tutorNum = '{{ total_tutors }}';
