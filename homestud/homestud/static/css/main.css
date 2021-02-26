@@ -14,8 +14,9 @@ body {
 .btn:focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem #07fffc30;
-    background-color:#26a69a;
-    color: white;
+    background-color: #ffffff;
+    color: #28a745;
+    border: solid 1px #28a745;
 }
 
 .btn-twitter{
@@ -31,7 +32,11 @@ body {
 }
 
 .btn:hover {
-    color: white;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem #07fffc30;
+    background-color: #ffffff;
+    color: #28a745;
+    border: solid 1px #28a745;
     text-decoration: none;
 }
 
@@ -41,8 +46,26 @@ body {
 
 .tutor-info-box{
     display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
 }
 
+.tutor-text{
+    font-size: 1.0rem;
+    font-weight: 300;
+}
+
+.line-breaks {
+    white-space: pre-line;
+}
+
+.break-long-words {
+    word-break: break-word; 
+}
+.material-icons.md-18 { 
+    font-size: 18px;
+ }
 .turq-color{
     background-color: #149AA4;
     color: white;
@@ -515,6 +538,11 @@ p {
     /* .lg-row-forms{
         display: none;
     } */
+
+    .tutor-lead-text{
+        font-size: 1.6rem;
+        font-weight: 400;
+    }
     
 }
 
@@ -566,6 +594,11 @@ p {
         justify-content: center;
         flex-wrap: wrap;
         background-color: #f7f7f7;
+    }
+
+    .tutor-lead-text{
+        font-size: 1.3rem;
+        font-weight: 400;
     }
 }
 
@@ -795,11 +828,14 @@ a {
 }
 
 .btn-theme-color{
-    background-color: #18c6b9;
-    color: white;
+    background-color: #e3f7ed;
+    color: #40310b;
     border-color: #f8f9fa;
 }
-
+.book-a-cls-btn{
+    background-color: #18c6b9;
+    color: white;
+}
 .semi-round{
     border-radius: 0.8rem;
     font-weight: 600;

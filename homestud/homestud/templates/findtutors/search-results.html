@@ -1,5 +1,5 @@
 {% extends "account/base.html" %}
-{% load i18n %}
+<!-- {% load i18n %} -->
 {% load static %}
 {% load extra_template_filters %}
 {% block head_title %}
@@ -95,7 +95,7 @@
                         <input type="range" class="form-control-range" id="formControlRange" name="distance">
                       </div> -->
                     <div class="text-center mt-2">
-                        <button class="btn btn-lg border-round link-theme" type="submit">Search</button>
+                        <button class="btn border-round link-theme" type="submit">Search</button>
                     </div>
                     
                 </form>
@@ -160,7 +160,7 @@
                             {% endfor %}
                         </div>
             
-                        <a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}" class="btn view-profile border-round link-theme mt-4">View Profile</a>
+                        <a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}" class="btn btn-block view-profile border-round link-theme mt-4">View Profile</a>
                     </div>
                 </div>
             {% endfor %}
