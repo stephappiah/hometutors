@@ -14,7 +14,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@latest/dist/browser-image-compression.js"></script>
 
     <script>
-        var avatarLink = {{ userAvatarLink }};
+        var avatarLink = '{{ tutor.avatar.url }}';
         var username = '{{ user.username }}';
         var today = new Date();
 
@@ -89,10 +89,10 @@
                 <!-- avatar form -->
                <div class="card shadow">
                    <div class="card-body p-5">
-                       <form action="" class="avatarForm" enctype="multipart/form-data" method="post">
+                       <form action="" class="avatarForm" id="avatarFormDesktop" enctype="multipart/form-data" method="post">
                            {% csrf_token %}
                            {{ AvatarForm }}
-                           <button class="btn btn-dark mt-4" type="submit" name="avatar">Update</button>
+                           <button class="btn btn-dark mt-4 avt-btn" type="submit" name="avatar">Update</button>
                        </form>
                    </div>
                </div> 

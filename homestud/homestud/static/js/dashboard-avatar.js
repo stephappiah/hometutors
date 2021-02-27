@@ -31,7 +31,8 @@ function uploadImage(){
 
 function uploadToServer(compressedFile){
     var submit = $('.avt-btn');
-    var formElem = document.querySelector('form');
+    // todo: upload only works on mobile version since form is different from desktop's
+    var formElem = document.getElementById('avatarForm');
     var filename = username + '-' + date + '.png';
   
     submit.on('click', function (event){

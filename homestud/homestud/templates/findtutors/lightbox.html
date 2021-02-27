@@ -7,7 +7,7 @@
         </span>
     </span>
     <div class="overlay-content">
-        <form action="" class="avatarForm" enctype="multipart/form-data" method="post">
+        <form action="" class="avatarForm" id="avatarForm" enctype="multipart/form-data" method="post">
             {% csrf_token %}
             {{ AvatarForm}}
             <button class="btn btn-dark avt-btn" type="submit" name="avatar">Update</button>

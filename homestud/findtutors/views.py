@@ -341,7 +341,7 @@ def dashboard_profile(request):
         'ProfileForm': ProfileForm,
         'InterestForm': InterestForm,
         'AvatarForm': AvtForm,
-        'userAvatarLink': data.avatar.url,
+        'tutor': data,
     }
     return render(request, 'findtutors/profile-dashboard.html', context)
 

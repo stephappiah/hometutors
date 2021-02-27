@@ -3,7 +3,7 @@
 
 function uploadToServer(compressedFile){
   var submit = $('#submitTutor');
-  var formElem = document.querySelector('form');
+  var formElem = document.getElementById('tutorForm');
   var filename = username + '-' + date + '.png';
 
   submit.on('click', function (event){
@@ -13,13 +13,14 @@ function uploadToServer(compressedFile){
     // disable btns on click --> to do: show loading spinner instead
     $('.btn').prop('disabled', true);
     // loading spinner
-    $('<div class="text-center mt-3"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>').insertAfter('.avatar')
+    $('<div class="text-center mt-3"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>').insertAfter('.avatar');
     
 
     // Get the form data from the event object
-    var data = new FormData(formElem);
-    data.append('compressedImage', compressedFile,`${filename}`);
-    for (var value of data.values()) {
+    var form_data = new FormData(formElem);
+    console.log(form_data);
+    form_data.append('compressedImage', compressedFile,`${filename}`);
+    for (var value of form_data.values()) {
       console.log(value);
     }
 
@@ -28,7 +29,7 @@ function uploadToServer(compressedFile){
     $.ajax({
       url: "/onboarding-tutor/",
       type: "POST",
-      data: data,
+      data: form_data,
 
       success: function(){
         console.log('Submitted successfully');
@@ -38,6 +39,12 @@ function uploadToServer(compressedFile){
 
       error: function(){
         console.log('Submission failed!!');
+        // enable btns on click --> to do: hide loading spinner instead
+        $('.btn').prop('disabled', false);
+        // remove loading spinner
+        $('.spinner-border').addClass('d-none');
+        // loading spinner
+        $('<div class="trans-alert mt-2 text-center"><div class="alert alert-danger" role="alert">Upload failed. Please try again!</div></div>').insertAfter('.avatar');
       },
 
       cache: false,
