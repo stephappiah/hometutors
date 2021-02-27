@@ -13,7 +13,7 @@ $(document).ready(function(){
     // get default avatar's link from static folder
     // var defaultIMG = avatarLink; //avatarLink is passed in profile-dashboard.html template
     // update img element's src
-    $('.previewAvatar').attr('src', `/img/${link}`); //hardcoded url of current user avatar
+    $('.previewAvatar').attr('src', `/static/img/${link}`); //hardcoded url of current user avatar
     console.log(avatarLink);
     
 
