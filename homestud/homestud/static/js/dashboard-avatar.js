@@ -8,11 +8,13 @@ $(document).ready(function(){
     // insert upload button
     $("<p style='display:block;width:120px; ' class='btn upload-btn text-center mint-bg' onclick='uploadImage()'>Change</p>").insertAfter('.previewAvatar');
 
-
+    var link = $('#avatarForm a').text();
+    console.log(link);
     // get default avatar's link from static folder
-    var defaultIMG = avatarLink; //avatarLink is passed in profile-dashboard.html template
+    // var defaultIMG = avatarLink; //avatarLink is passed in profile-dashboard.html template
     // update img element's src
-    $('.previewAvatar').attr('src', defaultIMG);
+    $('.previewAvatar').attr('src', `/img/${link}`); //hardcoded url of current user avatar
+    console.log(avatarLink);
     
 
 });

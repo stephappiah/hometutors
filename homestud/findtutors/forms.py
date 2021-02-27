@@ -90,7 +90,7 @@ class TutorProfileForm(forms.ModelForm):
         model = TutorProfile
         fields = ('class_type', 'rate_per_hour', 'free_lesson_duration', 'bio', )
         widgets = {
-            'bio': forms.Textarea(attrs={'cols': '60', 'rows': '4'})
+            'bio': forms.Textarea(attrs={'cols': '60', 'rows': '10'})
             
         }
         labels = {
@@ -130,4 +130,8 @@ class TutorInterestForm(forms.ModelForm):
 class UpdateTutorForm(forms.ModelForm):
     class Meta:
         model = TutorProfile
-        exclude = ('user', 'slug', 'location',) 
+        exclude = ('user', 'slug', 'location',)
+        widgets = {
+            'bio': forms.Textarea(attrs={'cols': '60', 'rows': '10'})
+            
+        }
