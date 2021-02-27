@@ -9,11 +9,11 @@ $(document).ready(function(){
     $("<p style='display:block;width:120px; ' class='btn upload-btn text-center mint-bg' onclick='uploadImage()'>Change</p>").insertAfter('.previewAvatar');
 
     var link = $('#avatarForm a').text();
-    console.log(link);
+    console.log(`/static/img/${link}`);
     // get default avatar's link from static folder
     // var defaultIMG = avatarLink; //avatarLink is passed in profile-dashboard.html template
     // update img element's src
-    $('.previewAvatar').attr('src', `/static/img/${link}`); //hardcoded url of current user avatar
+    $('.previewAvatar').attr('src', avatarLink); //hardcoded url of current user avatar
     console.log(avatarLink);
     
 
