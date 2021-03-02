@@ -6,7 +6,7 @@ $(document).ready(function (){
     // insert img element right before input file
     $( "<img id='previewAvatar' alt='your image' onclick='uploadImage()' width='100' height='100' />" ).insertBefore( "#id_4-avatar" );
     // insert upload button
-    $("<p style='display:block;width:120px; ' class='btn upload-btn text-center mint-bg' onclick='uploadImage()'>Upload</p>").insertAfter('#previewAvatar');
+    $("<p style='display:block;width:120px; ' class='btn upload-btn text-center mint-bg' onclick='uploadImage()'>Browse Files</p>").insertAfter('#previewAvatar');
 
     // get default avatar's link from static folder
     var defaultIMG = '/static/img/avatar/no-avatar.png';

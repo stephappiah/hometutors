@@ -27,7 +27,8 @@ class TutorProfile(models.Model):
     highest_education = models.CharField(max_length=20, choices=highest_education_choices, null=True, blank=False)
     class_type = MultiSelectField(choices=class_type_choices, null=True, blank=True)
     free_lesson_duration = models.IntegerField(choices=free_lesson_choices, null=True, blank=True)
-    rate_per_hour = models.IntegerField(null=True, blank=True)
+    rate_per_hour = models.CharField(max_length=20, null=True, blank=True)
+    negotiable = models.BooleanField(default=True, blank=True)
     # Subjects and Programmes
     teach_levels = MultiSelectField(choices=teach_level_choices, null=True, blank=True)
     tutoring_programs = MultiSelectField(choices=programmes_choices, null=True, blank=True)

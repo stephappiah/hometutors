@@ -7,13 +7,14 @@ programmes_choices = (
     ('Test Prep', 'Test Prep'),
     
     ('Early Years', 'Early Years'),
-    ('Primary & Junior High', 'Primary & Junior High'),
+    ('Core Courses', 'Core Courses'),
     ('Gen Arts', 'Gen Arts'),
     ('Gen Science', 'Gen Science'),
     ('Visual Arts', 'Visual Arts'),
     ('Business', 'Business'),
     ('Home Economics', 'Home Economics'),
     ('Technical', 'Technical'),
+    ('Languages', 'Languages'),
     
 )
 
@@ -26,6 +27,8 @@ courses_choices = (
     ('English', 'English'),
     ('Math', 'Math'),
     ('Science', 'Science'),
+    ('Computer Literacy', 'Computer Literacy'),
+    ('Social Studies', 'Social Studies'),
 
     ('Literature', 'Literature'),
     ('Economics', 'Economics'),
@@ -56,16 +59,21 @@ courses_choices = (
 
     ('Management in Living', 'Management in Living'),
     ('Food and Nutrition', 'Food and Nutrition'),
-    ('Textiles', 'Textiles'),
+    ('Clothing & Textiles', 'Clothing & Textiles'),
 
     ('SAT', 'SAT'),
     ('GRE', 'GRE'),
     ('IELTS', 'IELTS'),
+    ('TOEFL', 'TOEFL'),
+    ('GMAT', 'GMAT'),
+    ('ACT', 'ACT'),
 
     ('Piano', 'Piano'),
     ('Guitar', 'Guitar'),
     ('Saxophone', 'Saxophone'),
+    ('Trumpet', 'Trumpet'),
     ('Drums', 'Drums'),
+    ('Voice Coaching', 'Voice Coaching'),
 
     ('Photography', 'Photography'),
     ('Photoshop', 'Photoshop'),
@@ -74,6 +82,20 @@ courses_choices = (
     ('HTML', 'HTML'),
     ('CSS', 'CSS'),
     ('JavaScript', 'JavaScript'),
-    ('Python', 'Python')
+    ('Python', 'Python'),
+    ('Java', 'Java'),
+    ('PHP', 'PHP'),
+    ('Microsoft Office', 'Microsoft Office'),
+    ('React', 'React'),
+    
+    ('French', 'French'),
+    ('Akan Twi', 'Akan Twi'),
+    ('Ga', 'Ga'),
+    ('Chinese', 'Chinese'),
+    ('Spanish', 'Spanish'),
+    ('German', 'German'),
+    
+
+
 
 )

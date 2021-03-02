@@ -33,7 +33,7 @@
 {{ geoform.media }}
 
 <script>
-    let autocomplete;
+    //let autocomplete;
     function initAutocomplete(){
         autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('id_0-address'),
@@ -44,7 +44,7 @@
             }
         );
         autocomplete.addListener('place_changed', onPlaceChanged);
-    }
+    } 
     function onPlaceChanged(){
         var place = autocomplete.getPlace();
 
@@ -72,7 +72,7 @@
 
 </script>
 <!-- Google maps api url and callback function -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script> -->
 
 {% endblock %}
 
@@ -548,32 +548,35 @@
                     'id_3-tutoring_programs_2': 'ITCourses',
                     'id_3-tutoring_programs_3': 'testPrepCourses',
                     'id_3-tutoring_programs_4': 'earlyCourses', 
-                    'id_3-tutoring_programs_5': 'primjhsCourses',
+                    'id_3-tutoring_programs_5': 'coreCourses',
                     'id_3-tutoring_programs_6': 'artCourses',
                     'id_3-tutoring_programs_7': 'sciCourses',
                     'id_3-tutoring_programs_8': 'vsaCourses',
                     'id_3-tutoring_programs_9': 'busCourses',
                     'id_3-tutoring_programs_10': 'hmeCourses',
-                    'id_3-tutoring_programs_11': 'tecCourses'
+                    'id_3-tutoring_programs_11': 'tecCourses',
+                    'id_3-tutoring_programs_12': 'languages',
                 }[courseID];
             }
 
             function getCourses(programme){
                 // takes program as parameter and returns set of courses
                 return {
-                    testPrepCourses: $("#id_3-courses_subjects_32, #id_3-courses_subjects_33, #id_3-courses_subjects_34"),
-                    musicCourses: $("#id_3-courses_subjects_35, #id_3-courses_subjects_36, #id_3-courses_subjects_37, #id_3-courses_subjects_38"),
-                    photographyCourses: $("#id_3-courses_subjects_39, #id_3-courses_subjects_40, #id_3-courses_subjects_41"),
-                    ITCourses: $("#id_3-courses_subjects_42, #id_3-courses_subjects_43, #id_3-courses_subjects_44 , #id_3-courses_subjects_45"),
-
+                    testPrepCourses: $("#id_3-courses_subjects_34, #id_3-courses_subjects_35, #id_3-courses_subjects_36, #id_3-courses_subjects_37, #id_3-courses_subjects_38, #id_3-courses_subjects_39"),
+                    musicCourses: $("#id_3-courses_subjects_40, #id_3-courses_subjects_41, #id_3-courses_subjects_42, #id_3-courses_subjects_43, #id_3-courses_subjects_44, #id_3-courses_subjects_45"),
+                    photographyCourses: $("#id_3-courses_subjects_46, #id_3-courses_subjects_47, #id_3-courses_subjects_48"),
+                    ITCourses: $("#id_3-courses_subjects_49, #id_3-courses_subjects_50, #id_3-courses_subjects_51, #id_3-courses_subjects_52, #id_3-courses_subjects_53, #id_3-courses_subjects_54, #id_3-courses_subjects_55, #id_3-courses_subjects_56"),
+        
                     earlyCourses: $("#id_3-courses_subjects_0, #id_3-courses_subjects_1, #id_3-courses_subjects_2"),
-                    primjhsCourses: $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5"),
-                    artCourses: $("#id_3-courses_subjects_6, #id_3-courses_subjects_7, #id_3-courses_subjects_8, #id_3-courses_subjects_9, #id_3-courses_subjects_10, #id_3-courses_subjects_11, #id_3-courses_subjects_12"),
-                    sciCourses: $("#id_3-courses_subjects_13, #id_3-courses_subjects_14, #id_3-courses_subjects_15, #id_3-courses_subjects_28"),
-                    vsaCourses: $("#id_3-courses_subjects_16, #id_3-courses_subjects_17, #id_3-courses_subjects_18, #id_3-courses_subjects_19, #id_3-courses_subjects_20, #id_3-courses_subjects_21, #id_3-courses_subjects_22, #id_3-courses_subjects_23"),
-                    busCourses: $("#id_3-courses_subjects_24, #id_3-courses_subjects_25, #id_3-courses_subjects_26, #id_3-courses_subjects_27, #id_3-courses_subjects_28"),
-                    hmeCourses: $("#id_3-courses_subjects_29, #id_3-courses_subjects_30, #id_3-courses_subjects_31"),
-                    tecCourses: $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5")
+                    coreCourses: $("#id_3-courses_subjects_3, #id_3-courses_subjects_4, #id_3-courses_subjects_5, #id_3-courses_subjects_6, #id_3-courses_subjects_7"),
+                    artCourses: $("#id_3-courses_subjects_8, #id_3-courses_subjects_9, #id_3-courses_subjects_10, #id_3-courses_subjects_11, #id_3-courses_subjects_12, #id_3-courses_subjects_13, #id_3-courses_subjects_14"),
+                    sciCourses: $("#id_3-courses_subjects_15, #id_3-courses_subjects_16, #id_3-courses_subjects_17"),
+                    vsaCourses: $("#id_3-courses_subjects_18, #id_3-courses_subjects_19, #id_3-courses_subjects_20, #id_3-courses_subjects_21, #id_3-courses_subjects_22, #id_3-courses_subjects_23, #id_3-courses_subjects_24, #id_3-courses_subjects_25"),
+                    busCourses: $("#id_3-courses_subjects_26, #id_3-courses_subjects_27, #id_3-courses_subjects_28, #id_3-courses_subjects_29, #id_3-courses_subjects_30"),
+                    hmeCourses: $("#id_3-courses_subjects_31, #id_3-courses_subjects_32, #id_3-courses_subjects_33"),
+                    tecCourses: $(""),
+                    languages: $("#id_3-courses_subjects_3, #id_3-courses_subjects_57, #id_3-courses_subjects_58, #id_3-courses_subjects_59, #id_3-courses_subjects_60, #id_3-courses_subjects_61, #id_3-courses_subjects_62"),
+        
                 }[programme];
             }
 

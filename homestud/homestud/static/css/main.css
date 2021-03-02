@@ -239,6 +239,10 @@ label {
     box-shadow: none;
 }
 
+.btn{
+    text-transform: capitalize;
+}
+
 .card{
     border: none;
 }
@@ -857,4 +861,13 @@ a {
 
 .hmst-w-100{
     width: 65%;
+}
+
+/* ----------------------------  turn checkbox into switch  ----------------------------- */
+label[for='id_2-negotiable']{
+    display: none;
+}
+
+#id_2-negotiable{
+    display: none;
 }
