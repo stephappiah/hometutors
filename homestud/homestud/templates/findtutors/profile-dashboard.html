@@ -14,10 +14,10 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@latest/dist/browser-image-compression.js"></script>
     
     <script id="variableScripts">
-        var avatarLink = '{{ tutor.avatar.url }}';
+        var avatarLink = '{{ tutor.avatar.url }}'.replace(/&amp;/g, "&");
         var username = '{{ user.username }}';
         var today = new Date();
-        var autocompleteSRC = "{% static 'js/autocomplete-dashboard.js' %}"
+        var autocompleteSRC = "{% static 'js/autocomplete-dashboard.js' %}".replace(/&amp;/g, "&");
 
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'-'+today.getTime();
     </script>

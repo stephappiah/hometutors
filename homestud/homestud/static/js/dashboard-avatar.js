@@ -10,6 +10,8 @@ $(document).ready(function(){
   
     var link = $('#avatarForm a').text();
     console.log(`/static/img/${link}`);
+
+    var trialLink = $('a').attr('href');
     
     // get default avatar's link from static folder
     // var defaultIMG = avatarLink; //avatarLink is passed in profile-dashboard.html template
