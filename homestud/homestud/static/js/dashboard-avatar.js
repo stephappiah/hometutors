@@ -6,7 +6,7 @@ $(document).ready(function(){
     // insert img element right before input file
     $( "<img class='previewAvatar' alt='your image' onclick='uploadImage()' width='100' height='100' />" ).insertBefore( ".avatar" );
     // insert upload button
-    $("<p style='display:block;width:120px; ' class='btn upload-btn text-center mint-bg' onclick='uploadImage()'>Change</p>").insertAfter('.previewAvatar');
+    $("<p style='display:block;width:120px; ' class='btn upload-btn text-center mint-bg' onclick='uploadImage()'>Browse Files</p>").insertAfter('.previewAvatar');
   
     var link = $('#avatarForm a').text();
     console.log(`/static/img/${link}`);
