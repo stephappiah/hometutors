@@ -204,6 +204,10 @@ It's a textarea element to enable scroll.*/
 	padding: 0 10px;
 }
 
+.input-container input:focus{
+    border: 2px solid #a7e2cefc !important;
+    outline: none;
+}
 /*Send button's parent*/
 #send-btn-parent {
 	width: 50px;

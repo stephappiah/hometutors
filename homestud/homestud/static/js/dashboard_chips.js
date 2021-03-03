@@ -129,13 +129,15 @@ $(document).ready(function(){
     }
 
     // remove desktop form on mobile devices
-    if (screen.height<=767) {
+    if (screen.width<=767) {
         //remove desktop form
         $('.lg-row-forms').remove();
+        console.log('smaller screen');
        }
        else {
        //remove mobile form
        $('.mobile-forms').remove();
+       console.log('larger screens');
     }
     // disable searchbar autocomplete
     $('#search-bar-autocomplete').remove();
