@@ -140,9 +140,9 @@ $(document).ready(function(){
        console.log('larger screens');
     }
     // disable searchbar autocomplete
-    $('#search-bar-autocomplete').remove();
-    $('#search-bar-init').remove();
-    $(`<script src="${autocompleteSRC}"></script>`).insertAfter('#search-boxy');  
+    // $('#search-bar-autocomplete').remove();
+    // $('#search-bar-init').remove();
+    // $(`<script src="${autocompleteSRC}"></script>`).insertAfter('#search-boxy');  
 
     // disable submit/update button when address box is clicked
     $('#id_personal_info-address').keyup(function(){

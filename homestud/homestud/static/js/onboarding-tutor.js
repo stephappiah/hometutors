@@ -5,9 +5,9 @@
 $(document).ready(function(){
     
     // disable searchbar autocomplete
-    $('#search-bar-autocomplete').remove();
-    $('#search-bar-init').remove();
-    $(`<script src="${autocompleteSRC}"></script>`).insertAfter('#search-boxy'); 
+    // $('#search-bar-autocomplete').remove();
+    // $('#search-bar-init').remove();
+    // $(`<script src="${autocompleteSRC}"></script>`).insertAfter('#search-boxy'); 
     
     // create a wordcount box after bio field
     $("<p class='wordCount'></p>").insertAfter('#id_2-bio');

@@ -1,4 +1,4 @@
-{% extends "account/base.html" %}
+{% extends "base-without-searchbar.html" %}
 <!-- {% load i18n %} -->
 {% load static %}
 {% load extra_template_filters %}
@@ -8,7 +8,7 @@
 
 {% block extra_head %}
     <script>
-       /* let autocomplete;
+        let autocomplete;
         function initAutocomplete(){
             autocomplete = new google.maps.places.Autocomplete(
                 document.getElementById('place'),
@@ -19,7 +19,7 @@
                 }
             );
             autocomplete.addListener('place_changed', onPlaceChanged);
-        } */
+        } 
         function onPlaceChanged(){
             var place = autocomplete.getPlace();
 
@@ -71,7 +71,7 @@
         }
     </script>
     <!-- Google maps api url and callback function -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
 {% endblock extra_head %}
 
 

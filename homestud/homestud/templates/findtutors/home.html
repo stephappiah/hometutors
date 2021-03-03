@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base-without-searchbar.html" %}
 {% load static %}
 {% block head_title %}
       Homestud | Find Tutors in Ghana- Home Tutoring & Private Home Tutors/Teachers
@@ -14,6 +14,70 @@
 <meta property="og:description"        content="Homestud is a place for both tutors and students." />
 <meta property="og:image"              content="{% static 'img/illustration/scene3.svg' %}" />
 
+<!-- Google maps api url and callback function -->
+<script id="search-bar-init" type="application/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
+<script id="search-bar-autocomplete" type="application/javascript">
+    let autocomplete;
+    function initAutocomplete(){
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('search'),
+            {
+                types: [],
+                componentRestrictions: {'country': ['GH']},
+                fields: ['place_id', 'geometry', 'name']
+            }
+        );
+        autocomplete.addListener('place_changed', onPlaceChanged);
+    }
+    function onPlaceChanged(){
+        var place = autocomplete.getPlace();
+
+        if (!place.geometry){
+            //User did not selet a prediction; reset the input field --> id_0_address is id for search box
+            document.getElementById('search').placeholder = 'Enter a location';
+        } else {
+            //Get lon and lat of entered location
+            let latitude = place.geometry.location.lat()
+            let longitude = place.geometry.location.lng()
+            //Pre-fill lon and lat fields (hidden from user) to be used on the server-side
+            $('#lon').val(longitude);
+            $('#lat').val(latitude);
+            // Submit form onclick
+            document.forms['searchForm'].submit();
+            
+        }
+    }
+
+    function getPosition(){
+        console.log('button clicked');
+        // check if user browser supports geolocation
+        if ('geolocation' in navigator){
+            // Get location coordinates with function (p)
+            navigator.geolocation.getCurrentPosition(function(p){
+                
+                let latitude = p.coords.latitude;
+                let longitude = p.coords.longitude;
+
+                console.log(latitude + ' ' + longitude);
+                //Pre-fill lon and lat fields (hidden from user) to be used on the server-side
+                $('#lon').val(longitude);
+                $('#lat').val(latitude);
+                $('#search').val('My location');
+
+                //Submit form onclick
+                document.forms['searchForm'].submit();
+            });
+
+        } else  {
+            //Use IP address instead if geolocation not supported
+            ipLookup();
+            function ipLookup(){
+        }    
+            
+
+        }
+    }
+</script>
 
 {% endblock extra_head %}
     
