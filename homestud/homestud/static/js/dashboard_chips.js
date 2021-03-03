@@ -2,10 +2,27 @@
 // first to initiate styling of chips
 $(document).ready(function(){
     console.log('document ready function working!');
+
+    // format currency --> rate input
+    $("#id_tutor_profile-rate_per_hour").on({
+        keyup: function() {
+          formatCurrency($(this));
+        },
+        blur: function() { 
+          formatCurrency($(this), "blur");
+        }
+    });
+
+    // remove normal negotiable checkbox from dom; initiated before insert switch bcos it takes the id
+    $( "#id_tutor_profile-negotiable" ).remove();
+
+    // create switch button for negotiation btn
+    $('<div class="switch"><label>Not negotiable<input type="checkbox" id="id_tutor_profile-negotiable" checked name="tutor_profile-negotiable"><span class="lever"></span>Negotiable</label></div>').insertAfter('#id_tutor_profile-rate_per_hour');
+
     // define variables
     const colorStyle = {
-        "border":"2px solid #1bdbf8",
-        "background-color":"#12bbd4",
+        "border":"2px solid #26a69a",
+        "background-color":"#26a69a",
         "color": "#fff",
         "transition": "all .2s"
         },
@@ -37,17 +54,117 @@ $(document).ready(function(){
         }
     });
 
+    // format input:rate with currency
+    function formatNumber(n) {
+        // format number 1000000 to 1,234,567
+        return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      }
+      
+      
+    function formatCurrency(input, blur) {
+        // appends $ to value, validates decimal side
+        // and puts cursor back in right position.
+        
+        // get input value
+        var input_val = input.val();
+        
+        // don't validate empty input
+        if (input_val === "") { return; }
+        
+        // original length
+        var original_len = input_val.length;
+        
+        // initial caret position 
+        var caret_pos = input.prop("selectionStart");
+            
+        // check for decimal
+        if (input_val.indexOf(".") >= 0) {
+        
+            // get position of first decimal
+            // this prevents multiple decimals from
+            // being entered
+            var decimal_pos = input_val.indexOf(".");
+        
+            // split number by decimal point
+            var left_side = input_val.substring(0, decimal_pos);
+            var right_side = input_val.substring(decimal_pos);
+        
+            // add commas to left side of number
+            left_side = formatNumber(left_side);
+        
+            // validate right side
+            right_side = formatNumber(right_side);
+            
+            // On blur make sure 2 numbers after decimal
+            if (blur === "blur") {
+            right_side += "00";
+            }
+            
+            // Limit decimal to only 2 digits
+            right_side = right_side.substring(0, 2);
+        
+            // join number by .
+            input_val = "GHS" + " " + left_side + "." + right_side;
+        
+        } else {
+            // no decimal entered
+            // add commas to number
+            // remove all non-digits
+            input_val = formatNumber(input_val);
+            input_val = "GHS" + " " + input_val;
+            
+            // final formatting
+            if (blur === "blur") {
+            input_val += ".00";
+            }
+        }
+        
+        // send updated string to input
+        input.val(input_val);
+        
+        // put caret back in the right position
+        var updated_len = input_val.length;
+        caret_pos = updated_len - original_len + caret_pos;
+        input[0].setSelectionRange(caret_pos, caret_pos);
+    }
+
+    // remove desktop form on mobile devices
+    if (screen.height<=767) {
+        //remove desktop form
+        $('.lg-row-forms').remove();
+       }
+       else {
+       //remove mobile form
+       $('.mobile-forms').remove();
+    }
+    // disable searchbar autocomplete
+    $('#search-bar-autocomplete').remove();
+    $('#search-bar-init').remove();
+    $(`<script src="${autocompleteSRC}"></script>`).insertAfter('#search-boxy');  
+
+    // disable submit/update button when address box is clicked
+    $('#id_personal_info-address').keyup(function(){
+        // disable next button
+        console.log('keyup');
+        $(':submit').prop( "disabled", true);
+        $('.helptext').css({'color': '#dc3545'});
+    });
+
 }); //end of document.ready function
 
 // ------------------------------------------------------- On widow reload -----------------------------------------------------------------------------------------
 
 window.onload = function () { 
     //---------------------------------   Style chips    ------------------------------------------------
-            
+    console.log('onload working!');
+    // insert new google api 
+    //$('<script id="newAutocomplete" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>').insertAfter('#variableScripts');
+    
+
             // define variables
     const colorStyle = {
-        "border":"2px solid #1bdbf8",
-        "background-color":"#12bbd4",
+        "border":"2px solid #26a69a",
+        "background-color":"#26a69a",
         "color": "#fff",
         "transition": "all .2s"
         },

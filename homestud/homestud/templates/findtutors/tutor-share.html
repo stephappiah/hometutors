@@ -32,7 +32,7 @@
                     <button class="btn btn-block btn-twitter border-round mb-3" id="twitter_share">Twitter</button>
                     <p class="mb-2 mt-2 text-center">or</p>
                     <!-- to do: only show dashboard to tutors -->
-                    <a class="btn btn-block mt-2 btn-dark" href="/dashboard/profile">Go to my Dashboard</a>
+                    <a class="btn btn-block mt-2      btn-dark" href="/dashboard/profile">Go to my Dashboard</a>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                     display: 'popup',
                     method: 'share',
                     href: 'https://homestud.co',
-                    quote: 'Homestud.co helps connect tutors and students in one place.  Become a tutor or Sign up now!',
+                    quote: 'Homestud.co helps connect tutors and students in Ghana.  Become a tutor or Sign up now!',
                     hashtag: '#homestud #hometutorghana'
                   }, function(response){});
             }
@@ -63,7 +63,7 @@
             document.getElementById('twitter_share').onclick = function(){
 
                 console.log('twitter button!')
-                var text = 'Homestud.co helps connect tutors and students in one place. Become a tutor or Sign up now! @JoinHomestud';
+                var text = 'Homestud.co helps connect tutors and students in Ghana. Become a tutor or Sign up now! @JoinHomestud';
                 var urlText = encodeURI(text);
                 var url = `https://twitter.com/intent/tweet?text=${urlText}`
 

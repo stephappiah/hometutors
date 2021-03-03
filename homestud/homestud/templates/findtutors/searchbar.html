@@ -1,7 +1,7 @@
 {% block extra_head %}
 <!-- Google maps api url and callback function -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
-<script>
+<script id="search-bar-init" type="application/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
+<script id="search-bar-autocomplete" type="application/javascript">
     let autocomplete;
     function initAutocomplete(){
         autocomplete = new google.maps.places.Autocomplete(

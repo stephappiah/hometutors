@@ -12,16 +12,20 @@
 
     <!-- cdn for browser image compress -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@latest/dist/browser-image-compression.js"></script>
-
-    <script>
+    
+    <script id="variableScripts">
         var avatarLink = '{{ tutor.avatar.url }}';
         var username = '{{ user.username }}';
         var today = new Date();
+        var autocompleteSRC = "{% static 'js/autocomplete-dashboard.js' %}"
 
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'-'+today.getTime();
     </script>
 
     <link rel="stylesheet" href="{% static 'css/avatar.css' %}">
+    <!-- google autocomplete -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script> --> 
+
 
 {% endblock extra_head %}
 {% block content %}
@@ -79,6 +83,7 @@
                 </div>
                 <p class="text-center">Bio</p>
             </div>
+            
             {% include "findtutors/lightbox.html" %}
         </div>
     
