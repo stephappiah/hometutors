@@ -35,6 +35,7 @@ class TutorProfile(models.Model):
     courses_subjects = MultiSelectField(choices=courses_choices, null=True, blank=True)
 
     slug = models.CharField(unique=True, max_length=50, null=True, blank=True)
+    show_profile = models.BooleanField(default=True, blank=True)
 
     def __str__(self):
         return str(self.user)

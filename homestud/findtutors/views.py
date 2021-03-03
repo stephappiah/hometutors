@@ -131,6 +131,8 @@ def SearchTutor(request):
 
     programme_list = json.dumps(dict(programmes_choices))
     course_list = json.dumps(dict(courses_choices))
+    # users with 'show profile'
+    show_profile = TutorProfile.objects.filter(show_profile=True)
 
     #Get coordinates from search form in template
     lat = request.GET.get('lat')
@@ -146,7 +148,8 @@ def SearchTutor(request):
             user_location = Point(longitude, latitude, srid=4326)
             # Queryset filtered within a distance of 100km; annotated and orderd by distance
             dist = Distance('location', user_location)
-            qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
+            
+            qs = show_profile.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
             paginator = Paginator(qs, 10) #show 10 tutors per page
 
             page_number = request.GET.get('page')
@@ -171,7 +174,7 @@ def SearchTutor(request):
             user_location = Point(longitude, latitude, srid=4326)
             # Queryset filtered within a distance of 100km; annotated and orderd by distance
             dist = Distance('location', user_location)
-            qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
+            qs = show_profile.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
             paginator = Paginator(qs, 10) #show 10 tutors per page
 
             page_number = request.GET.get('page')
@@ -198,6 +201,9 @@ def FilterSearch(request):
     #for dropdown
     programme_list = json.dumps(dict(programmes_choices))
     course_list = json.dumps(dict(courses_choices))
+
+    # users with 'show profile'
+    show_profile = TutorProfile.objects.filter(show_profile=True)
 
     # check if search form has coordinates
     # else use coordinates from session
@@ -228,7 +234,7 @@ def FilterSearch(request):
     user_location = Point(longitude, latitude, srid=4326)
     # Queryset filtered within a distance of 100km; annotated and orderd by distance
     dist = Distance('location', user_location)
-    qs = TutorProfile.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
+    qs = show_profile.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
 
     # Grab search fields
     programme = request.GET.get('programme')

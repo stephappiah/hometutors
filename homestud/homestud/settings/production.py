@@ -82,8 +82,7 @@ SERVER_EMAIL = 'hello@homestud.co'
 # admins get notified of errors
 ADMINS = [
 
-    ('Steph', 'noreply.homestud@gmail.com'),
-    ('Admin', 'hello@homestud.co')
+    ('Steph', 'noreply.homestud@gmail.com')
     
     ]
 
