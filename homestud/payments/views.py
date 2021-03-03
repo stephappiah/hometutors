@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import TemplateView
@@ -61,10 +61,11 @@ def checkout(request):
         
         return render(request, 'payments/checkout.html', context)
     else:
-        if redirect(request.GET.get('next') is not None or ''):
+        #return redirect(request.GET.get('next'))
+        if request.GET.get('next') != '' and request.GET.get('next') != None:
             return redirect(request.GET.get('next'))
         else:
-            return redirect('/')   
+            return redirect(reverse('findtutors:home'))   
 
 @login_required
 def verify_payment(request, id):
