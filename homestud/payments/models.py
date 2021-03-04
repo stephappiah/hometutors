@@ -38,3 +38,11 @@ class AdCampaigns(models.Model):
 
     def __str__(self):
         return self.media
+
+class CheckoutAmount(models.Model):
+    name = models.CharField(max_length=20, null=True, blank=True)
+    amount = models.IntegerField(blank=True, null=True)
+    discount = models.IntegerField(blank=True, null=True)
+    
+    def __str__(self):
+        return self.name

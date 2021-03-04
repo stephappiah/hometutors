@@ -7,7 +7,7 @@ from pypaystack import Transaction, Customer, Plan
 from datetime import timedelta, datetime
 from dateutil.relativedelta import relativedelta
 
-from .models import Subscription, UserTransaction
+from .models import Subscription, UserTransaction, CheckoutAmount
 
 import json
 
@@ -22,6 +22,8 @@ def checkout(request):
     current_user = request.user
     url = request.get_full_path()
     print(url)
+    amtt = CheckoutAmount.objects.get(name='amount').amount
+    print(amtt)
     def subscriptionStatus():
         '''
             returns active or inactive status of user subscription
@@ -49,7 +51,7 @@ def checkout(request):
 
     if subscriptionStatus() == 'inactive':
         email = request.user.email
-        amount = 29
+        amount = amtt
         print(email)
         print(request.path)
 
