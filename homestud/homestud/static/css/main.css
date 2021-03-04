@@ -267,9 +267,7 @@ label {
     text-align: center;
     margin: auto;
 }
-.brand-logo img {
-    width: 120px;
-}
+
 .course-chips{
     border: 1px solid #37BC98;
     display: inline-block;
@@ -486,6 +484,9 @@ p {
 /* Desktop and Tablets */
 @media (min-width: 768px){
 
+    .brand-logo img {
+        width: 150px;
+    }
     /* -------------- hero  -------*/
     .hero-image img {
         height: 500px;
@@ -566,6 +567,10 @@ p {
 /* Phone screeens (small) */
 @media screen and (max-width: 767px){
 
+    .brand-logo img {
+        width: 120px;
+    }
+    
     .prof-name{
 
         margin-top: 1rem;

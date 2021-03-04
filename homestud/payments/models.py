@@ -20,3 +20,21 @@ class Subscription (models.Model):
 
     def __str__(self):
        return self.user.email
+
+
+media_list = (
+        ('Facebook/Instagram', 'Facebook/Instagram'),
+        ('Twitter', 'Twitter'),
+        ('SEO', 'SEO'),
+        ('Google Adsense', 'Google Adsense'),
+        ('Banner', 'Banner'),
+)
+
+class AdCampaigns(models.Model):
+    media = models.CharField(max_length=20, choices=media_list, null=True, blank=False)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    amount = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.media

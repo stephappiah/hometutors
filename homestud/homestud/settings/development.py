@@ -14,6 +14,9 @@ INSTALLED_APPS += [
 
 SITE_ID=2
 
+PAYSTACK_PUBLIC_KEY = 'pk_test_1301ae5f94c2cf0e0de6689629f73a96b7bfa8bb'
+PAYSTACK_SECRET_KEY = 'sk_test_989169108aaf6ab394c715e8db93bba227abcd4d'
+
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

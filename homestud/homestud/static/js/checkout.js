@@ -4,17 +4,24 @@ $(document).ready(function(){
     $('body').prepend("<div class='loading hidden'><div class='uil-ring-css' style='transform:scale(0.79);'><div></div>");
 
     // get next url for redirect
-    var url = window.location.href; 
-    // removes % from url
-    var decodeURL = decodeURIComponent(url);
-    // splits string at =
-    var fff = decodeURL.split('?');
-    // url index 1
-    var mainUrl = fff[1].split('=')[1];
-    var target_user = fff[2];
-    // concatenate 
-    nextUrl = mainUrl + '?' + target_user
-    console.log({nextUrl});
+    var url = window.location.href;
+    // Check to see if url has next (trigger: it'd have ?next characters if true)
+    
+    if (url.includes('?next')){
+      var decodeURL = decodeURIComponent(url);
+      // splits string at =
+      var fff = decodeURL.split('?');
+      // url index 1
+      var mainUrl = fff[1].split('=')[1];
+      var target_user = fff[2];
+      // concatenate 
+      nextUrl = mainUrl + '?' + target_user
+      console.log({nextUrl});
+    } else {
+      nextUrl = '/'
+      console.log({nextUrl});
+    }
+    
 
 
     function payWithPaystack() {
