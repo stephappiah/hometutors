@@ -288,7 +288,7 @@ label {
     font-size: 14px !important;
     font-weight: 500 !important;
 
-    background-color: #ee6e73;
+    background-color:#e3f7ed;
     border-color: #157b71;
     color: black;
     
@@ -334,10 +334,7 @@ p {
     height: 55px;
     width: 55px;
     border: 2px solid white;
-    background-image: linear-gradient(298deg, #2cbfc7, #46eeaa);
-    background-image: -webkit-linear-gradient(152deg, #2cbfc7, #46eeaa);
-    color: white;
-
+    background-color: #ee6e73;
     display: flex;
     align-items: center;
     justify-content: center;
