@@ -288,8 +288,8 @@ label {
     font-size: 14px !important;
     font-weight: 500 !important;
 
-    background-color:#e3f7ed;
-    border-color: #157b71;
+    background-color: #f7e3e345;
+    border-color: #6c757d;
     color: black;
     
 }
@@ -335,6 +335,7 @@ p {
     width: 55px;
     border: 2px solid white;
     background-color: #ee6e73;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
