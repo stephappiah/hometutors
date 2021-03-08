@@ -277,7 +277,7 @@ label {
 }
 
 .course-chips{
-    border: 1px solid #212529;
+    border: 1px solid #37BC98;
     display: inline-block;
     margin-bottom: 5px;
     border-radius: 25px;
@@ -287,8 +287,9 @@ label {
     text-align: center;
     font-size: 14px !important;
     font-weight: 500 !important;
-    background-color: #f7f5e345;
-    border-color: #6c757d;
+
+    background-color: #ee6e73;
+    border-color: #157b71;
     color: black;
     
 }
