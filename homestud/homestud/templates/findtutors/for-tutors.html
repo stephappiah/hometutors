@@ -28,10 +28,12 @@
             </div>
             <div class="col-sm m-4 hero-sub text-center">
                 <div class="hero-content">
-                    <h1 class="hero-text mb-2 text-center">Become a Homestud Tutor!</h1>
-                    <h2 class="hero-subtitle text-muted mb-3 text-center">Start earning by spending a few hours a week tutoring someone closeby.</h2>
+                    <h3 class="hero-text mb-2 text-center">Become a Homestud Tutor!</h3>
+                    <p class="hero-subtitle text-muted mb-3 text-center">
+                        Create a tutor ad and get discovered by hundreds of students within and outside your radius.
+                    </p>
 
-                    <a href="{% url 'findtutors:onboarding_tutor' %}" class="btn btn-dark">Create a Profile</a>
+                    <a href="{% url 'findtutors:onboarding_tutor' %}" class="btn btn-dark border-round">Create a Profile</a>
                 </div>
                 
             </div>
@@ -43,8 +45,11 @@
     <!-- jumbotron -->
     <div class="jumbotron color-jumbo">
         <div class="tutor_ad text-center">
-            <p class="hero-text mb-4">It's Your Side Hustle.</p>
-            <p class="lead-text">Set your own rates, get found by students, and start earning!</p>
+            <p class="hero-text mb-3">It's Your Side Hustle.</p>
+            <p class="lead-text p-3">
+                You're probably studying for a degree/diploma, or perhaps you want a side hustle. <br> <br>
+                Go ahead and set up a tutor profile, select your best courses/skills, and get found by students all over Ghana!
+            </p>
         </div>
     </div>
 
@@ -96,7 +101,7 @@
         </div>
 
         <div class="mb-5 mt-5 text-center">
-            <a href="{% url 'findtutors:onboarding_tutor' %}" class="btn btn-dark">Create a Profile</a>
+            <a href="{% url 'findtutors:onboarding_tutor' %}" class="btn btn-dark border-round">Create a Profile</a>
         </div>
     </div>
 
