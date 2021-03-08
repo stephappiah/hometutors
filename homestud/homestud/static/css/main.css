@@ -277,7 +277,7 @@ label {
 }
 
 .course-chips{
-    border: 1px solid #37BC98;
+    border: 1px solid #212529;
     display: inline-block;
     margin-bottom: 5px;
     border-radius: 25px;
@@ -287,9 +287,8 @@ label {
     text-align: center;
     font-size: 14px !important;
     font-weight: 500 !important;
-
-    background-color:#e3f7ed;
-    border-color: #157b71;
+    background-color: #f7f5e345;
+    border-color: #6c757d;
     color: black;
     
 }
@@ -334,7 +333,8 @@ p {
     height: 55px;
     width: 55px;
     border: 2px solid white;
-    background-color: #138a77;
+    background-image: linear-gradient(298deg, #2cbfc7, #46eeaa);
+    background-image: -webkit-linear-gradient(152deg, #2cbfc7, #46eeaa);
     color: white;
 
     display: flex;
@@ -343,8 +343,8 @@ p {
 }
 
 .rate p{
-    font-size: 10px;
-    font-weight: 300;
+    font-size: 11px;
+    font-weight: 500;
 }
 
 .card{
