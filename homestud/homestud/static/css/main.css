@@ -51,6 +51,10 @@ body {
     align-items: center;
 }
 
+.tutor{
+    margin-top: 6rem;
+}
+
 .tutor-text{
     font-size: 1.0rem;
     font-weight: 300;
@@ -65,6 +69,10 @@ body {
 }
 .material-icons.md-18 { 
     font-size: 18px;
+ }
+
+ .material-icons.md-80 { 
+    font-size: 80px;
  }
 .turq-color{
     background-color: #149AA4;
@@ -370,7 +378,7 @@ p {
     font-size: 18px;
     line-height: 28px;
     color: #000000!important;
-    padding: 0 20px;
+    padding: 20px 25px;
 
     /* font-weight: 400;
     font-style: normal; */

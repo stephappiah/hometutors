@@ -129,7 +129,7 @@
                     {% endif %}
                     <p class="mb-2 hero-subtitle">or</p>
                     
-                    <div class="btn text-center border-round btn-green-color" onclick="getPosition()">Search Near Me</div>
+                    <div class="btn text-center border-round btn-dark" onclick="getPosition()">Search Near Me</div>
                     <input name="lon" class="d-none" id="lon">
                     <input name="lat" class="d-none" id="lat">
                     <button class="searchTutor btn btn-sm btn-light" type="submit">Search</button>
@@ -246,22 +246,32 @@
 <div class="jumbotron onboard-jumbo">
     <div class="text-center">
         <p class="display-text">Join the homestud.co community</p>
-        <div class="tutor mt-5">
+        <div class="tutor">
+            <div>
+                <span class="material-icons md-80">
+                    group_add
+                </span>
+            </div>
             <p class="pill-lead">Create a tutor profile</p>
             <p class="txt-paragraph mt-2 mb-3">
                 It costs GHS 0 to set up a tutor ad on homestud.
                 Get bookings from hundreds of potential students from around you.
             </p>
-            <a href="{% url 'findtutors:for-tutors' %}" class="btn btn-green-color border-round">Become a tutor</a>
+            <a href="{% url 'findtutors:for-tutors' %}" class="btn btn-dark border-round">Become a tutor</a>
         </div>
 
-        <div class="tutor mt-5">
+        <div class="tutor">
+            <div>
+                <span class="material-icons md-80">
+                    person_search
+                </span>
+            </div>
             <p class="pill-lead">Find a tutor home tutor from anywhere in Ghana</p>
             <p class="txt-paragraph mt-2 mb-3">
                 Homestud makes it super easy getting help at home.
                 Go ahead and search your location.
             </p>
-            <a href="#find_tutor" class="btn btn-green-color border-round">Find a Tutor</a>
+            <a href="#find_tutor" class="btn btn-dark border-round">Find a Tutor</a>
         </div>
         
     </div>
