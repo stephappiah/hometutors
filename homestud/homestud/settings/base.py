@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'payments',
     'findtutors',
     'chat',
+    'star_ratings',
 
     'allauth',
     'allauth.account',
@@ -74,6 +75,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+STAR_RATINGS_STAR_HEIGHT = 20
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

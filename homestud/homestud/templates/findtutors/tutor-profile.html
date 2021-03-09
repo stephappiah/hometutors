@@ -2,9 +2,15 @@
 {% load i18n %}
 {% load static %}
 {% load extra_template_filters %}
+{% load ratings %}
 {% block head_title %}
       {{ tutor.get_full_name }}- {{ tutor.address }}
 {% endblock head_title %}
+{% block extra_head %}
+  <!-- ratings -->
+  <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+  <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+{% endblock extra_head %}
 
 {% block content %}
     <div class="prof-header jumbotron">
@@ -20,7 +26,17 @@
                 <img src='{% static "img/avatar/no-avatar.png" %}' alt="{{ tutor.get_full_name }}-homestud-tutor">
             {% endif %}
         </div>
-        <p class="prof-name tutor-lead-text">{{ tutor.get_full_name }}</p>
+
+        <div class="prof-name">
+            <!-- tutor name -->
+            <p class="tutor-name">{{ tutor.get_full_name }}</p>
+            <!-- tutor rating -->
+            <div class="myRating">
+                {% ratings tutor %}
+            </div>
+        </div>
+        
+
         <div class="call-action">
             <div class="tutor-prof-sticky">
                 <div>
@@ -95,7 +111,7 @@
                         </div>
                         <!-- programmes -->
                         <div class="course-chips-container mt-4">
-                            <p class="tutor-lead-text mb-3">Teaching Programs</p>
+                            <p class="tutor-lead-text mb-3">Programs</p>
                             {% for program in tutor.tutoring_programs %}
                                 <div class="course-chips card-sm-txt">{{ program }}</div>
                             {% endfor %}
@@ -146,6 +162,18 @@
         function goBack(){
             window.history.back();
         }
+
+        // grab total reviews from dom
+        var reviews_num = $('.star-ratings-rating-count > .star-ratings-rating-value').text();
+        // use review or reviews vased on num
+        if (reviews_num == 1){
+            var review_txt = 'Review';
+        }else{
+            review_txt = 'Reviews'
+        }
+        console.log(reviews_num);
+        // insert reviews into dom
+        $(`<div class="ml-2"><p class="review-count">(${reviews_num} ${review_txt})</p></div>`).insertAfter('.star-ratings-rating-stars-container');
     </script>
 {% endblock content %}
     

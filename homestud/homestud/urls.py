@@ -11,6 +11,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')), #allauth accounts path
     path('chat/', include('chat.urls')),
     path('pay/', include('payments.urls')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

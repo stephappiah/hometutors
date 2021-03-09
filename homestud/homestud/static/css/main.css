@@ -299,7 +299,10 @@ label {
     color: #26a69a;
     border-color: #26a69a;
 }
-
+.tutor-name{
+    font-size: 35px;
+    font-weight: 400;
+}
 .icon-text{
     display: flex;
     align-items: center;
@@ -558,7 +561,7 @@ p {
     .prof-name{
         margin-top: auto;
         margin-bottom: auto;
-        margin-left: 1rem;
+        margin-left: 6rem;
     }
     .call-action{
         margin-top: auto;
@@ -971,3 +974,27 @@ label[for='id_tutor_profile-negotiable']{
 /* #id_2-negotiable{
     display: none;
 } */
+
+/* ratings */
+
+.star-ratings-rating-average{
+    display: none;
+}
+.star-ratings-rating-user{
+    display: none;
+}
+.star-ratings-rating-count{
+    display: none;
+}
+
+.star-ratings {
+    display: flex !important;
+    position: relative !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.review-count{
+    color: #db870e;
+}
