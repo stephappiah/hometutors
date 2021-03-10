@@ -35,6 +35,7 @@ function uploadToServer(compressedFile){
         console.log('Submitted successfully');
         // redirect users to share profile page
         window.location.replace("/share-profile");
+        
       },
 
       error: function(){

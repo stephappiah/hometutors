@@ -1,0 +1,76 @@
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Write a Review</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           
+            <form id="rateForm" action="{% url 'findtutors:post-tutor-review' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Review</label>
+                    <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                </div>
+                <input type="hidden" value="{{ current_user }}" name="rater" id="rater">
+                <input type="hidden" value="{{ tutor_user }}" name="tutor" id="tutor">
+
+                <button type="submit" id="post-review" class="btn book-a-cls-btn">Post</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn book-a-cls-btn mr-2" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script>
+      var submit = $('#post-review');
+      var formElem = document.getElementById('rateForm');
+
+      submit.on('click', function (event){
+        // prevent default send behaviour
+        event.preventDefault();
+
+        // disable btns on click --> to do: show loading spinner instead
+        $('.btn').prop('disabled', true);
+        $('#post-review').remove();
+        // loading spinner
+        $(' <button class="btn buttonload book-a-cls-btn"><i class="fa fa-spinner fa-spin"></i>Loading</button>').insertAfter('#tutor');
+
+
+        // Get the form data from the event object
+        var form_data = new FormData(formElem);
+
+        for (var value of form_data.values()) {
+            console.log(value);
+        }
+
+        // post form via ajax
+        $.ajax({
+
+            url: "{% url 'findtutors:post-tutor-review' %}",
+            type: "POST",
+            data: form_data,
+            success: function(){
+                console.log('Submitted successfully');
+                // reload
+                location.reload();
+            },
+            error: function(){
+                console.log('Submission failed!!');
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+
+        });
+
+        });
+    </script>

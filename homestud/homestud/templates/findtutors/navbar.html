@@ -15,12 +15,12 @@
             <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
-            <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+            <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
             <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
           {% else %}
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
-            <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+            <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
             <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
             <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
           {% endif %}
@@ -45,12 +45,12 @@
       <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
-      <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+      <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
       <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
     {% else %}
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
-      <li><a class="black-text" href="{% url 'account_logout' %}">Sign Out</a></li>
+      <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
       <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
       <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
     {% endif %}

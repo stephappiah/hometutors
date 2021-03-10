@@ -21,5 +21,6 @@ urlpatterns = [
     path('terms-and-conditions/', termsNCondition, name='terms'),
     path('about/', about, name='about'),
     path('become-a-tutor/', forTutors, name='for-tutors'),
+    path('post-tutor-review/', views.post_tutor_review, name='post-tutor-review'),
 
 ]

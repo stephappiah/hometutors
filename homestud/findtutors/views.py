@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.contrib.gis.db.models.functions import Distance
@@ -16,7 +16,7 @@ import os
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, UpdateTutorForm, AvatarForm
-from .models import TutorProfile
+from .models import TutorProfile, TutorReview
 from django.forms.models import construct_instance
 from django.core.paginator import Paginator
 from .courses import courses_choices, programmes_choices
@@ -119,13 +119,40 @@ def share_profile(request):
     return render(request, 'findtutors/tutor-share.html')
 
 def tutor_profile_detail(request, slug_username):
-    
     # qs = TutorProfile.objects.get(slug=slug_username)
     qs = get_object_or_404(TutorProfile, slug=slug_username)
+    tutor_user = get_object_or_404(User, email=qs)
+    current_user = request.user
+    # rating comments
+    reviews = tutor_user.tutor_review.filter(tutor=tutor_user)
+    print(current_user)
     context = {
         'tutor': qs,
+        'reviews': reviews,
+        'tutor_user': tutor_user,
+        'current_user': current_user,
     }
     return render(request, 'findtutors/tutor-profile.html', context)
+
+def post_tutor_review(request):
+    if request.method == 'POST':
+        tutor_user = get_object_or_404(User, email=request.POST.get('tutor'))
+        rater = get_object_or_404(User, email=request.POST.get('rater'))
+
+        reviewModel = TutorReview()
+
+        print(tutor_user)
+
+        reviewModel.tutor = tutor_user
+        reviewModel.rater = rater
+        reviewModel.comment = request.POST.get('comment')
+        
+        
+
+        # save
+        reviewModel.save()
+
+    return JsonResponse('it worked!', safe=False)
 
 def SearchTutor(request):
 

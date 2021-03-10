@@ -54,3 +54,11 @@ class TutorProfile(models.Model):
             return self.last_name
         else:
             return self.first_name 
+
+class TutorReview(models.Model):
+    rater = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='rater_review', blank=True, null=True)
+    tutor = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='tutor_review', on_delete=models.CASCADE)   
+    comment = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return 'Review for ' + str(self.tutor) + ' by ' + str(self.rater)

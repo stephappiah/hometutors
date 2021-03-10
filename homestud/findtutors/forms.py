@@ -1,6 +1,6 @@
 # from django import forms
 from django.contrib.gis import forms
-from .models import TutorProfile
+from .models import TutorProfile, TutorReview
 from phonenumber_field.formfields import PhoneNumberField
 from django.forms.widgets import CheckboxSelectMultiple
 from .multi_choices import highest_education_choices
@@ -136,4 +136,4 @@ class UpdateTutorForm(forms.ModelForm):
         widgets = {
             'bio': forms.Textarea(attrs={'cols': '60', 'rows': '10'})
             
-        }
+    }

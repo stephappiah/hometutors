@@ -152,6 +152,73 @@
                         </p>
                     </div>
                 </div>
+                    <!-- Reviews -->
+                <div class="card review-card shadow-sm p-4">
+                    <div class="card-body">
+                        
+                        <div class="review-star-box">
+                            <p class="text-center review-tutor-num tutor-lead-text mb-2"> Reviews on {{ tutor.get_short_name }} </p>
+                            <!-- tutor rating -->
+                            <div class="myRating">
+                               {% ratings tutor %}
+                            </div>
+                        </div>
+                        <!-- review button -->
+                        
+                        {% if user.is_authenticated and current_user != tutor_user %}
+                            <div class="text-center mt-3">
+                                <button class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Write a review</button>
+                            </div>
+                            {% include "findtutors/review-modal.html" %}
+                        {% elif not user.is_authenticated %}
+                            <div class="text-center mt-2">
+                                <p class="text-center">Please <a href="{% url 'account_login' %}?next={{request.path}}">login</a> to post a review</p>
+                            </div>
+                        {% else %}
+                            <div class="text-center mt-2">
+                                <p class="text-center">Share your profile to others for reviews.</p>
+                            </div>
+                        {% endif %}
+                        
+                        
+                        <!-- ------------------ review section ------------------------ -->
+                        <div class="review-section mt-3">
+                           
+                            <!-- reviews from users -->
+                            {% if reviews %}
+                                {% for review in reviews %}
+                                    <!-- separator -->
+                                    <div class="rev-sep"></div>
+                                    <div class="review-comment-box">
+                                        <!-- user pic -->
+                                        <div class="review-user-pic">
+                                            <div class="no-user-pic">{{ review.rater.get_short_name|make_list|first  }}</div>
+                                        </div>
+                                        <!-- reviewer name -->
+                                        <div class="reviewer-name">
+                                            <p>{{ review.rater.get_short_name }}</p>
+                                        </div>
+                                        <!-- review comment -->
+                                        <div class="review-comment">
+                                            <p>
+                                                {{ review.comment }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                               
+                            {% else %}
+                                    <!-- no reviews -->
+                                <div class="mt-2">
+                                    <p class="text-center">No written reviews for tutor yet.</p>
+                                </div>
+                            {% endif %}
+                            
+                            
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
             <!-- End of coloumn -->
         </div>
@@ -163,17 +230,13 @@
             window.history.back();
         }
 
-        // grab total reviews from dom
-        var reviews_num = $('.star-ratings-rating-count > .star-ratings-rating-value').text();
-        // use review or reviews vased on num
-        if (reviews_num == 1){
-            var review_txt = 'Review';
-        }else{
-            review_txt = 'Reviews'
-        }
-        console.log(reviews_num);
-        // insert reviews into dom
-        $(`<div class="ml-2"><p class="review-count">(${reviews_num} ${review_txt})</p></div>`).insertAfter('.star-ratings-rating-stars-container');
+        // scroll to write a review into focus
+        $('.star-ratings-rating-full').on('click', function(){
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $(".review-card").offset().top
+            }, 2000);
+        });
+        
     </script>
 {% endblock content %}
     

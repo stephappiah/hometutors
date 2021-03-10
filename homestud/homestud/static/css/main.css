@@ -558,11 +558,13 @@ p {
             padding-left: 10%;
             
     }
+
     .prof-name{
         margin-top: auto;
         margin-bottom: auto;
         margin-left: 6rem;
     }
+
     .call-action{
         margin-top: auto;
         margin-bottom: auto;
@@ -872,9 +874,89 @@ p {
     color: #aaa;
     padding: 5px 0;
 }
-
+ /* ---------------   tutor review comment section   ---------------- */
+.rev-sep{
+    height: 2px;
+    width: 100%;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+.review-user-pic{
+    height: 36px;
+    width: 36px;
+    margin-right: 10px;
+    background-color: #18c6b9;
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-position: center center;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: top;
+}
+.no-user-pic {
+    font-size: 16px;
+    line-height: 34px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+.review-comment-box{
+    padding: 20px 60px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.review-comment{
+    width: calc(99% - 138px);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 10px;
+    min-height: 40px;
+    border-left: 2px solid #f7f7f7;
+}
+.review-comment p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 25px;
+    color: #444444;
+}
+.reviewer-name p{
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.38;
+    color: #444444;
+    width: 100px;
+    margin-right: 10px;
+    word-break: break-all;
+}
 /* Phone screeens (small) */
 @media only screen and (max-width: 767px){
+
+    .reviewer-name{
+        display: inline-block;
+        padding-top: 6px;
+    }
+    .review-comment-box{
+        display: block;
+        padding: 30px;
+    }
+    .review-comment{
+        width: 100%;
+        border: none;
+        padding: 10px 0;
+    }
+
     .svg-container svg{
         width: 300px;
         height: 300px;
@@ -887,6 +969,16 @@ p {
 
 /* Desktop and Tablets */
 @media (min-width: 768px){
+
+    .review-star-box{
+        display: flex!important;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .myRating{
+        margin-left: 1rem;
+    }
     .svg-container svg{
         width: 600px;
         height: 600px;
@@ -994,7 +1086,17 @@ label[for='id_tutor_profile-negotiable']{
     align-items: center;
     text-align: center;
 }
+.star-ratings p{
+    margin-left: 0.5rem;
+    color: #6c757d;
+}
 
 .review-count{
     color: #db870e;
+}
+
+.modal{
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
