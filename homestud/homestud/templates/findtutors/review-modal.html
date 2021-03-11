@@ -38,39 +38,48 @@
         // prevent default send behaviour
         event.preventDefault();
 
-        // disable btns on click --> to do: show loading spinner instead
-        $('.btn').prop('disabled', true);
-        $('#post-review').remove();
-        // loading spinner
-        $(' <button class="btn buttonload book-a-cls-btn"><i class="fa fa-spinner fa-spin"></i>Loading</button>').insertAfter('#tutor');
+        // check if comment section is empty
+        if ($.trim($("#comment").val()) === "") {
+          $("<div class='alert alert-danger' role='alert'>You can't post an empty review!</div>").insertBefore('#post-review');
+         
+        } else{
+          // form okay to submit
+
+          // disable btns on click --> to do: show loading spinner instead
+          $('.btn').prop('disabled', true);
+          $('#post-review').remove();
+          // loading spinner
+          $('<div class="text-center"><button class="btn buttonload book-a-cls-btn border-round"><i class="fa fa-spinner fa-spin"></i>Loading</button></div>').insertAfter('#tutor');
 
 
-        // Get the form data from the event object
-        var form_data = new FormData(formElem);
+          // Get the form data from the event object
+          var form_data = new FormData(formElem);
 
-        for (var value of form_data.values()) {
-            console.log(value);
+          for (var value of form_data.values()) {
+              console.log(value);
+          }
+
+          // post form via ajax
+          $.ajax({
+
+              url: "{% url 'findtutors:post-tutor-review' %}",
+              type: "POST",
+              data: form_data,
+              success: function(){
+                  console.log('Submitted successfully');
+                  // reload
+                  location.reload();
+              },
+              error: function(){
+                  console.log('Submission failed!!');
+              },
+              cache: false,
+              contentType: false,
+              processData: false
+
+          });
         }
-
-        // post form via ajax
-        $.ajax({
-
-            url: "{% url 'findtutors:post-tutor-review' %}",
-            type: "POST",
-            data: form_data,
-            success: function(){
-                console.log('Submitted successfully');
-                // reload
-                location.reload();
-            },
-            error: function(){
-                console.log('Submission failed!!');
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-
-        });
+        
 
         });
     </script>

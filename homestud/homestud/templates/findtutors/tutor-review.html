@@ -1,0 +1,131 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load extra_template_filters %}
+{% load ratings %}
+{% block head_title %}
+      Review {{ tutor.get_full_name }}
+{% endblock head_title %}
+{% block extra_head %}
+  <!-- ratings -->
+  <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+  <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+{% endblock extra_head %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm mt-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <!-- profile picture -->
+                        <div class="profile-pic">
+                            {% if  tutor.avatar.url != '' %}
+                                <img src="{{ tutor.avatar.url }}" alt="{{ tutor.get_full_name }}-homestud-tutor">
+                            {% else %}
+                                <img src='{% static "img/avatar/no-avatar.png" %}' alt="{{ tutor.get_full_name }}-homestud-tutor">
+                            {% endif %}
+                        </div>
+
+                        <div class="prof-name">
+                            <!-- tutor name -->
+                            <p class="tutor-name">{{ tutor.get_full_name }}</p>
+                            <!-- tutor rating -->
+                            <div class="myRating">
+                                {% ratings tutor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm margin-auto">
+                {% if not user.is_authenticated %}
+                <div class="text-center mt-2">
+                    <p class="hero-subtitle text-center">Please <a href="{% url 'account_login' %}?next={{request.path}}">login</a> or <a href="{% url 'account_signup' %}?next={{request.path}}">sign up</a> to post a review</p>
+                </div>
+                {% elif not user_review_exists and user.is_authenticated and current_user != tutor_user %}
+                    <p class="text-center p-2">Share an honest recommendation/review about {{tutor_user.get_short_name}}.</p>
+                    <form id="rateForm" action="{% url 'findtutors:post-tutor-review' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Review</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                        </div>
+                        <input type="hidden" value="{{ current_user }}" name="rater" id="rater">
+                        <input type="hidden" value="{{ tutor_user }}" name="tutor" id="tutor">
+        
+                        <div class="text-center">
+                            <button type="submit" id="post-review" class="btn book-a-cls-btn border-round text-center">Post</button>
+                        </div>
+                        
+                    </form>
+                
+                {% elif user_review_exists and user.is_authenticated %}
+                <div class="text-center mt-2">
+                    <p class="hero-subtitle text-center">You've already reviewed this tutor! <br><br> Visit tutor <a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}">profile</a> </p>
+                </div>
+                {% elif current_user == tutor_user %}
+                    <div class="text-center mt-2">
+                        <p class="hero-subtitle text-center">Homestud tutor community is based on trust. <br><br> Get reviews/recommendation from friends and colleagues to boost your visibility in search.</p>
+                    </div>
+                {% endif %}
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var submit = $('#post-review');
+        var formElem = document.getElementById('rateForm');
+  
+        submit.on('click', function (event){
+          // prevent default send behaviour
+          event.preventDefault();
+  
+          // check if comment section is empty
+          if ($.trim($("#comment").val()) === "") {
+            $("<div class='alert alert-danger' role='alert'>You can't post an empty review!</div>").insertBefore('#post-review');
+           
+          } else{
+            // form okay to submit
+  
+            // disable btns on click --> to do: show loading spinner instead
+            $('.btn').prop('disabled', true);
+            $('#post-review').remove();
+            // loading spinner
+            $('<div class="text-center"><button class="btn buttonload book-a-cls-btn border-round"><i class="fa fa-spinner fa-spin"></i>Loading</button></div>').insertAfter('#tutor');
+  
+  
+            // Get the form data from the event object
+            var form_data = new FormData(formElem);
+  
+            for (var value of form_data.values()) {
+                console.log(value);
+            }
+  
+            // post form via ajax
+            $.ajax({
+  
+                url: "{% url 'findtutors:post-tutor-review' %}",
+                type: "POST",
+                data: form_data,
+                success: function(){
+                    console.log('Submitted successfully');
+                    // reload
+                    location.reload();
+                },
+                error: function(){
+                    console.log('Submission failed!!');
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+  
+            });
+          }
+          
+  
+          });
+      </script>
+{% endblock content %}

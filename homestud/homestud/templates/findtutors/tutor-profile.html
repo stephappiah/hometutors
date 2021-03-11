@@ -165,18 +165,23 @@
                         </div>
                         <!-- review button -->
                         
-                        {% if user.is_authenticated and current_user != tutor_user %}
+                        {% if not user.is_authenticated %}
+                            <div class="text-center mt-2">
+                                <p class="hero-subtitle text-center">Please <a href="{% url 'account_login' %}?next={{request.path}}">login</a> or <a href="{% url 'account_signup' %}?next={{request.path}}">sign up</a> to post a review</p>
+                            </div>
+                        {% elif not user_review_exists and user.is_authenticated and current_user != tutor_user %}
                             <div class="text-center mt-3">
                                 <button class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Write a review</button>
                             </div>
                             {% include "findtutors/review-modal.html" %}
-                        {% elif not user.is_authenticated %}
-                            <div class="text-center mt-2">
-                                <p class="text-center">Please <a href="{% url 'account_login' %}?next={{request.path}}">login</a> to post a review</p>
+                        
+                        {% elif user_review_exists and user.is_authenticated %}
+                            <div class="text-center text-muted mt-3">
+                                <p class="hero-subtitle text-center">You've already reviewed this tutor!</p>
                             </div>
-                        {% else %}
+                        {% elif current_user == tutor_user %}
                             <div class="text-center mt-2">
-                                <p class="text-center">Share your profile to others for reviews.</p>
+                                <p class="hero-subtitle text-center">Homestud tutor community is based on trust. <br><br> Get reviews/recommendation from friends and colleagues to boost your visibility in search.</p>
                             </div>
                         {% endif %}
                         

@@ -125,12 +125,20 @@ def tutor_profile_detail(request, slug_username):
     current_user = request.user
     # rating comments
     reviews = tutor_user.tutor_review.filter(tutor=tutor_user)
+    # check if tutor-user review exists?
+    if not request.user.is_anonymous:
+        user_review_exists = tutor_user.tutor_review.filter(tutor=tutor_user, rater=current_user).exists()
+        print(user_review_exists)
+    else:
+        user_review_exists = False
+        
     print(current_user)
     context = {
         'tutor': qs,
         'reviews': reviews,
         'tutor_user': tutor_user,
         'current_user': current_user,
+        'user_review_exists': user_review_exists,
     }
     return render(request, 'findtutors/tutor-profile.html', context)
 
@@ -153,6 +161,29 @@ def post_tutor_review(request):
         reviewModel.save()
 
     return JsonResponse('it worked!', safe=False)
+
+def tutor_review_template(request, slug_username):
+    # qs = TutorProfile.objects.get(slug=slug_username)
+    qs = get_object_or_404(TutorProfile, slug=slug_username)
+    tutor_user = get_object_or_404(User, email=qs)
+    current_user = request.user
+    # rating comments
+    reviews = tutor_user.tutor_review.filter(tutor=tutor_user)
+    # check if tutor-user review exists?
+    if not request.user.is_anonymous:
+        user_review_exists = tutor_user.tutor_review.filter(tutor=tutor_user, rater=current_user).exists()
+        print(user_review_exists)
+    else:
+        user_review_exists = False
+        
+    context = {
+        'tutor': qs,
+        'reviews': reviews,
+        'tutor_user': tutor_user,
+        'current_user': current_user,
+        'user_review_exists': user_review_exists,
+    }
+    return render(request, 'findtutors/tutor-review.html', context)
 
 def SearchTutor(request):
 

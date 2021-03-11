@@ -22,5 +22,6 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('become-a-tutor/', forTutors, name='for-tutors'),
     path('post-tutor-review/', views.post_tutor_review, name='post-tutor-review'),
+    path('tutor/<str:slug_username>/review', views.tutor_review_template, name='tutor-review'),
 
 ]
