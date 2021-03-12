@@ -1,8 +1,15 @@
 {% extends "star_ratings/widget_base.html" %}
+
 {% block rating_detail %}
     {% block rating_count %}
     <div class="ml-2">
         <p class='review-count'>({{ rating.count }} Review{{ rating.count|pluralize }})</p>
     </div>
     {% endblock rating_count %}
+
+    <script>
+        var stars_img = "/static/star-ratings/images/stars.png".replace(/&amp;/g, "&");
+        review_id = {{ id }};
+        $(`.star-ratings-rating-full, #${review_id}, .star-ratings-rating-empty`).css('background', stars_img);
+    </script>
 {% endblock %}
