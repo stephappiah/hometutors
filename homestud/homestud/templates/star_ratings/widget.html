@@ -1,5 +1,5 @@
 {% extends "star_ratings/widget_base.html" %}
-
+{% load static %}
 {% block rating_detail %}
     {% block rating_count %}
     <div class="ml-2">
@@ -10,7 +10,7 @@
     <script>
         $(document).ready(function(){
             console.log('working');
-            var stars_img = "{% static '/star-ratings/images/stars.png' %}".replace(/&amp;/g, "&");
+            var stars_img = "{% static 'star-ratings/images/stars.png' %}".replace(/&amp;/g, "&");
             var review_id = '{{ id }}';
             // replacing widget style
             $(`#${review_id} .star-ratings-rating-full, #${review_id} .star-ratings-rating-empty`).css({
