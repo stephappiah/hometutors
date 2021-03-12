@@ -9,7 +9,7 @@
 
     <script>
         var stars_img = "/static/star-ratings/images/stars.png".replace(/&amp;/g, "&");
-        review_id = {{ id }};
+        var review_id = '{{ id }}';
         $(`.star-ratings-rating-full, #${review_id}, .star-ratings-rating-empty`).css('background', stars_img);
     </script>
 {% endblock %}
