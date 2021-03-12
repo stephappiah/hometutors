@@ -427,3 +427,12 @@ def about(request):
 
 def forTutors(request):
     return render(request, 'findtutors/for-tutors.html')
+
+def ajaxGetTutorSlug(request):
+    current_user = request.user
+    tutor_obj = get_object_or_404(TutorProfile, user=current_user)
+    slug = tutor_obj.slug
+    print(slug)
+    
+    data = JsonResponse(slug, safe=False)
+    return data

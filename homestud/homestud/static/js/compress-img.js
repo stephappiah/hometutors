@@ -6,6 +6,23 @@ function uploadToServer(compressedFile){
   var formElem = document.getElementById('tutorForm');
   var filename = username + '-' + date + '.png';
 
+  function get_tutor_slug(){
+    // send an ajax call to a view that fetches the current user's slug
+    $.ajax({
+      url: "/ajax/get_tutor_slug/",
+      type: "GET",
+
+      success: function(data){
+          window.location.replace(`/tutor/${data}/review`);
+          console.log(data);
+          
+      },
+
+      error: function(){
+        console.log('error')
+      }
+    });
+  }
   submit.on('click', function (event){
     // prevent default send behaviour
     event.preventDefault();
@@ -34,7 +51,8 @@ function uploadToServer(compressedFile){
       success: function(){
         console.log('Submitted successfully');
         // redirect users to share profile page
-        window.location.replace("/share-profile");
+        get_tutor_slug();
+        //window.location.replace("/share-profile");
         
       },
 

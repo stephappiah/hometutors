@@ -23,5 +23,6 @@ urlpatterns = [
     path('become-a-tutor/', forTutors, name='for-tutors'),
     path('post-tutor-review/', views.post_tutor_review, name='post-tutor-review'),
     path('tutor/<str:slug_username>/review', views.tutor_review_template, name='tutor-review'),
+    path('ajax/get_tutor_slug/', views.ajaxGetTutorSlug)
 
 ]
