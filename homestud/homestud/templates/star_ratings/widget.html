@@ -8,8 +8,22 @@
     {% endblock rating_count %}
 
     <script>
-        var stars_img = "/static/star-ratings/images/stars.png".replace(/&amp;/g, "&");
-        var review_id = '{{ id }}';
-        $(`.star-ratings-rating-full, #${review_id}, .star-ratings-rating-empty`).css('background', stars_img);
+        $(document).ready(function(){
+            console.log('working');
+            var stars_img = "/static/star-ratings/images/stars.png".replace(/&amp;/g, "&");
+            var review_id = '{{ id }}';
+            // replacing widget style
+            $(`#${review_id} .star-ratings-rating-full, #${review_id} .star-ratings-rating-empty`).css({
+                'background': `url(${stars_img}) no-repeat`,
+                'width': '{{ icon_width }}px',
+                'height': '{{ icon_height }}px',
+                'background-size': '{{ sprite_width }}px',
+            });
+
+            // replace css style
+        });
+        
+       
     </script>
+    
 {% endblock %}
