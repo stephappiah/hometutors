@@ -11,16 +11,22 @@
         $(document).ready(function(){
             console.log('working');
             var stars_img = "{% static 'star-ratings/images/stars.png' %}".replace(/&amp;/g, "&");
+            var sprite_img = '{{ sprite_image }}'.replace(/&amp;/g, "&");
             var review_id = '{{ id }}';
             // replacing widget style
-            $(`#${review_id} .star-ratings-rating-full, #${review_id} .star-ratings-rating-empty`).css({
-                'background': `url(${stars_img}) no-repeat`,
+            /*$(`#${review_id} .star-ratings-rating-full, #${review_id} .star-ratings-rating-empty`).css({
+                'background': `url(${sprite_img}) no-repeat`,
                 'width': '{{ icon_width }}px',
                 'height': '{{ icon_height }}px',
                 'background-size': '{{ sprite_width }}px',
-            });
+            }); */
 
             // replace css style
+            /*$('.star-ratings-rating-full, .star-ratings-rating-empty').css({
+                'background': `url(${stars_img}) no-repeat`,
+                'display': 'block',
+                'border': 0,
+            });*/
         });
         
        
