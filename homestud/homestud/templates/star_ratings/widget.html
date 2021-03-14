@@ -1,14 +1,21 @@
 {% extends "star_ratings/widget_base.html" %}
 {% load static %}
+{% block rating_style %}
+    <style>
+        /* other styles will be dynamically appended via js */
+        {% if user.is_authenticated and editable %}
+        #{{ id }} .star-ratings-rating-full:hover, #{{ id }} .star-ratings-rating-empty:hover {
+            background-position: -{{ icon_width|add:icon_width }}px 0;
+        }
+        {% endif %}
+    </style>
+{% endblock rating_style %}    
 {% block rating_detail %}
     {% block rating_count %}
     <div class="ml-2">
         <p class='review-count'>({{ rating.count }} Review{{ rating.count|pluralize }})</p>
     </div>
     {% endblock rating_count %}
-    <style>
-        
-    </style>
     <script>
         $(document).ready(function(){
             console.log('working');
@@ -28,6 +35,9 @@
                         background: url(${stars_img}) no-repeat;
                         display: block;
                         border: 0;
+                    }
+                    #${review_id} .star-ratings-rating-empty {
+                        background-position: -{{ icon_width }}px 0;
                     }
 
                 </style>
