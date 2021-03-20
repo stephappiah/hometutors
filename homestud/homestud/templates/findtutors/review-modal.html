@@ -1,4 +1,4 @@
-  
+{% load ratings %}
   <!-- Modal -->
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -10,17 +10,20 @@
           </button>
         </div>
         <div class="modal-body">
-           
+            <!-- tutor rating -->
+            <div class="myRating">
+            {% ratings tutor %}
+            </div>
             <form id="rateForm" action="{% url 'findtutors:post-tutor-review' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Review</label>
+                    <label for="exampleFormControlTextarea1" class="text-center mt-3 review-label">Review</label>
                     <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                 </div>
                 <input type="hidden" value="{{ current_user }}" name="rater" id="rater">
                 <input type="hidden" value="{{ tutor_user }}" name="tutor" id="tutor">
 
-                <button type="submit" id="post-review" class="btn book-a-cls-btn">Post</button>
+                <button type="submit" id="post-review" class="btn book-a-cls-btn border-round">Post</button>
             </form>
         </div>
         <div class="modal-footer">

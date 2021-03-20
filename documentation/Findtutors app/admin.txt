@@ -1,0 +1,9 @@
+Admin > findtutors > model
+
+when reviewing changes made on tutor profile, only add comments when you want to notify tutor about reviews to make on 
+profile.
+
+adding or deleting admin_comment triggers an email notif to be sent to the user.
+
+In cases where you are approving a tutor profile, just check the admin_show to ticked. Do not delete admin_comment
+as it will trigger an email telling them their profile isn't live.

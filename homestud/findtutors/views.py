@@ -23,12 +23,18 @@ from .courses import courses_choices, programmes_choices
 import json 
 
 from homestud.decorators import subcribed_user
+from django.utils.decorators import method_decorator
+from allauth.account.decorators import verified_email_required
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string, get_template
+from django.utils.html import strip_tags
 
 class OnboardingTutorWizard(SessionWizardView):
 
     # checks if user has already filled forms; 
     # redirects to dashboard if true.
     # else proceed to onboarding
+    #@method_decorator(verified_email_required)
     def dispatch(self, request, *args, **kwargs):
         logged_in_user = self.request.user
 
@@ -82,6 +88,7 @@ class OnboardingTutorWizard(SessionWizardView):
         initial.update({'first_name': first_name, 'last_name': last_name, 'slug': slug})
         return initial
 
+    
 
     def done(self, form_list, form_dict, **kwargs):
         # instantiate model and Add signed-in user to form

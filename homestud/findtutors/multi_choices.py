@@ -10,7 +10,8 @@ highest_education_choices = (
         ('highschool', 'Highschool'),
         ('undergrad', 'Undergrad'),
         ('graduate', 'Graduate'),
-        ('postgrad', 'Post Graduate')
+        ('postgrad', 'Post Graduate'),
+        ('masters', 'Masters')
 )
 
 class_type_choices = (

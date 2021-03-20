@@ -1103,3 +1103,7 @@ label[for='id_tutor_profile-negotiable']{
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+.review-label{
+    display: block;
+    font-size: 1.1rem;
+}

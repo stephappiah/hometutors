@@ -77,7 +77,7 @@
                     <form id="rateForm" action="{% url 'findtutors:post-tutor-review' %}" method="post">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Review</label>
+                            <label for="exampleFormControlTextarea1" class="text-center mt-3 review-label">Review</label>
                             <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                         </div>
                         <input type="hidden" value="{{ current_user }}" name="rater" id="rater">

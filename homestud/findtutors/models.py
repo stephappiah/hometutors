@@ -6,6 +6,10 @@ from multiselectfield import MultiSelectField
 from .multi_choices import teach_level_choices, free_lesson_choices, highest_education_choices, class_type_choices, user_type_choices
 from .courses import courses_choices, programmes_choices
 
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string, get_template
+from django.utils.html import strip_tags
+
 #User Profile
 class TutorProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
@@ -37,6 +41,23 @@ class TutorProfile(models.Model):
     slug = models.CharField(unique=True, max_length=50, null=True, blank=True)
     show_profile = models.BooleanField(default=True, blank=True)
 
+    # admin role edit for reviewing tutor substandard profile
+    admin_show = models.BooleanField(default=False, blank=True)
+    admin_comment = models.CharField(max_length=500, blank=True, null=True)
+
+    # below attribute helps track change in admin_profile_status and admin comment
+    # this is cached and compared with the actual attribute to spot any changes
+    # it is then used to decide whether to notify users or admin of change
+    __original_admin_show = None
+    __original_admin_comment = None
+
+    # __original_admin_profile_status to be compared with admin_profile_status in signal
+    # this helps send an email on change
+    def __init__(self, *args, **kwargs):
+        super(TutorProfile, self).__init__(*args, **kwargs)
+        self.__original_admin_show = self.admin_show
+        self.__original_admin_comment = self.admin_comment
+
     def __str__(self):
         return str(self.user)
 
@@ -55,6 +76,124 @@ class TutorProfile(models.Model):
         else:
             return self.first_name 
 
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        # save __original_admin_show to avoid error
+
+        # below triggers if admin_show or admin comment changes
+        # it is being compared to __original_admin_show which
+        # is cached
+        # the code actually means, send email if admin_show or admin_comment changes
+        if self.admin_show != self.__original_admin_show or self.admin_comment != self.__original_admin_comment:
+            print('admin changed tutor status!')
+            tutor_email = self.user.email
+            tutor_slug = self.slug
+            first_name = self.first_name
+            tutor_url = f'https://homestud.co/tutor/{tutor_slug}'
+            tutor_review_url = f'https://homestud.co/tutor/{tutor_slug}/review'
+            review_comment = self.admin_comment
+            print(tutor_email)
+            # admin_show is true 
+            # email is sent to user if admin sets self.admin_show to true
+            if self.admin_show is True:
+                print('tutor is live')
+                
+                def notify_tutor_live():
+                    subject = 'Hurray! Your tutor profile is live on Homestud'
+                    context = {
+                        'tutor_url': tutor_url,
+                        'first_name': first_name,
+                        'tutor_review_url': tutor_review_url
+                    }
+                    template = get_template('findtutors/email/tutor-live-email.html')
+                    html_message = template.render(context)
+                    text_message = strip_tags(html_message)
+
+                    send_mail(
+                                subject,
+                                text_message,
+                                'Homestud <hello@homestud.co>',
+                                [f'{tutor_email}'],
+                                html_message=html_message
+                        )
+
+                notify_tutor_live()
+
+            elif self.admin_show is False or self.admin_comment != self.__original_admin_comment:  # self.admin_show is False or self.admin_comment changes
+                print('tutor is offline')
+                def notify_tutor_off():
+                    subject = 'Make changes to your tutor profile'
+                    context = {
+                        'tutor_url': tutor_url,
+                        'first_name': first_name,
+                        'review_comment': review_comment
+                    }
+                    template = get_template('findtutors/email/tutor-off-email.html')
+                    html_message = template.render(context)
+                    text_message = strip_tags(html_message)
+
+                    send_mail(
+                                subject,
+                                text_message,
+                                'Homestud <hello@homestud.co>',
+                                [f'{tutor_email}'],
+                                html_message=html_message
+                        )
+
+                notify_tutor_off()
+        else:
+            pass
+            #  self.admin_show didn't change
+
+        # if save method is updating, self.pk doesn't return None
+        # then check if self.__original_admin_show == False 
+        # __original_admin_show returns false when tutor is previously disabled and asked to make changes to their profile
+        # send email notification to admin for review
+        if self.pk is not None:
+            print('tutor profile updated!')
+            # tutor isn't live and is updating
+            # send admin notification for profile review
+            if self.__original_admin_show is False and self.admin_show is False:
+                # variables
+                tutor_slug = self.slug
+                first_name = self.first_name
+                last_name = self.last_name
+                # tutor isn't live and is updating
+                def notify_admin_tutor_change():
+                    print('email fired!')
+                    admin_email = 'ad.homestud@gmail.com'
+                    tutor_url = f'https://homestud.co/tutor/{tutor_slug}'
+
+                    print('fname:', first_name)
+                    print('email:', admin_email)
+                    print('review_url:', tutor_url)
+
+                    subject = f'Review changes for {first_name} {last_name}!'
+                    context = {
+                        'first_name': first_name,
+                        'tutor_url': tutor_url,
+                        'last_name': last_name,
+                    }
+                    template = get_template('findtutors/email/notify-admin-tutor-review.html')
+                    html_message = template.render(context)
+                    text_message = strip_tags(html_message)
+
+                    send_mail(
+                                subject,
+                                text_message,
+                                'Homestud <hello@homestud.co>',
+                                [admin_email],
+                                html_message=html_message
+                        )
+
+                notify_admin_tutor_change()
+            else:
+                pass
+        
+        super(TutorProfile, self).save(force_insert, force_update, *args, **kwargs)
+        # update __oringinal to related attribute when saving
+        self.__original_admin_show = self.admin_show
+        self.__original_admin_comment = self.admin_comment
+
 class TutorReview(models.Model):
     rater = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='rater_review', blank=True, null=True)
     tutor = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='tutor_review', on_delete=models.CASCADE)   
@@ -62,3 +201,8 @@ class TutorReview(models.Model):
 
     def __str__(self):
         return 'Review for ' + str(self.tutor) + ' by ' + str(self.rater)
+
+    # to do
+    # 1. notify tutor of a new review on their profile
+    def save(self):
+        pass
