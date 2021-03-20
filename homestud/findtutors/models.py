@@ -201,8 +201,3 @@ class TutorReview(models.Model):
 
     def __str__(self):
         return 'Review for ' + str(self.tutor) + ' by ' + str(self.rater)
-
-    # to do
-    # 1. notify tutor of a new review on their profile
-    def save(self):
-        pass

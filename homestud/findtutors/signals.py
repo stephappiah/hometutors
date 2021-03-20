@@ -1,6 +1,6 @@
 from django.dispatch import receiver
 from django.db.models import signals
-from .models import TutorProfile
+from .models import TutorProfile, TutorReview
 from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string, get_template
 from django.utils.html import strip_tags
@@ -64,5 +64,40 @@ def tutor_onboard_email(sender, instance, created, **kwargs):
         email_admin()
 
     
-            
+# signal for tutor_review/recommendation model
+@receiver(signals.post_save, sender=TutorReview)
+def tutor_review_email(sender, instance, created, **kwargs):
+    if created:
+        print('new review created!')
+        tutor_email = instance.tutor.email
+        first_name = instance.tutor.first_name
+        last_name = instance.tutor.last_name
+        rater = instance.rater.first_name
+        review = instance.comment
+        
+        print(f'{tutor_email}; {first_name}, {rater}, {review}')
+        # send tutor an email function
+        def email_tutor_review():   
+            subject = f'{rater} reviewed your tutor profile!'
+            context = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'review': review,
+                'rater': rater
+            }
+            template = get_template('findtutors/email/new-tutor-review.html')
+            html_message = template.render(context)
+            text_message = strip_tags(html_message)
+
+            send_mail(
+                        subject,
+                        text_message,
+                        'Homestud <hello@homestud.co>',
+                        [f'{tutor_email}'],
+                        html_message=html_message
+                )
+        
+        email_tutor_review()
+
+    
 
