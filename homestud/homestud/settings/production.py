@@ -80,7 +80,7 @@ EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Homestud <hello@homestud.co>'
 
-SERVER_EMAIL = 'Homestud <hello@homestud.co>'
+SERVER_EMAIL = 'hello@homestud.co'
 # admins get notified of errors
 ADMINS = [
 
