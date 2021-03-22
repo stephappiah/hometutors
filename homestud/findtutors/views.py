@@ -197,7 +197,7 @@ def SearchTutor(request):
     programme_list = json.dumps(dict(programmes_choices))
     course_list = json.dumps(dict(courses_choices))
     # users with 'show profile'
-    show_profile = TutorProfile.objects.filter(show_profile=True)
+    show_profile = TutorProfile.objects.filter(admin_show=True)
 
     #Get coordinates from search form in template
     lat = request.GET.get('lat')
@@ -268,7 +268,7 @@ def FilterSearch(request):
     course_list = json.dumps(dict(courses_choices))
 
     # users with 'show profile'
-    show_profile = TutorProfile.objects.filter(show_profile=True)
+    show_profile = TutorProfile.objects.filter(admin_show=True)
 
     # check if search form has coordinates
     # else use coordinates from session
