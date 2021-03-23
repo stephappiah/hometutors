@@ -26,7 +26,13 @@ EMAIL_HOST_USER = 'appstephen8@gmail.com'
 EMAIL_HOST_PASSWORD = 'scientific'
 EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Homestud <appstephen8@gmail.com> '
+DEFAULT_FROM_EMAIL = 'Homestud <appstephen8@gmail.com>'
+
+
+SERVER_EMAIL = 'admin@homestud.co'
+# admins get notified of errors
+ADMINS = [('Steph', 'noreply.homestud@gmail.com'), ('Admin', 'hello@homestud.co')]
+
 
 DATABASES = {
     'default': {
