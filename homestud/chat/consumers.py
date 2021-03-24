@@ -207,12 +207,16 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
 
                     user_model = get_user_model()
                     receiver_email = user_model.objects.get(username=username)
-                    first_name = receiver_email.first_name
-                    print(first_name)
+                    receiver_name = receiver_email.first_name
+                    sender_name = user_model.objects.get(username=self.user.username).first_name
+                    print(sender_name)
                     print('email:', f'{receiver_email}')
                     
-                    subject = 'You have a new message!'
-                    context = {'first_name': first_name}
+                    subject = f'New message from {sender_name}!'
+                    context = {
+                        'receiver_name': receiver_name,
+                        'sender_name': sender_name,
+                        }
                     template = get_template('chat/email/new_message.html')
                     html_message = template.render(context)
                     text_message = strip_tags(html_message)

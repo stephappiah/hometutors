@@ -71,7 +71,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def get_full_name(self):
         if self.first_name != None and self.last_name != None:
-            return self.first_name + '' + self.last_name
+            return self.first_name + ' ' + self.last_name
         elif self.first_name == None:
             return self.last_name
         else:
