@@ -9,5 +9,4 @@ admin.site.register(TutorReview)
 
 @admin.register(TutorProfile) 
 class ProfileAdmin(OSMGeoAdmin):
-    list_display = ('user', 'first_name', 'last_name', 'location', 'address', 'teach_levels', 'tutoring_programs',
-     'courses_subjects', 'highest_education', 'class_type', 'bio', 'slug', 'show_profile')
+    list_display = ('user', 'first_name', 'address', 'highest_education', 'slug', 'admin_show', 'show_profile')

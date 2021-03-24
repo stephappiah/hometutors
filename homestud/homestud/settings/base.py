@@ -75,7 +75,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-STAR_RATINGS_STAR_HEIGHT = 20
+STAR_RATINGS_STAR_HEIGHT = 15
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

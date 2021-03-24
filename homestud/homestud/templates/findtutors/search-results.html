@@ -3,6 +3,7 @@
 {% load static %}
 {% load extra_template_filters %}
 {% block head_title %}
+{% load ratings %}
      
 {% endblock head_title %}
 
@@ -72,6 +73,9 @@
     </script>
     <!-- Google maps api url and callback function -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
+    <!-- ratings -->
+  <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+  <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 {% endblock extra_head %}
 
 
@@ -117,7 +121,7 @@
                     <!-- Profile image -->
                     
                     <div class="big-circle pt-4">
-                        <div class="rate">
+                        <div class="rate shadow-sm">
                         <p>{{ tutor.rate_per_hour }}<small>/hr</small></p> 
                         </div>
                         
@@ -133,8 +137,13 @@
                     
                     
                     <div class="card-body text-center tutor-info">
-                        
-                        <p class="lead-text mb-0 mt-2 text-center">{{ tutor.get_full_name }}</p>
+                        <!-- fullname -->
+                        <p class="lead-text mb-0 mt-2 text-center">{{ tutor.get_full_name|title }}</p>
+
+                        <!-- tutor rating -->
+                        <div class="myRating mt-2 ">
+                            {% ratings tutor %}
+                         </div>
                         <hr>
                         
                         <!-- Distance -->

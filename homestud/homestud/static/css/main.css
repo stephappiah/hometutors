@@ -1,11 +1,11 @@
 
 body {
-    font-family: "Roboto", Arial, sans-serif;;
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
-    font-weight: 400;
-    font-size: 100%;
+    /* font-weight: 400; */
+    font-size: 16px;
     background-color: #fff;
-    color: #000;
+    color: #222;
     line-height: 1.5;
     margin: 0;
     position: relative;
@@ -56,8 +56,9 @@ body {
 }
 
 .tutor-text{
-    font-size: 1.0rem;
+    font-size: 16px;
     font-weight: 300;
+    line-height: 180%;
 }
 
 .line-breaks {
@@ -193,7 +194,6 @@ ul.chips_class_type li label::before {
     font-variant: normal;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     font-size: 12px;
     padding: 2px 6px 2px 2px !important;
@@ -286,9 +286,9 @@ label {
     min-width: 36px;
     text-align: center;
     font-size: 14px !important;
-    font-weight: 500 !important;
+    font-weight: 400 !important;
 
-    background-color: #f7e3e345;
+    background-color: #e3f7f445;
     border-color: #6c757d;
     color: black;
     
@@ -337,8 +337,8 @@ p {
     height: 55px;
     width: 55px;
     border: 2px solid white;
-    background-color: #18c6b9;
-    color: white;
+    background-color: white;
+    color: #28a745;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -379,7 +379,6 @@ p {
 }
 
 .txt-paragraph{
-    font-family: "Roboto",Arial,sans-serif;
     font-size: 18px;
     line-height: 28px;
     color: #000000!important;
@@ -428,7 +427,7 @@ p {
 
 .course-home {
     margin-right: 5rem;
-    min-width: 12rem;
+    min-width: 16rem;
     padding: 2rem;
     background-color: rgb(255 255 255 / 73%);
     color: #0a411a;
@@ -592,7 +591,8 @@ p {
 
     .tutor-lead-text{
         font-size: 1.6rem;
-        font-weight: 400;
+        font-weight: 600;
+        line-height: 140%;
     }
     
 }
@@ -699,7 +699,8 @@ p {
 
     .tutor-lead-text{
         font-size: 1.3rem;
-        font-weight: 400;
+        font-weight: 600;
+        line-height: 140%;
     }
 }
 
