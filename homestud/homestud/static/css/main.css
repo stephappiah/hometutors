@@ -83,6 +83,9 @@ body {
     background-color: gainsboro;
     color: gray;
 }
+.gold-color{
+    color: #ffb126 !important;
+}
 .errorlist{
     color: red;
 }
@@ -152,8 +155,8 @@ select {
 }
 
 .display-text {
-    font-size: 2.5rem;
-    font-weight: 300;
+    font-size: 2.0rem;
+    font-weight: bold;
     line-height: 1.2;
 }
 
@@ -338,7 +341,7 @@ p {
     width: 55px;
     border: 2px solid white;
     background-color: white;
-    color: #28a745;
+    color: #e5931e;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -400,11 +403,11 @@ p {
   }
 
 .courseJumbo{
-    background-color:#e3f7ed;
+    background-color:#e3f7ed52;
     margin-bottom: 0 !important;
 }
 .onboard-jumbo{
-    background-color:#f8f9fa;
+    background-color:#f2f8ff52;
     margin-bottom: 0 !important;
     border-radius: 0 !important;
 }
@@ -429,7 +432,7 @@ p {
     margin-right: 5rem;
     min-width: 16rem;
     padding: 2rem;
-    background-color: rgb(255 255 255 / 73%);
+    background-color: rgb(255 255 255);
     color: #0a411a;
     min-height: 15rem;
     border-radius: 25px;
@@ -441,6 +444,10 @@ p {
 .course-home h4 {
     font-weight: 500;
     margin-bottom: 1rem;
+}
+
+.hom-header{
+    font-weight: 500;
 }
 
 .list-cities ul li a {
@@ -460,6 +467,21 @@ p {
     left: 5%;
 }
 
+.btn-dark{
+    background-color: #585858eb;
+}
+
+.btn-box-radius{
+    border-radius: 6px;
+    box-shadow: 0 0 2px 0 rgb(0 0 0 / 6%), 0 2px 2px 0 rgb(0 0 0 / 12%);
+    min-width: 200px;
+    font-size: 18px;
+}
+
+/* fix materialize css unequal button height */
+.btn, .btn-large, .btn-small, .btn-flat{
+    height: fit-content;
+}
 .helptext {
     font-size: .9rem;
     /* color: #555555; */
@@ -525,6 +547,8 @@ p {
     .hero-text{
         font-size: 64px;
         line-height: 76px;
+        line-height: 120%;
+        font-weight: bold;
     }
     .hero-subtitle{
         font-size: 24px;
@@ -654,6 +678,8 @@ p {
     .hero-text{
         font-size: 32px;
         line-height: 40px;
+        line-height: 120%;
+        font-weight: bold;
     }
 
     .hero-subtitle{
@@ -1039,7 +1065,7 @@ a {
     color: white;
 }
 .semi-round{
-    border-radius: 0.8rem;
+    border-radius: 8px;
     font-weight: 600;
 }
 
