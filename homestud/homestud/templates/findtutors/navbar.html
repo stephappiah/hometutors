@@ -1,12 +1,12 @@
 {% load static %}
 <div class="navbar-fixed">
-  <nav class="white shadow-sm">
+  <nav class="white">
     <div class="nav-wrapper">
       <a href="{% url 'findtutors:home' %}" class="brand-logo black-text" id="myFont-sm">
         <img src="{% static 'img/homestud_logo.svg' %}" alt="">
       </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a>
-      <a href="#" data-target="search-boxy" class="right pr-4 hide-on-med-and-up sidenav-trigger"><i class="material-icons black-text">search</i></a>
+      <a href="#" data-target="search-boxy" class="right hide-on-med-and-up sidenav-trigger"><i class="material-icons black-text">search</i></a>
       <ul class="right hide-on-med-and-down">
 
         {% if user.is_authenticated %}

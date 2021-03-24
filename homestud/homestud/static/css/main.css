@@ -10,6 +10,15 @@ body {
     margin: 0;
     position: relative;
 }
+nav{
+    border-bottom: 1px solid #eee;
+    height: 65px;
+}
+
+/* make menu and search icon bold */
+nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+    font-weight: bold;
+}
 
 .btn:focus {
     outline: 0;
@@ -95,6 +104,12 @@ body {
 }
 .mint-text{
     color: #37BC98 !important;
+}
+.mint-color{
+    color: #28c4bd;
+}
+.grey-color{
+    color: #606564;
 }
 /* .black-text{
     color: black !important;
