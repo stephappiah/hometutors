@@ -44,7 +44,7 @@ class TutorProfile(models.Model):
     # admin role edit for reviewing tutor substandard profile
     admin_show = models.BooleanField(default=False, blank=True)
     admin_comment = models.CharField(max_length=500, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     # below attribute helps track change in admin_profile_status and admin comment
     # this is cached and compared with the actual attribute to spot any changes
