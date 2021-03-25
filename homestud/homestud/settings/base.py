@@ -77,8 +77,8 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-STAR_RATINGS_STAR_HEIGHT = 15
+# set rating stars size in frontend
+STAR_RATINGS_STAR_HEIGHT = 18
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
