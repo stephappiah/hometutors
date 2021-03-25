@@ -15,3 +15,8 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# change title of admin page to homestud
+admin.site.site_header = 'Homestud Admin'
+admin.site.site_title = 'Homestud Admin Portal'
+admin.site.index_title = 'Welcome to Homestud Admin Portal'
