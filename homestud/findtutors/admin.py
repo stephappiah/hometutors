@@ -14,7 +14,6 @@ from django.http import JsonResponse
 from django.urls import path
 
 
-
 # admin.site.register(User, UserAdmin)
 admin.site.register(TutorReview)
 

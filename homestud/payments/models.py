@@ -7,7 +7,7 @@ class UserTransaction(models.Model):
     reference = models.CharField(max_length=50, blank=True, null=True)
     channel = models.CharField(max_length=50, blank=True, null=True)
     amount = models.IntegerField(blank=True, null=True)
-    date = models.DateField(null=True, blank=True)
+    date_paid = models.DateField(null=True, blank=True)
     status = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
