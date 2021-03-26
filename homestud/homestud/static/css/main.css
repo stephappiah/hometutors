@@ -85,7 +85,7 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
     font-size: 80px;
  }
 .turq-color{
-    background-color: #149AA4;
+    background-color: rgb(27, 168, 131);
     color: white;
 }
 .grey-back{

@@ -82,10 +82,10 @@ class TutorProfileForm(forms.ModelForm):
         self.fields['free_lesson_duration'].required = True
         self.fields['free_lesson_duration'].help_text = "The first lesson offered for free is a chance for you and your student to get to know each other."
         self.fields['bio'].required = True
-        self.fields['bio'].widget.attrs['placeholder'] = 'I am an engineer/teacher/student...I have an experience in tutoring...I have a degree/certificate in...'
+        self.fields['bio'].widget.attrs['placeholder'] = 'I am an engineer/teacher/student/artist...I have an experience in tutoring...I have a degree/certificate in...My philosophies/values are...'
         self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
         self.fields['bio'].widget.attrs.update({'class': 'form-control'})
-        self.fields['rate_per_hour'].widget.attrs['placeholder'] = 'GHS 10'
+        self.fields['rate_per_hour'].widget.attrs['placeholder'] = 'GHS 5 - GHS 50'
 
     class Meta:
         model = TutorProfile

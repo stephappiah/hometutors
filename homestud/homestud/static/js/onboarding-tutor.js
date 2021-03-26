@@ -19,6 +19,7 @@ $(document).ready(function(){
         },
         blur: function() { 
           formatCurrency($(this), "blur");
+          validateRateValue($(this), "blur");
         }
     });
 
@@ -34,7 +35,7 @@ $(document).ready(function(){
     })
     
     //-------------------- start counting on key pressed ------------------------//
-    var wordLen = 40,
+    var wordLen = 41,
         len; // Maximum word length
     $('#id_2-bio').keydown(function(event) {	
         len = $('#id_2-bio').val().split(/[\s]+/);
@@ -190,6 +191,7 @@ $(document).ready(function(){
     // get input value
     var input_val = input.val();
     
+    
     // don't validate empty input
     if (input_val === "") { return; }
     
@@ -249,6 +251,44 @@ $(document).ready(function(){
     caret_pos = updated_len - original_len + caret_pos;
     input[0].setSelectionRange(caret_pos, caret_pos);
     }
- 
+    
+    // this function executes when rate input loses focus
+    // it checks if rate amount is within 5 and 50 cedis
+    function validateRateValue(input, blur){
+        var rate_value = input.val();
+        console.log('...validating:', rate_value);
+        // rate_value returns GHS Number.decimal
+        // extract Number from rate_value
+        var num_in_rate = rate_value.match(/\d+/g).map(Number)[0];
+        console.log(num_in_rate);
+
+        if (num_in_rate < 5 || num_in_rate > 50){
+            console.log(num_in_rate, 'is too small or large!');
+
+            // highlight rate input with red/danger
+            $('#id_2-rate_per_hour').css(
+                'cssText', 'border: 1px solid red !important;'
+            );
+
+            // remove error text if any
+            $('.rate_error').remove();
+
+            // input error text before .switch
+            $('<small class="rate_error errorlist">Rate can only be from GHS 5 to GHS 50 </small>').insertBefore('.switch');
+            // remove value
+            // this is the safest way to prevent user from continuing
+            $('#id_2-rate_per_hour').val('');
+
+        } else {
+            console.log(num_in_rate, 'is alright!');
+
+            // highlight rate input with grey
+            $('#id_2-rate_per_hour').css(
+                'cssText', 'border: 1px solid #cccfd3 !important;'
+            );
+            // remove error text
+            $('.rate_error').remove();
+        }
+    }
 }); //end of document.ready function
 
