@@ -17,6 +17,13 @@
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
             <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
             <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
+          {% elif user.is_superuser %}
+            <li><a class="black-text" href="{% url 'admin:index' %}">Admin</a></li>
+            <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
+            <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
+            <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
+            <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
+            <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
           {% else %}
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
@@ -47,6 +54,13 @@
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
       <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
       <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
+    {% elif user.is_superuser %}
+    <li><a class="black-text" href="{% url 'admin:index' %}">Admin</a></li>
+    <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
+    <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
+    <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
+    <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
+    <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
     {% else %}
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
