@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'chat',
     'star_ratings',
 
+    'admin_honeypot',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
