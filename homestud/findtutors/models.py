@@ -6,9 +6,7 @@ from multiselectfield import MultiSelectField
 from .multi_choices import teach_level_choices, free_lesson_choices, highest_education_choices, class_type_choices, user_type_choices
 from .courses import courses_choices, programmes_choices
 
-from django.core.mail import send_mail, EmailMessage
-from django.template.loader import render_to_string, get_template
-from django.utils.html import strip_tags
+from homestud.utils import notify_email
 
 #User Profile
 class TutorProfile(models.Model):
@@ -92,55 +90,44 @@ class TutorProfile(models.Model):
             tutor_url = f'https://homestud.co/tutor/{tutor_slug}'
             tutor_review_url = f'https://homestud.co/tutor/{tutor_slug}/review'
             review_comment = self.admin_comment
+            
             print(tutor_email)
             # admin_show is true 
             # email is sent to user if admin sets self.admin_show to true
             if self.admin_show is True:
                 print('tutor is live')
+                subject = 'Hurray! Your tutor profile is live on Homestud'
+                context = {
+                    'tutor_url': tutor_url,
+                    'first_name': first_name,
+                    'tutor_review_url': tutor_review_url
+                }
+                template = 'findtutors/email/tutor-live-email.html'
                 
-                def notify_tutor_live():
-                    subject = 'Hurray! Your tutor profile is live on Homestud'
-                    context = {
-                        'tutor_url': tutor_url,
-                        'first_name': first_name,
-                        'tutor_review_url': tutor_review_url
-                    }
-                    template = get_template('findtutors/email/tutor-live-email.html')
-                    html_message = template.render(context)
-                    text_message = strip_tags(html_message)
-
-                    send_mail(
-                                subject,
-                                text_message,
-                                'Homestud <hello@homestud.co>',
-                                [f'{tutor_email}'],
-                                html_message=html_message
-                        )
-
-                notify_tutor_live()
+                # notify tutor
+                notify_email(
+                    template,
+                    tutor_email,
+                    subject,
+                    context
+                )
 
             elif self.admin_show is False or self.admin_comment != self.__original_admin_comment:  # self.admin_show is False or self.admin_comment changes
                 print('tutor is offline')
-                def notify_tutor_off():
-                    subject = 'Make changes to your tutor profile'
-                    context = {
-                        'tutor_url': tutor_url,
-                        'first_name': first_name,
-                        'review_comment': review_comment
-                    }
-                    template = get_template('findtutors/email/tutor-off-email.html')
-                    html_message = template.render(context)
-                    text_message = strip_tags(html_message)
-
-                    send_mail(
-                                subject,
-                                text_message,
-                                'Homestud <hello@homestud.co>',
-                                [f'{tutor_email}'],
-                                html_message=html_message
-                        )
-
-                notify_tutor_off()
+                subject = 'Make changes to your tutor profile'
+                template = 'findtutors/email/tutor-off-email.html'
+                context = {
+                    'tutor_url': tutor_url,
+                    'first_name': first_name,
+                    'review_comment': review_comment
+                }
+                # send tutor email
+                notify_email(
+                    template,
+                    tutor_email,
+                    subject,
+                    context
+                )
         else:
             pass
             #  self.admin_show didn't change
@@ -158,35 +145,24 @@ class TutorProfile(models.Model):
                 tutor_slug = self.slug
                 first_name = self.first_name
                 last_name = self.last_name
+                admin_email = 'ad.homestud@gmail.com'
+                tutor_url = f'https://homestud.co/tutor/{tutor_slug}'
+                subject = f'Review changes for {first_name} {last_name}!'
+                template = 'findtutors/email/notify-admin-tutor-review.html'
+                context = {
+                    'first_name': first_name,
+                    'tutor_url': tutor_url,
+                    'last_name': last_name,
+                }
                 # tutor isn't live and is updating
-                def notify_admin_tutor_change():
-                    print('email fired!')
-                    admin_email = 'ad.homestud@gmail.com'
-                    tutor_url = f'https://homestud.co/tutor/{tutor_slug}'
-
-                    print('fname:', first_name)
-                    print('email:', admin_email)
-                    print('review_url:', tutor_url)
-
-                    subject = f'Review changes for {first_name} {last_name}!'
-                    context = {
-                        'first_name': first_name,
-                        'tutor_url': tutor_url,
-                        'last_name': last_name,
-                    }
-                    template = get_template('findtutors/email/notify-admin-tutor-review.html')
-                    html_message = template.render(context)
-                    text_message = strip_tags(html_message)
-
-                    send_mail(
-                                subject,
-                                text_message,
-                                'Homestud <hello@homestud.co>',
-                                [admin_email],
-                                html_message=html_message
-                        )
-
-                notify_admin_tutor_change()
+                # send email
+                notify_email(
+                    template,
+                    admin_email,
+                    subject,
+                    context
+                )
+            
             else:
                 pass
         

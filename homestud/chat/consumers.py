@@ -25,12 +25,7 @@ from .models import Room, Message
 import json
 from uuid import UUID
 
-from django.core.mail import send_mail, EmailMessage
-from django.template.loader import render_to_string, get_template
-from django.utils.html import strip_tags
-from django.shortcuts import render
-
-
+from homestud.utils import notify_email
 '''
 AI-------------------------------------------------------------------
     Database Access methods below
@@ -217,19 +212,16 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                         'receiver_name': receiver_name,
                         'sender_name': sender_name,
                         }
-                    template = get_template('chat/email/new_message.html')
-                    html_message = template.render(context)
-                    text_message = strip_tags(html_message)
-                    #text_message = 'Someone sent you a messaage on homestud.co... click below to view message'
-                    
-                    # send email here
-                    send_mail(
+                    template = 'chat/email/new_message.html'
+
+                    # send recipient email notification
+                    notify_email(
+                        template,
+                        f'{receiver_email}',
                         subject,
-                        text_message,
-                        'Homestud <hello@homestud.co>',
-                        [f'{receiver_email}'],
-                        html_message=html_message
+                        context
                     )
+                    
 
                     # -------------- end of email notification -------------
 
