@@ -2,7 +2,7 @@ from django.dispatch import receiver
 from django.db.models import signals
 from .models import TutorProfile, TutorReview
 
-from homestud.utils import notify_email
+from homestud.tasks import notify_email
 
 @receiver(signals.post_save, sender=TutorProfile)
 def tutor_onboard_email(sender, instance, created, **kwargs):
@@ -32,7 +32,7 @@ def tutor_onboard_email(sender, instance, created, **kwargs):
 
 
         # send tutor email after profile is created
-        notify_email(
+        notify_email.delay(
             'findtutors/email/tutor-onboard-email.html',
             tutor_email,
             'Welcome to the Homestud community!',
@@ -40,7 +40,7 @@ def tutor_onboard_email(sender, instance, created, **kwargs):
         )
 
         # email admin of new tutor profile
-        notify_email(
+        notify_email.delay(
             'findtutors/email/notify-admin-email.html',
             admin_email,
             f'{first_name} {last_name} signed up as a tutor!',
@@ -71,7 +71,7 @@ def tutor_review_email(sender, instance, created, **kwargs):
         print(f'{tutor_email}; {first_name}, {rater}, {review}')
 
         # send tutor an email function
-        notify_email(template, tutor_email, subject, context)
+        notify_email.delay(template, tutor_email, subject, context)
 
     
 

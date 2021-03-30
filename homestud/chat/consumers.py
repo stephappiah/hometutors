@@ -25,7 +25,7 @@ from .models import Room, Message
 import json
 from uuid import UUID
 
-from homestud.utils import notify_email
+from homestud.tasks import notify_email
 '''
 AI-------------------------------------------------------------------
     Database Access methods below
@@ -215,7 +215,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                     template = 'chat/email/new_message.html'
 
                     # send recipient email notification
-                    notify_email(
+                    notify_email.delay(
                         template,
                         f'{receiver_email}',
                         subject,

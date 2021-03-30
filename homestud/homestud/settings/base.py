@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'findtutors',
     'chat',
     'star_ratings',
+    'django_celery_results',
 
     'admin_honeypot',
 
@@ -144,7 +145,22 @@ USE_L10N = True
 
 USE_TZ = True
 
+# CELERY STUFF
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_TIMEZONE = 'Africa/Accra'
+CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_RESULT_BACKEND = 'django-cache'
+# CELERY_CACHE_BACKEND = 'default'
 
+CELERY_BROKER_URL = 'amqp://localhost'
+# django setting for celery cache.
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         'LOCATION': 'my_cache_table',
+#     }
+# }
 
 
 

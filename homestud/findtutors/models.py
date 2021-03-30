@@ -6,7 +6,7 @@ from multiselectfield import MultiSelectField
 from .multi_choices import teach_level_choices, free_lesson_choices, highest_education_choices, class_type_choices, user_type_choices
 from .courses import courses_choices, programmes_choices
 
-from homestud.utils import notify_email
+from homestud.tasks import notify_email
 
 #User Profile
 class TutorProfile(models.Model):
@@ -105,7 +105,7 @@ class TutorProfile(models.Model):
                 template = 'findtutors/email/tutor-live-email.html'
                 
                 # notify tutor
-                notify_email(
+                notify_email.delay(
                     template,
                     tutor_email,
                     subject,
@@ -122,7 +122,7 @@ class TutorProfile(models.Model):
                     'review_comment': review_comment
                 }
                 # send tutor email
-                notify_email(
+                notify_email.delay(
                     template,
                     tutor_email,
                     subject,
@@ -156,7 +156,7 @@ class TutorProfile(models.Model):
                 }
                 # tutor isn't live and is updating
                 # send email
-                notify_email(
+                notify_email.delay(
                     template,
                     admin_email,
                     subject,

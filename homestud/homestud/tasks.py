@@ -1,9 +1,10 @@
 from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string, get_template
 from django.utils.html import strip_tags
-from typing import Dict, Union, List
 
+from celery import shared_task
 
+@shared_task
 def notify_email(template, recipient, subject, context, sender='Homestud <hello@homestud.co>'):
     """
     sends an email to user when an action happens
