@@ -13,6 +13,7 @@ urlpatterns = [
     path('chat/', include('chat.urls')),
     path('pay/', include('payments.urls')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
+    path('maintenance-mode/', include('maintenance_mode.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
