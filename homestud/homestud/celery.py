@@ -1,9 +1,14 @@
 import os
 
 from celery import Celery
+from django.conf import settings
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.development')
+if settings.DEBUG:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.development')
+    print('celery debug thingy working!')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.production')
 
 app = Celery('homestud')
 

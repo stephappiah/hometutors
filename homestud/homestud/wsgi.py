@@ -10,8 +10,12 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+from django.conf import settings
 
-#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.development')
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.production')
+if settings.DEBUG:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.development')
+    print('wsgi dev')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'homestud.settings.production')
 
 application = get_wsgi_application()
