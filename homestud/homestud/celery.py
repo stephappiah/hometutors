@@ -1,6 +1,7 @@
 import os
 
 from celery import Celery
+import celery_graceful_stop
 
 # set the default Django settings module for the 'celery' program.
 
@@ -18,6 +19,8 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
+
+celery_graceful_stop.register(app)
 
 @app.task(bind=True)
 def debug_task(self):
