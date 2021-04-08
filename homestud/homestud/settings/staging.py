@@ -7,8 +7,6 @@ from os import environ
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = False
-
 ALLOWED_HOSTS = ['172.105.245.211']
 
 INSTALLED_APPS += [

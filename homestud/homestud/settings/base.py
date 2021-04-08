@@ -6,6 +6,8 @@ from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#change to FALSE when prod
+DEBUG = True
 
 INSTALLED_APPS = [
     'admin_interface',
