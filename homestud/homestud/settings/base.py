@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'findtutors',
     'chat',
     'star_ratings',
-    'django_celery_results',
+    'django_q',
 
     'admin_honeypot',
 
@@ -139,6 +139,24 @@ CHANNEL_LAYERS = {
 }
 
 
+# django q stuff
+Q_CLUSTER = {
+    'name': 'homestud',
+    'workers': 8,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'redis': {
+        'host': '127.0.0.1',
+        'port': 6379,
+        'db': 0, }
+}
+
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -148,35 +166,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-# CELERY STUFF
-CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 30 * 60
-CELERY_TIMEZONE = 'Africa/Accra'
-# prod
-# CELERY_BACKEND = 'redis://localhost:6379/3'
-# CELERY_BROKER_URL = 'redis://localhost:6379/4'
-# CELERY_RESULT_BACKEND = 'redis://localhost:6379/5'
-
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_ENABLE_UTC = True
-
-#CELERY_RESULT_BACKEND = 'django-db'
-# CELERY_RESULT_BACKEND = 'django-cache'
-# CELERY_CACHE_BACKEND = 'default'
-
-#dev
-#CELERY_BROKER_URL = 'amqp://localhost'
-# django setting for celery cache.
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-#         'LOCATION': 'my_cache_table',
-#     }
-# }
-
 
 
 STATICFILES_DIRS = [

@@ -4,8 +4,6 @@ GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal300.dll"
 
 SECRET_KEY = 'ie6b5hb5i#a9@b^6blxx+az(k9ex1x!o7@9cm3i&&#jz_809p@'
 
-DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS += [
@@ -13,6 +11,8 @@ INSTALLED_APPS += [
 ]
 
 SITE_ID=2
+
+DEBUG = True
 
 PAYSTACK_PUBLIC_KEY = 'pk_test_1301ae5f94c2cf0e0de6689629f73a96b7bfa8bb'
 PAYSTACK_SECRET_KEY = 'sk_test_989169108aaf6ab394c715e8db93bba227abcd4d'
