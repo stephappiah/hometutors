@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'findtutors',
     'chat',
     'star_ratings',
+    'django_q',
 
     'admin_honeypot',
 
@@ -131,6 +132,24 @@ CHANNEL_LAYERS = {
         'hosts': [('localhost', 6379)],
       },
   },
+}
+
+
+# django q stuff
+Q_CLUSTER = {
+    'name': 'homestud',
+    'workers': 8,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'redis': {
+        'host': '127.0.0.1',
+        'port': 6379,
+        'db': 0, }
 }
 
 

@@ -1,12 +1,15 @@
 # from django.db import models
-from django.contrib.gis.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.contrib.gis.db import models
+from django_q.tasks import async_task, schedule
 from multiselectfield import MultiSelectField
-from .multi_choices import teach_level_choices, free_lesson_choices, highest_education_choices, class_type_choices, user_type_choices
-from .courses import courses_choices, programmes_choices
 
-from homestud.utils import notify_email
+from .courses import courses_choices, programmes_choices
+from .multi_choices import (class_type_choices, free_lesson_choices,
+                            highest_education_choices, teach_level_choices,
+                            user_type_choices)
+
 
 #User Profile
 class TutorProfile(models.Model):
@@ -105,7 +108,8 @@ class TutorProfile(models.Model):
                 template = 'findtutors/email/tutor-live-email.html'
                 
                 # notify tutor
-                notify_email(
+                async_task(
+                    'homestud.utils.notify_email',
                     template,
                     tutor_email,
                     subject,
@@ -122,7 +126,8 @@ class TutorProfile(models.Model):
                     'review_comment': review_comment
                 }
                 # send tutor email
-                notify_email(
+                async_task(
+                    'homestud.utils.notify_email',
                     template,
                     tutor_email,
                     subject,
@@ -156,7 +161,8 @@ class TutorProfile(models.Model):
                 }
                 # tutor isn't live and is updating
                 # send email
-                notify_email(
+                async_task(
+                    'homestud.utils.notify_email',
                     template,
                     admin_email,
                     subject,

@@ -25,7 +25,7 @@ from .models import Room, Message
 import json
 from uuid import UUID
 
-from homestud.utils import notify_email
+from django_q.tasks import async_task, schedule
 '''
 AI-------------------------------------------------------------------
     Database Access methods below
@@ -215,7 +215,8 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                     template = 'chat/email/new_message.html'
 
                     # send recipient email notification
-                    notify_email(
+                    async_task(
+                        'homestud.utils.notify_email',
                         template,
                         f'{receiver_email}',
                         subject,
