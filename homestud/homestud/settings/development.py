@@ -51,6 +51,14 @@ STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 
 
+
+# mantenance mode settings
+MAINTENANCE_MODE = False
+MAINTENANCE_MODE_IGNORE_ADMIN_SITE = True
+MAINTENANCE_MODE_IGNORE_SUPERUSER = True
+MAINTENANCE_MODE_TEMPLATE = '503.html'
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.contrib.gis.db.backends.postgis',
