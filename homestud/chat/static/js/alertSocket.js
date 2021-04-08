@@ -12,10 +12,10 @@
 var ws_or_wss = window.location.protocol == "https:" ? "wss://" : "ws://";
 
 // development
-websocket_url = ws_or_wss + window.location.host + '/ws/django_chatter/users/' + username + '/'; // username variable in chat-window.html
+//websocket_url = ws_or_wss + window.location.host + '/ws/django_chatter/users/' + username + '/'; // username variable in chat-window.html
 
 // production
-//websocket_url = ws_or_wss + window.location.host + ':8001' + '/ws/django_chatter/users/' + username + '/'; // username variable in chat-window.html
+websocket_url = ws_or_wss + window.location.host + ':8001' + '/ws/django_chatter/users/' + username + '/'; // username variable in chat-window.html
 
 /*
 AI-------------------------------------------------------------------
