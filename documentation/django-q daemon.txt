@@ -1,0 +1,25 @@
+
+
+sudo nano /etc/systemd/system/django-q
+
+[Unit]
+Description=django_q daemon
+After=network.target
+
+[Service]
+User=steph
+Group=www-data
+WorkingDirectory=/home/steph/icecream/hometutors/homestud
+ExecStart=/home/steph/icecream/venv/bin/python /home/steph/icecream/hometutors/homestud/manage.py qcluster
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+USEFUL COMMANDS
+
+sudo systemctl daemon-reload
+sudo systemctl enable django-q
+sudo systemctl restart django-q
+sudo systemctl status django-q
