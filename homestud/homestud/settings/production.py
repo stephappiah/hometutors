@@ -81,7 +81,7 @@ DEFAULT_FROM_EMAIL = 'Homestud <hello@homestud.co>'
 
 SERVER_EMAIL = 'hello@homestud.co'
 # admins get notified of errors
-ADMINS = [('Steph', 'noreply.homestud@gmail.com'), ('Admin', 'hello@homestud.co')]
+ADMINS = [('Steph', 'noreply.homestud@gmail.com')]
 
 
 # dkim backend settings
@@ -133,7 +133,7 @@ LOGGING = {
 
 
 # mantenance mode settings
-MAINTENANCE_MODE = True
+MAINTENANCE_MODE = False
 MAINTENANCE_MODE_IGNORE_ADMIN_SITE = True
 MAINTENANCE_MODE_IGNORE_SUPERUSER = True
 MAINTENANCE_MODE_TEMPLATE = '503.html'

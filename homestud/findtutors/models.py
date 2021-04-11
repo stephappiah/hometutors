@@ -125,7 +125,7 @@ class TutorProfile(models.Model):
                     'first_name': first_name,
                     'review_comment': review_comment
                 }
-                # send tutor email
+                # send tutor email so they make changes to their profile
                 async_task(
                     'homestud.utils.notify_email',
                     template,
@@ -160,7 +160,7 @@ class TutorProfile(models.Model):
                     'last_name': last_name,
                 }
                 # tutor isn't live and is updating
-                # send email
+                # send email to admin to review changes made by tutor
                 async_task(
                     'homestud.utils.notify_email',
                     template,
