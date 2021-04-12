@@ -99,7 +99,7 @@
                         <input type="range" class="form-control-range" id="formControlRange" name="distance">
                       </div> -->
                     <div class="text-center mt-3">
-                        <button class="btn btn-box-radius btn-dark" type="submit">Search</button>
+                        <button class="btn btn-box-radius btn-dark" type="submit">Filter</button>
                     </div>
                     
                 </form>
@@ -118,8 +118,8 @@
 
             {% for tutor in tutors  %}
                 <div class="card col-sm col-lg-4 tutor-card ml-3 mr-3">
+                   
                     <!-- Profile image -->
-                    
                     <div class="big-circle pt-4">
                         <div class="rate shadow-sm">
                         <p>{{ tutor.rate_per_hour }}<small>/hr</small></p> 
@@ -129,9 +129,7 @@
                             <img src="{{ tutor.avatar.url }}" alt="{{ tutor.get_full_name }}-homestud-tutor">
                         {% else %}
                             <img src='{% static "img/avatar/no-avatar.png" %}' alt="{{ tutor.get_full_name }}-homestud-tutor">
-                        {% endif %}
-                        
-                            
+                        {% endif %}     
                         
                     </div>
                     
@@ -144,8 +142,17 @@
                         <div class="myRating mt-2 ">
                             {% ratings tutor %}
                          </div>
+
+                        <!-- price negotiable? -->
+                        <div class="negotiable">
+                            {% if tutor.negotiable %}
+                                <p>Tutor is open to negotiate hourly rate.</p>
+                            {% else %}
+                                <p></p>
+                            {% endif %}
+                        </div>
+                        <!-- divider below -->
                         <hr>
-                        
                         <!-- Distance -->
                         <div class="icon-text ">
                             <span class="material-icons md-18">
@@ -163,9 +170,9 @@
                         </div>
                         <!-- list of courses/Subjects -->
                         <div class="course-chips-container mt-4">
-                            <p class="lead mb-3">Teaches subjects in:</p>
-                            {% for program in tutor.tutoring_programs %}
-                                <div class="course-chips card-sm-txt">{{ program }}</div>
+                            <p class="lead mb-3">Teaches:</p>
+                            {% for program in tutor.courses_subjects %}
+                                <div class="chips-small card-sm-txt">{{ program }}</div>
                             {% endfor %}
                         </div>
             

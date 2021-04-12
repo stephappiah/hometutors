@@ -47,7 +47,7 @@
 
 <ul class="sidenav p-3" id="mobile-demo">
   {% if user.is_authenticated %}
-
+  <p class="text-center">Welcome, {{user.get_short_name}}</p>
     {% if user.is_tutor %}
       <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>

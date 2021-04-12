@@ -312,6 +312,22 @@ label {
     
 }
 
+.chips-small{
+    border: 1px solid #babc37;
+    display: inline-block;
+    margin-bottom: 5px;
+    border-radius: 25px;
+    padding: 6px 10px;
+    line-height: 14px;
+    min-width: 15px;
+    text-align: center;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    background-color: #f6f7e32b;
+    border-color: #6c757d;
+    color: black;
+}
+
 .link-theme{
     background-color: #ffffff;
     color: #26a69a;
@@ -345,7 +361,7 @@ p {
 
 .lead-text {
     font-size: 5vw;
-    font-weight: 300;
+    font-weight: 500;
 }
 .rate{
     position: absolute;
@@ -360,6 +376,12 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.negotiable{
+    font-size: 10px;
+    min-width: fit-content;
+    color: #e5931e;
 }
 
 .margin-auto{
