@@ -145,6 +145,8 @@ Q_CLUSTER = {
     'workers': 8,
     'recycle': 500,
     'timeout': 60,
+    'ack_failures': True,
+    'max_attempts': 1,
     'compress': True,
     'save_limit': 250,
     'queue_limit': 500,
@@ -153,7 +155,8 @@ Q_CLUSTER = {
     'redis': {
         'host': '127.0.0.1',
         'port': 6379,
-        'db': 0, }
+        'db': 0, 
+        }
 }
 
 
