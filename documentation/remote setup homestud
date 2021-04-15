@@ -1,0 +1,11 @@
+INSTALLING AND CLONING GIT REPO
+	sudo apt install git
+	git clone https://github.com/homestud-education/hometutors.git
+	
+INSTALLING PYTHON3 STUFF
+
+* install pip
+	sudo apt-get install python3-pip
+* install virtualenv
+	$   sudo pip3 install virtualenv
+

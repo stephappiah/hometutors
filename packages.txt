@@ -1,0 +1,26 @@
+pip install django
+pip install django-crispy-forms
+pip install channels
+pip install django-allauth
+pip install django-admin-honeypot
+
+pip install django-q
+pip install django-phonenumber-field
+pip install django-otp
+pip install django-star-ratings
+pip install django-storages
+pip install pypaystack
+pip install django-maintenance-mode
+pip install django-multiselectfield
+
+pip install django-chatter #this downgrades django to 2.2 or sth
+pip install gunicorn
+pip install redis
+pip install django-admin-interface
+pip install django-formtools
+
+pip install python-decouple
+pip install psycopg2
+pip install phonenumbers
+pip install pillow
+pip install django_dkim

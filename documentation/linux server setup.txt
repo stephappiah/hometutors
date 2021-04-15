@@ -33,12 +33,12 @@ $ 	~ sudo apt install redis-server
 
 * Installing GeoDjango Dependencies (GEOS, GDAL, and PROJ.4)
 
-	~ apt-get install gdal-bin libgdal-dev
-	~ apt-get install python3-gdal
-	~ apt-get install binutils libproj-dev
+	~ sudo apt-get install gdal-bin libgdal-dev
+	~ sudo apt-get install python3-gdal
+	~ sudo apt-get install binutils libproj-dev
 
 * Installing postgis dependencies
-	~ apt-get install postgis postgresql-12-postgis-3
+	~ sudo apt-get install postgis postgresql-12-postgis-3
 
 
 * create postgres database
