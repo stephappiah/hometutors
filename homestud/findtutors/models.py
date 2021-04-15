@@ -145,6 +145,8 @@ class TutorProfile(models.Model):
             print('tutor profile updated!')
             # tutor isn't live and is updating
             # send admin notification for profile review
+            # issue!! --fix: notification email is also sent on tutor onboarding as...
+            # it saves the model on different page loads
             if self.__original_admin_show is False and self.admin_show is False:
                 # variables
                 tutor_slug = self.slug
@@ -161,13 +163,14 @@ class TutorProfile(models.Model):
                 }
                 # tutor isn't live and is updating
                 # send email to admin to review changes made by tutor
-                async_task(
-                    'homestud.utils.notify_email',
-                    template,
-                    admin_email,
-                    subject,
-                    context
-                )
+                
+                # async_task(
+                #     'homestud.utils.notify_email',
+                #     template,
+                #     admin_email,
+                #     subject,
+                #     context
+                # )
             
             else:
                 pass
