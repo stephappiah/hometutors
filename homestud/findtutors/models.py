@@ -164,13 +164,13 @@ class TutorProfile(models.Model):
                 # tutor isn't live and is updating
                 # send email to admin to review changes made by tutor
                 
-                # async_task(
-                #     'homestud.utils.notify_email',
-                #     template,
-                #     admin_email,
-                #     subject,
-                #     context
-                # )
+                async_task(
+                    'homestud.utils.notify_email',
+                    template,
+                    admin_email,
+                    subject,
+                    context
+                )
             
             else:
                 pass
