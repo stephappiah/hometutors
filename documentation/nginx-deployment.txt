@@ -49,6 +49,7 @@ restart the server
 	~ touch homestud
 	~ sudo nano homestud
 	~ Add the following and save file
+	~ sudo nano /etc/nginx/sites-available/homestud
 
 server {
     listen 80;
@@ -116,3 +117,4 @@ sudo journalctl -u gunicorn.socket 		check gunicorn socket logs
 
 ## see app error logs
 sudo systemctl status gunicorn
+sudo systemctl status nginx

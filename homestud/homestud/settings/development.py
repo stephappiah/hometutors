@@ -1,6 +1,6 @@
 from .base import *
 
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal300.dll"
+# GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal300.dll"
 
 SECRET_KEY = 'ie6b5hb5i#a9@b^6blxx+az(k9ex1x!o7@9cm3i&&#jz_809p@'
 
@@ -19,14 +19,36 @@ PAYSTACK_SECRET_KEY = 'sk_test_989169108aaf6ab394c715e8db93bba227abcd4d'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = '587'
+# EMAIL_HOST_USER = 'appstephen8@gmail.com'
+# EMAIL_HOST_PASSWORD = 'scientific'
+# EMAIL_USE_SSL = False
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'Homestud <appstephen8@gmail.com>'
+
+
+# SERVER_EMAIL = 'admin@homestud.co'
+# # admins get notified of errors
+# ADMINS = [('Steph', 'noreply.homestud@gmail.com'), ('Admin', 'hello@homestud.co')]
+
+# --------production email settings
+# for dkim backend
+#EMAIL_BACKEND = 'django_dkim.backends.smtp.EmailBackend'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'appstephen8@gmail.com'
-EMAIL_HOST_PASSWORD = 'scientific'
+EMAIL_HOST_USER = 'postmaster@sandboxd4e1d6ddb37344329a29f7418eba64b5.mailgun.org'
+EMAIL_HOST_PASSWORD = 'e64a7cf9332efdc4f61e58ebc46a30fd-a09d6718-871d216a'
 EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Homestud <appstephen8@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Homestud <hello@homestud.co>'
+
+SERVER_EMAIL = 'hello@homestud.co'
+# admins get notified of errors
+ADMINS = [('Steph', 'noreply.homestud@gmail.com')]
 
 
 SERVER_EMAIL = 'admin@homestud.co'
@@ -37,9 +59,9 @@ ADMINS = [('Steph', 'noreply.homestud@gmail.com'), ('Admin', 'hello@homestud.co'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'Dev_2',
-        'USER': 'postgres',
-        'PASSWORD': 'scientific',
+        'NAME': 'django_db',
+        'USER': 'steph',
+        'PASSWORD': 'notreallyscientific4196',
         'HOST': 'localhost',
         'PORT': '5432',
     }
