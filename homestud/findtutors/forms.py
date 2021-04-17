@@ -42,7 +42,7 @@ class PersonInfoForm(forms.ModelForm):
         
         labels = {
             'dob': 'Date of Birth',
-            'address': 'Address',
+            'address': 'Your current location',
             'first_name': 'First name',
             'last_name': 'Last name',
         }
