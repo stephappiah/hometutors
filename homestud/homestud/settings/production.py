@@ -81,7 +81,7 @@ DEFAULT_FROM_EMAIL = 'Homestud <hello@mailgun.homestud.co>'
 
 SERVER_EMAIL = 'hello@mailgun.homestud.co'
 # admins get notified of errors
-ADMINS = [('Steph', 'noreply.homestud@gmail.com')]
+ADMINS = [('Steph', 'noreply.homestud@gmail.com'), ('Admin', 'christineyawn02@gmail.com')]
 
 
 # dkim backend settings
