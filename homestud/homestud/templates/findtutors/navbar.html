@@ -19,6 +19,12 @@
             <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
           {% elif user.is_superuser %}
             <li><a class="black-text" href="{% url 'admin:index' %}">Admin</a></li>
+            <li><a class="black-text" href="{% url 'admin:index' %}findtutors/tutorprofile/">Tutor Profile</a></li>
+            <li><a class="black-text" href="{% url 'admin:index' %}django_q/failure/">Failed Tasks</a></li>
+            <li><a class="black-text" href="{% url 'admin:index' %}payments/usertransaction/">User Transactions</a></li>
+            <li><a class="black-text" href="{% url 'admin:index' %}users/user/">Users</a></li>
+
+
             <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
@@ -56,6 +62,13 @@
       <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
     {% elif user.is_superuser %}
     <li><a class="black-text" href="{% url 'admin:index' %}">Admin</a></li>
+    <li><a class="black-text" href="{% url 'admin:index' %}findtutors/tutorprofile/">Tutor Profile</a></li>
+    <li><a class="black-text" href="{% url 'admin:index' %}django_q/failure/">Failed Tasks</a></li>
+    <li><a class="black-text" href="{% url 'admin:index' %}payments/usertransaction/">User Transactions</a></li>
+    <li><a class="black-text" href="{% url 'admin:index' %}users/user/">Users</a></li>
+
+   <hr>
+
     <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
     <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
     <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
