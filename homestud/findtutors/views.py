@@ -29,6 +29,8 @@ from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string, get_template
 from django.utils.html import strip_tags
 
+from django.views.generic import UpdateView
+
 class OnboardingTutorWizard(SessionWizardView):
 
     # checks if user has already filled forms; 
@@ -105,13 +107,6 @@ class OnboardingTutorWizard(SessionWizardView):
             form.cleaned_data['avatar'] = self.request.FILES['compressedImage']
             # save form instaces to database(model)
             profile_instance.save()
-
-            #update is_tutor on user.User model to true
-            user_email = self.request.user.email
-            user_model = User.objects.get(email=user_email)
-            user_model.is_tutor = True
-            user_model.save()
-
 
             # redirect users to share site on social media
         return HttpResponseRedirect(reverse('findtutors:share_profile'))

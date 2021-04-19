@@ -3,6 +3,7 @@ from django.db.models import signals
 from .models import TutorProfile, TutorReview
 
 from django_q.tasks import async_task, schedule
+from users.models import User
 
 @receiver(signals.post_save, sender=TutorProfile)
 def tutor_onboard_email(sender, instance, created, **kwargs):
@@ -82,4 +83,26 @@ def tutor_review_email(sender, instance, created, **kwargs):
         )
 
     
+# set is_tutor attribute on user model to true
+# after tutor signup
+@receiver(signals.post_save, sender=TutorProfile)
+def after_tutor_signup(sender, instance, created, **kwargs):
+    # only run if new model is created
+    if created:
+        
+        user_email = instance.user.email
+        user_model = User.objects.get(email=user_email)
+        user_model.is_tutor = True
+        user_model.save()
+        print('is_tutor set to true!!')
 
+# set is_tutor attribute on user model to false 
+# after tutor model is deleted
+@receiver(signals.post_delete, sender=TutorProfile)
+def after_tutor_delete(sender, instance, **kwargs):
+    
+    user_email = instance.user.email
+    user_model = User.objects.get(email=user_email)
+    user_model.is_tutor = False
+    user_model.save()
+    print('is_tutor set to false!!')
