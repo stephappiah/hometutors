@@ -32,3 +32,8 @@ user_type_choices = (
         ('guardian', 'Guardian'),
         ('tutor', 'Tutor')
     )
+
+user_profile_choices = (
+        ('student', 'Student'),
+        ('guardian', 'Guardian')
+    )

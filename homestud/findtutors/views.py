@@ -15,8 +15,12 @@ from io import StringIO
 import os
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
-from .forms import PersonInfoForm, EducationForm, TutorProfileForm, TutorInterestForm, UpdateTutorForm, AvatarForm
-from .models import TutorProfile, TutorReview
+from .forms import (PersonInfoForm, EducationForm, TutorProfileForm, 
+                    TutorInterestForm, UpdateTutorForm, AvatarForm, 
+                    UserProfileForm
+                    )
+
+from .models import TutorProfile, TutorReview, UserProfile
 from django.forms.models import construct_instance
 from django.core.paginator import Paginator
 from .courses import courses_choices, programmes_choices
@@ -438,3 +442,22 @@ def ajaxGetTutorSlug(request):
     
     data = JsonResponse(slug, safe=False)
     return data
+
+@login_required
+def UserProfileView(request):
+    
+    data = get_object_or_404(UserProfile, user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+
+    else:
+        form = UserProfileForm(instance=data)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'findtutors/userprofile.html', context)

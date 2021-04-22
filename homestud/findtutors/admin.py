@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.gis.admin import OSMGeoAdmin
-from .models import TutorProfile, TutorReview
+from .models import TutorProfile, TutorReview, UserProfile
 # from django.contrib.auth.admin import UserAdmin
 # from .models import User
 
@@ -16,6 +16,8 @@ from django.urls import path
 
 # admin.site.register(User, UserAdmin)
 admin.site.register(TutorReview)
+
+admin.site.register(UserProfile)
 
 @admin.register(TutorProfile) 
 class ProfileAdmin(OSMGeoAdmin):

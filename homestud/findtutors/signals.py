@@ -1,6 +1,6 @@
 from django.dispatch import receiver
 from django.db.models import signals
-from .models import TutorProfile, TutorReview
+from .models import TutorProfile, TutorReview, UserProfile
 
 from django_q.tasks import async_task, schedule
 from users.models import User
@@ -106,3 +106,36 @@ def after_tutor_delete(sender, instance, **kwargs):
     user_model.is_tutor = False
     user_model.save()
     print('is_tutor set to false!!')
+
+# runs when user profile is UPDATED
+# function updates correlating attributes on the main user model
+@receiver(signals.post_save, sender=UserProfile)
+def on_user_profile_update(sender, instance, created, **kwargs):
+    # only run when updating
+    if not created:
+        # when updating user profile
+        # update user model's first_name, last_name, user type
+        print('user profile updated')
+
+        user_model = User.objects.get(email=instance.user.email)
+        user_model.first_name = instance.first_name
+        user_model.last_name = instance.last_name
+        
+        user_model.save()
+
+# runs when tutor profile is UPDATED
+# function updates correlating attributes on the main user model
+@receiver(signals.post_save, sender=TutorProfile)
+def on_tutor_profile_update(sender, instance, created, **kwargs):
+    # only run when updating
+    if not created:
+        # when updating tutor profile
+        # update user model's first_name, last_name, user type
+        print('tutor profile updated')
+
+        user_model = User.objects.get(email=instance.user.email)
+        user_model.first_name = instance.first_name
+        user_model.last_name = instance.last_name
+        
+        user_model.save()
+

@@ -29,3 +29,11 @@ def notify_email(template, recipient, subject, context, sender=defaut_email):
     text_message = strip_tags(html_message)
 
     return send_mail(sub, text_message, sender, [recipient],html_message=html_message)
+
+
+def tutor_scheduled_emails():
+    pass
+
+
+def non_tutor_scheduled_emails():
+    pass 

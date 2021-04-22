@@ -1,6 +1,6 @@
 # from django import forms
 from django.contrib.gis import forms
-from .models import TutorProfile, TutorReview
+from .models import TutorProfile, TutorReview, UserProfile
 from phonenumber_field.formfields import PhoneNumberField
 from django.forms.widgets import CheckboxSelectMultiple
 from .multi_choices import highest_education_choices
@@ -137,3 +137,25 @@ class UpdateTutorForm(forms.ModelForm):
             'bio': forms.Textarea(attrs={'cols': '60', 'rows': '10'})
             
     }
+
+class UserProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user_type'].widget.attrs.update({'class': 'chips_class_type', })
+        
+    class Meta:
+        model = UserProfile
+        fields = ('avatar', 'first_name', 'last_name', 'dob', 'location', 'address', 'user_type',)
+        
+        labels = {
+            'dob': 'Date of Birth',
+            'address': 'Your current location',
+            'first_name': 'First name',
+            'last_name': 'Last name',
+            'user_type': 'Which one are you?'
+        }
+
+        widgets = {
+            'dob': DateInput(),
+            'location': forms.HiddenInput(),
+        }

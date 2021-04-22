@@ -8,7 +8,7 @@ from multiselectfield import MultiSelectField
 from .courses import courses_choices, programmes_choices
 from .multi_choices import (class_type_choices, free_lesson_choices,
                             highest_education_choices, teach_level_choices,
-                            user_type_choices)
+                            user_type_choices, user_profile_choices)
 
 
 #User Profile
@@ -187,3 +187,19 @@ class TutorReview(models.Model):
 
     def __str__(self):
         return 'Review for ' + str(self.tutor) + ' by ' + str(self.rater)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='user_profile', on_delete=models.CASCADE, blank=True, null=True)
+    
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+
+    location = models.PointField(blank=True, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
+    avatar = models.ImageField(default='avatar/no-avatar.png', blank=True, null=True, upload_to='avatar/%Y/%m/%d/')
+    dob = models.DateField(null=True, blank=True)
+    user_type = models.CharField(max_length=50, choices=user_profile_choices, null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.user)

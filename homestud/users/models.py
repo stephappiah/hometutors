@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class UserManager(BaseUserManager):
 
-    def _create_user(self, email, contact, password, is_staff, is_superuser, first_name, last_name):
+    def _create_user(self, email, contact, password, is_staff, is_superuser, first_name, last_name, is_tutor, is_student, is_guardian):
         if not email:
             raise ValueError('Users must have an email address')
         if not first_name:
@@ -22,22 +22,24 @@ class UserManager(BaseUserManager):
             contact=contact,
             is_staff=is_staff, 
             is_active=True,
-            is_tutor=False,
             is_superuser=is_superuser, 
             last_login=now,
             date_joined=now, 
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
+            is_tutor=is_tutor, 
+            is_student=is_student, 
+            is_guardian=is_guardian
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_user(self, email, contact, password, first_name, last_name):
-        return self._create_user(email, contact, password, False, False, first_name, last_name) 
+        return self._create_user(email, contact, password, False, False, first_name, last_name, False, False, False) 
 
     def create_superuser(self, email, contact, password, first_name, last_name):
-        user=self._create_user(email, contact, password, True, True, first_name, last_name)
+        user=self._create_user(email, contact, password, True, True, first_name, last_name, False, False, False)
         user.save(using=self._db)
         return user
 
@@ -56,6 +58,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
 
     is_tutor = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+    is_guardian = models.BooleanField(default=False)
 
     
 

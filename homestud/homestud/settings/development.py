@@ -38,10 +38,10 @@ PAYSTACK_SECRET_KEY = 'sk_test_989169108aaf6ab394c715e8db93bba227abcd4d'
 #EMAIL_BACKEND = 'django_dkim.backends.smtp.EmailBackend'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST = 'smtp.eu.mailgun.org'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'postmaster@sandboxd4e1d6ddb37344329a29f7418eba64b5.mailgun.org'
-EMAIL_HOST_PASSWORD = 'e64a7cf9332efdc4f61e58ebc46a30fd-a09d6718-871d216a'
+EMAIL_HOST_USER = 'postmaster@mail.homestud.co'
+EMAIL_HOST_PASSWORD = '555d9f546c01f5ff7195f36b36ac1509-a09d6718-62795f95'
 EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Homestud <hello@homestud.co>'

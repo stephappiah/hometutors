@@ -22,6 +22,8 @@ class UserAdmin(BaseUserAdmin):
             'is_staff', 
             'is_superuser',
             'is_tutor',
+            'is_student',
+            'is_guardian',
             'groups', 
             'user_permissions',
         )}),
