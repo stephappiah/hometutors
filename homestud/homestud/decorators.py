@@ -1,4 +1,5 @@
 from payments.models import Subscription
+from findtutors.models import TutorProfile
 from datetime import timedelta, datetime
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -37,6 +38,35 @@ def subcribed_user(function):
                 return redirect('/pay/?next=%s' % next_url)
 
         
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap
+
+
+def check_user_type(function):
+    '''
+        decorator checks if user is_tutor;
+        redirects to tutor dashboard if true;
+        else redirect to user profile
+    '''
+    def wrap(request, *args, **kwargs):
+        current_user = request.user
+        tutor_dashboard = reverse('findtutors:dashboard_profile')
+        if current_user.is_anonymous is False:
+            try:
+                TutorProfile.objects.get(user=current_user)
+                # user has tutor profile
+                # redirect to tutor dashboard
+                return redirect(tutor_dashboard)
+            except TutorProfile.DoesNotExist:
+                # user isn't tutor
+                # go ahead with view (user profile view)
+                return function(request, *args, **kwargs)
+        else:
+            # user is anonymous
+            pass
+    
+
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
     return wrap

@@ -11,7 +11,7 @@ from findtutors.models import UserProfile
 
 @receiver(signals.post_save, sender=User)
 def user_profile(sender, instance, created, **kwargs):
-    print('new user signal fired!')
+    
     if created:
         # create user profile for new user
         UserProfile.objects.create(

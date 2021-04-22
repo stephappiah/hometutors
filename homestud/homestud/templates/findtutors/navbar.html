@@ -6,7 +6,8 @@
         <img src="{% static 'img/homestud_logo.svg' %}" alt="">
       </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons black-text">menu</i></a>
-      <a href="#" data-target="search-boxy" class="right hide-on-med-and-up sidenav-trigger"><i class="material-icons black-text">search</i></a>
+      <a href="{% url 'findtutors:user_profile' %}" data-target="search-boxy" class="right hide-on-med-and-up"><i class="material-icons black-text">person</i></a>
+      
       <ul class="right hide-on-med-and-down">
 
         {% if user.is_authenticated %}

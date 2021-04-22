@@ -34,6 +34,7 @@ from django.template.loader import render_to_string, get_template
 from django.utils.html import strip_tags
 
 from django.views.generic import UpdateView
+from homestud.decorators import check_user_type
 
 class OnboardingTutorWizard(SessionWizardView):
 
@@ -443,7 +444,9 @@ def ajaxGetTutorSlug(request):
     data = JsonResponse(slug, safe=False)
     return data
 
+
 @login_required
+@check_user_type
 def UserProfileView(request):
     
     data = get_object_or_404(UserProfile, user=request.user)
