@@ -12,6 +12,7 @@ from django.db.models import Count
 from django.db.models.functions import TruncDay
 from django.http import JsonResponse
 from django.urls import path
+from django.utils.safestring import mark_safe 
 
 
 # admin.site.register(User, UserAdmin)
@@ -23,6 +24,17 @@ admin.site.register(UserProfile)
 class ProfileAdmin(OSMGeoAdmin):
     list_display = ('user', 'first_name', 'address', 'highest_education', 'slug', 'admin_show', 'show_profile')
 
+    # display avatar image
+    readonly_fields = ["headshot_image"]
+
+    def headshot_image(self, obj):
+        return mark_safe('<img src="{url}" width="160px" height="160px" style="{style}">'.format(
+            url = obj.avatar.url,
+            width=obj.avatar.width,
+            height=obj.avatar.height,
+            style="border-radius: 50%; object-fit: cover;"
+            )
+    )
 
     # rendering chartjs in admin tutor profile > change_list view
     def changelist_view(self, request, extra_context=None):
