@@ -1,19 +1,77 @@
-{% extends "base.html" %}
+{% extends "base-without-searchbar.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block head_title %}
       User Profile
 {% endblock head_title %}
 {% block extra_head %}
+    <!-- cdn for browser image compress -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@latest/dist/browser-image-compression.js"></script>
+        
+    <script id="variableScripts">
+        var avatarLink = '{{ user_data.avatar.url }}'.replace(/&amp;/g, "&");
+        var username = '{{ user.username }}';
+        var today = new Date();
+        var autocompleteSRC = "{% static 'js/autocomplete-dashboard.js' %}".replace(/&amp;/g, "&");
+
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+'-'+today.getTime();
+    </script>
+
+    <script src="{% static 'js/user-profile-avatar.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/avatar.css' %}">
+
+    <!-- google autocomplete -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script> 
+    <!-- autocomplete functions -->
+    <script>
+        let autocomplete;
+        function initAutocomplete(){
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('id_address'),
+                {
+                    types: [],
+                    componentRestrictions: {'country': ['GH']},
+                    fields: ['place_id', 'geometry', 'name']
+                }
+            );
+            autocomplete.addListener('place_changed', onPlaceChanged);
+        } 
+        function onPlaceChanged(){
+            var place = autocomplete.getPlace();
+
+            if (!place.geometry){
+                //User did not selet a prediction; reset the input field --> id_0_address is id for search box
+                document.getElementById('id_address').placeholder = 'Enter a location';
+                // disable next button
+                $(':submit').prop( "disabled", true);
+                console.log('value empty');
+            
+            } else {
+                //Get lon and lat of entered location
+                var latitude = place.geometry.location.lat()
+                var longitude = place.geometry.location.lng()
+                //Convert to point value and prefill into the field (hidden from user)
+                var point = `SRID=4326;POINT(${longitude} ${latitude})`
+                $('#id_location').val(point);
+                console.log(point)
+
+                // enable next button on place clicked
+                $(':submit').prop( "disabled", false);
+                // style helptext with green
+                $('.helptext').css({'color': '#6c757d'});
+                console.log('value not empty');
+            }
+        }
+    </script>
 {% endblock extra_head %}
 
 
 {% block content %}
     <div class="container mt-4 mb-5">
-        <form method="post">
+        <form class="avatarForm" id="avatarForm" enctype="multipart/form-data" method="post">
             {% csrf_token %}
             {{ form|crispy }}
-            <input type="submit" value="Update">
+            <input type="submit" class="btn btn-dark mt-4 avt-btn" value="Update">
         </form>
     </div>
     

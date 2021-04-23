@@ -41,6 +41,12 @@
     display: none;
 }
 
+/* for user-profile */
+#avatar-clear_id {
+    display: none;
+}
+
+
 .avt-btn{
     margin: auto;
     display: block;

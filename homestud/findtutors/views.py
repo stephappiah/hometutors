@@ -456,11 +456,22 @@ def UserProfileView(request):
         if form.is_valid():
             form.save()
 
+            if request.FILES.get('compressedImage', None) != None:
+                    try:
+                        os.remove(data.avatar.url)
+                    except Exception as e:
+                        #print(data.avatar.url)
+                        print('Exception in removing old profile image: ', e)
+                    img = request.FILES['compressedImage']
+                    data.avatar = img
+                    data.save()
+
     else:
         form = UserProfileForm(instance=data)
 
     context = {
         'form': form,
+        'user_data': data,
     }
 
     return render(request, 'findtutors/userprofile.html', context)
