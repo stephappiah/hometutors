@@ -197,7 +197,7 @@ class UserProfile(models.Model):
 
     location = models.PointField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
-    avatar = models.ImageField(default='avatar/no-avatar.png', blank=True, null=True, upload_to='avatar/%Y/%m/%d/')
+    avatar = models.ImageField(default='no-avatar.png', blank=True, null=True, upload_to='avatar/%Y/%m/%d/')
     dob = models.DateField(null=True, blank=True)
     user_type = models.CharField(max_length=50, choices=user_profile_choices, null=True, blank=True)
     

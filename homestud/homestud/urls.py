@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('findtutors.urls')), #findtutors urls path
+    path('users/', include('users.urls')),
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('kdf939djfd_admin_3dkfj/', admin.site.urls),
     path('accounts/', include('allauth.urls')), #allauth accounts path

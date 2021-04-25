@@ -26,7 +26,7 @@ from django.core.paginator import Paginator
 from .courses import courses_choices, programmes_choices
 import json 
 
-from homestud.decorators import subcribed_user
+from homestud.decorators import subcribed_user, check_user_type
 from django.utils.decorators import method_decorator
 from allauth.account.decorators import verified_email_required
 from django.core.mail import send_mail, EmailMessage
@@ -34,7 +34,6 @@ from django.template.loader import render_to_string, get_template
 from django.utils.html import strip_tags
 
 from django.views.generic import UpdateView
-from homestud.decorators import check_user_type
 
 class OnboardingTutorWizard(SessionWizardView):
 
