@@ -253,7 +253,7 @@ $(document).ready(function(){
     }
     
     // this function executes when rate input loses focus
-    // it checks if rate amount is within 5 and 50 cedis
+    // it checks if rate amount is within 5 and 30 cedis
     function validateRateValue(input, blur){
         var rate_value = input.val();
         console.log('...validating:', rate_value);
@@ -261,8 +261,9 @@ $(document).ready(function(){
         // extract Number from rate_value
         var num_in_rate = rate_value.match(/\d+/g).map(Number)[0];
         console.log(num_in_rate);
-
-        if (num_in_rate < 5 || num_in_rate > 50){
+        
+        // check if input is less than 5 or greater than 30
+        if (num_in_rate < 5 || num_in_rate > 30){
             console.log(num_in_rate, 'is too small or large!');
 
             // highlight rate input with red/danger
@@ -274,7 +275,7 @@ $(document).ready(function(){
             $('.rate_error').remove();
 
             // input error text before .switch
-            $('<small class="rate_error errorlist">Rate can only be from GHS 5 to GHS 50 </small>').insertBefore('.switch');
+            $('<small class="rate_error errorlist">Rate can only be from GHS 5 to GHS 30 </small>').insertBefore('.switch');
             // remove value
             // this is the safest way to prevent user from continuing
             $('#id_2-rate_per_hour').val('');

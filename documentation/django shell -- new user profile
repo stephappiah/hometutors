@@ -7,3 +7,9 @@ users_without_profile = User.objects.filter(user_profile__isnull=True)
 
 for user in users_without_profile:
 	UserProfile.objects.create(user=user, first_name=user.first_name, last_name=user.last_name)
+	
+	
+	
+	delete user profile objects
+	from findtutors.models import UserProfile
+	UserProfile.objects.all().delete()

@@ -85,7 +85,7 @@ class TutorProfileForm(forms.ModelForm):
         self.fields['bio'].widget.attrs['placeholder'] = 'I am an engineer/teacher/student/artist...I have an experience in tutoring...I have a degree/certificate in...My philosophies/values are...'
         self.fields['class_type'].widget.attrs.update({'class': 'chips_class_type'})
         self.fields['bio'].widget.attrs.update({'class': 'form-control'})
-        self.fields['rate_per_hour'].widget.attrs['placeholder'] = 'GHS 5 - GHS 50'
+        self.fields['rate_per_hour'].widget.attrs['placeholder'] = 'Avg. hourly rate: GHS 10'
 
     class Meta:
         model = TutorProfile
