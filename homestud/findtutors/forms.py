@@ -163,3 +163,12 @@ class UserProfileForm(forms.ModelForm):
             'dob': DateInput(),
             'location': forms.HiddenInput(),
         }
+
+
+class TutorAdminForm(forms.ModelForm):
+    class Meta:
+        model = TutorProfile
+        fields = ('__all__')
+        widgets = {
+            'bio': forms.Textarea(attrs={'cols': '60', 'rows': '10'})
+        }

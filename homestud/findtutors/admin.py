@@ -13,7 +13,7 @@ from django.db.models.functions import TruncDay
 from django.http import JsonResponse
 from django.urls import path
 from django.utils.safestring import mark_safe 
-
+from .forms import TutorAdminForm
 
 # admin.site.register(User, UserAdmin)
 admin.site.register(TutorReview)
@@ -24,6 +24,7 @@ admin.site.register(UserProfile)
 class ProfileAdmin(OSMGeoAdmin):
     list_display = ('user', 'first_name', 'address', 'highest_education', 'slug', 'admin_show', 'show_profile')
 
+    form = TutorAdminForm
     # display avatar image
     readonly_fields = ["headshot_image"]
 
