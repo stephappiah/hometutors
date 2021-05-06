@@ -26,12 +26,15 @@ INSTALLED_APPS = [
     'multiselectfield',
     'formtools',
     'crispy_forms',
+    'bootstrap4',
     'phonenumber_field',
+    'bootstrap_datepicker_plus',
     'channels',
 
     'users',
     'payments',
     'findtutors',
+    'groupstudy',
     'chat',
     'star_ratings',
     'django_q',
@@ -46,7 +49,10 @@ INSTALLED_APPS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
+# below for bootsttrap_datepicker_plus
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
@@ -172,7 +178,8 @@ USE_TZ = True
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, '/groupstudy/static')
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')

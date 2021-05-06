@@ -255,6 +255,11 @@ ul#id_3-courses_subjects li label{
     display: none;
 }
 
+/* hide subject chips until related programs are checked ---> group classes */
+ul#id_subjects li label {
+    display: none;
+}
+
 label {
     font-size: .9rem;
     color: #555555;

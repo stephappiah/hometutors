@@ -1,0 +1,30 @@
+{% extends "bootstrap-base.html" %}
+{% load static %}
+{% load crispy_forms_tags %} 
+{% block head_title %}
+      Create a Group Class
+{% endblock head_title %}
+{% block extra_head %}
+<script src="{% static 'js/group.js' %}"></script>
+{{ form.media }} 
+{% endblock extra_head %}
+    
+{% block content %}
+    <div class="container mt-4 mb-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <p class='text-center mt-4 mb-5'>Create a Group Class</p>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-dark">Create Class</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        
+    </div>
+
+{% endblock content%}
