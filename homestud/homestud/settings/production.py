@@ -77,7 +77,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Homestud <hello@mailgun.homestud.co>'
+DEFAULT_FROM_EMAIL = 'Homestud <hello@homestud.co>'
 
 SERVER_EMAIL = 'hello@mailgun.homestud.co'
 # admins get notified of errors
