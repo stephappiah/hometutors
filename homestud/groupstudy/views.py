@@ -4,7 +4,8 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView, D
 from django.views.generic.edit import BaseDeleteView
 from .models import GroupClass
 from .forms import GroupClassForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 
 class GroupClassView(LoginRequiredMixin, CreateView):
     model = GroupClass
@@ -22,6 +23,20 @@ class GroupClassView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 class GroupClassUpdate(LoginRequiredMixin, UpdateView):
+    # check if logged in user matches the user saved with the
+    # group class object
+    def dispatch(self, request, *args, **kwargs):
+        id_ = self.kwargs.get('pk')
+        gClass = get_object_or_404(GroupClass, id=id_)
+        logged_in_user = self.request.user
+
+        if not gClass.tutor == logged_in_user:
+            print('user didnt create this class')
+            return HttpResponseRedirect(reverse('groupstudy:group_class_list'))
+        else:
+            print('user created this class')
+            return super(GroupClassUpdate, self).dispatch(request, *args, **kwargs)
+    
     model = GroupClass
     form_class = GroupClassForm
     template_name = 'groupstudy/update_group.html'
@@ -30,6 +45,19 @@ class GroupClassUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('groupstudy:group_class_list')
 
 class GroupClassDelete(LoginRequiredMixin, DeleteView):
+    # check if logged in user matches the user saved with the
+    # group class object
+    def dispatch(self, request, *args, **kwargs):
+        id_ = self.kwargs.get('pk')
+        gClass = get_object_or_404(GroupClass, id=id_)
+        logged_in_user = self.request.user
+
+        if not gClass.tutor == logged_in_user:
+            print('user didnt create this class')
+            return HttpResponseRedirect(reverse('groupstudy:group_class_list'))
+        else:
+            print('user created this class')
+            return super(GroupClassDelete, self).dispatch(request, *args, **kwargs)
     
     model = GroupClass
     success_url = reverse_lazy('groupstudy:group_class_list')

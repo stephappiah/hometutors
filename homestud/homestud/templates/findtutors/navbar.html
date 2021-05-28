@@ -14,6 +14,7 @@
 
           {% if user.is_tutor %}
             <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
+            <li><a class="black-text" href="{% url 'groupstudy:group_class_list' %}">My Group Classes</a></li>
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
             <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
@@ -58,6 +59,7 @@
   <p class="text-center">Welcome, {{user.get_short_name}}</p>
     {% if user.is_tutor %}
       <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
+      <li><a class="black-text" href="{% url 'groupstudy:group_class_list' %}">My Group Classes</a></li>
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
       <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
