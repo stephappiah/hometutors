@@ -7,6 +7,49 @@
 {% block extra_head %}
 <script src="{% static 'js/group.js' %}"></script>
 {{ form.media }} 
+
+<!-- Google maps api url and callback function -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
+
+<!-- autocommplete functions -->
+<script>
+    let autocomplete;
+    function initAutocomplete(){
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('id_address'),
+            {
+                types: [],
+                componentRestrictions: {'country': ['GH']},
+                fields: ['place_id', 'geometry', 'name']
+            }
+        );
+        autocomplete.addListener('place_changed', onPlaceChanged);
+    } 
+    function onPlaceChanged(){
+        var place = autocomplete.getPlace();
+
+        if (!place.geometry){
+            //User did not selet a prediction; reset the input field --> id_0_address is id for search box
+            document.getElementById('id_address').placeholder = 'Enter a location';
+            // disable next button
+            $('.savebtn').prop( "disabled", true);
+            console.log('value empty');
+        
+        } else {
+            //Get lon and lat of entered location
+            var latitude = place.geometry.location.lat()
+            var longitude = place.geometry.location.lng()
+            //Convert to point value and prefill into the field (hidden from user)
+            var point = `SRID=4326;POINT(${longitude} ${latitude})`
+            $('#id_location').val(point);
+            console.log(point)
+
+            // enable next button on place clicked
+            $('.savebtn').prop( "disabled", false);
+            console.log('value not empty');
+        }
+    }
+</script>
 {% endblock extra_head %}
     
 {% block content %}

@@ -317,8 +317,10 @@ label {
     
 }
 
+/* for group classes */
+
 .chips-small{
-    border: 1px solid #babc37;
+    border: 1px solid #7f88bb;
     display: inline-block;
     margin-bottom: 5px;
     border-radius: 25px;
@@ -328,9 +330,9 @@ label {
     text-align: center;
     font-size: 12px !important;
     font-weight: 400 !important;
-    background-color: #f6f7e32b;
-    border-color: #6c757d;
-    color: black;
+    background-color: #ffffff;
+    border-color: #7f88bb;
+    color: #4554aa;
 }
 
 .link-theme{
@@ -418,6 +420,14 @@ p {
     font-size: 17px;
 }
 
+.group-title{
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.tip-round {
+    border-radius: 15px;
+}
 .pill-jumbo{
     background-color: #07fffc30;
     color: black;
