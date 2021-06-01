@@ -6,7 +6,7 @@ from findtutors.multi_choices import teach_level_choices
 from django.urls import reverse
 
 class GroupClass(models.Model):
-    tutor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    tutor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='group_tutor')
     title = models.CharField(max_length=50, null=True)
     programs = MultiSelectField(choices=programmes_choices, max_length=200, null=True)
     subjects = MultiSelectField(choices=courses_choices, max_length=200, null=True)

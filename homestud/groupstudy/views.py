@@ -6,6 +6,8 @@ from .models import GroupClass
 from .forms import GroupClassForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+import json
+from findtutors.courses import courses_choices, programmes_choices
 
 class GroupClassView(LoginRequiredMixin, CreateView):
     model = GroupClass
@@ -41,7 +43,6 @@ class GroupClassUpdate(LoginRequiredMixin, UpdateView):
     form_class = GroupClassForm
     template_name = 'groupstudy/update_group.html'
 
-    # to do: restrict to related tutor
     success_url = reverse_lazy('groupstudy:group_class_list')
 
 class GroupClassDelete(LoginRequiredMixin, DeleteView):
@@ -61,7 +62,6 @@ class GroupClassDelete(LoginRequiredMixin, DeleteView):
     
     model = GroupClass
     success_url = reverse_lazy('groupstudy:group_class_list')
-    # todo: restrict to related tutor
 
     # def get_object(self):
     #     id_ = self.kwargs.get('id')
@@ -87,3 +87,55 @@ class GroupClassList(LoginRequiredMixin, ListView):
 
 class GroupClassDetail(LoginRequiredMixin, DetailView):
     pass
+
+class ShowGroupClass(LoginRequiredMixin, ListView):
+    template_name = 'groupstudy/show_group.html'
+    context_object_name = 'group_classes'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # check if search form has coordinates
+        # else use coordinates from session
+        def get_latitude():
+            if self.request.GET.get('latitude') is not None or '':
+                # coordinates from search form
+                latitude = self.request.GET.get('latitude')
+                return latitude
+            else:
+                # coordinates from session
+                latitude = self.request.session['lat']
+                return latitude
+
+        def get_longitude():
+            if request.GET.get('longitude') is not None or '':
+                # coordinates from search form
+                longitude = self.request.GET.get('longitude')
+                return longitude
+            else:
+                # coordinates from session
+                longitude = self.request.session['lon']
+                return longitude
+    
+
+        context['programme_list'] = json.dumps(dict(programmes_choices))
+        context['course_list'] = json.dumps(dict(courses_choices))
+        return context
+
+    def get_queryset(self):
+        current_user = self.request.user
+
+        
+        return GroupClass.objects.filter(tutor=current_user)
+
+
+
+    def render_to_response(self, context, **response_kwargs):
+        """ Allow AJAX requests to be handled more gracefully """
+        if self.request.is_ajax():
+            context = self.get_context_data(**response_kwargs)
+            rendered = render_to_string(self.template_name, context, request=self.request)
+
+            return JsonResponse({'update_form': rendered}, safe=False, **response_kwargs)
+        else:
+            return super(ShowGroupClass, self).render_to_response(context, **response_kwargs)
