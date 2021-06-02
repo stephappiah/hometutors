@@ -94,7 +94,7 @@ class GroupClassList(LoginRequiredMixin, ListView):
 class GroupClassDetail(LoginRequiredMixin, DetailView):
     pass
 
-class ShowGroupClass(LoginRequiredMixin, ListView):
+class ShowGroupClass(ListView):
     template_name = 'groupstudy/show_group.html'
     context_object_name = 'group_classes'
 
@@ -110,7 +110,7 @@ class ShowGroupClass(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        current_user = self.request.user
+        
         qs = GroupClass.objects.all()
         paginator = Paginator(qs, 3) #show 10 tutors per page
 
