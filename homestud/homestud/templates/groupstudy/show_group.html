@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "base-without-searchbar.html" %}
 {% load static %}
 {% block head_title %}
-    Group Class by Tutor
+    Group Class Around You
 {% endblock head_title %}
 {% block extra_head %}
  <style>
@@ -101,6 +101,8 @@
         }
     }
 </script>
+
+
 <!-- Google maps api url and callback function -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS3XC77YuRTTdhNn9AvdLWjJshRmsnoHk&libraries=places&callback=initAutocomplete" async defer></script>
 
@@ -111,7 +113,7 @@
         <!-- search bar -->
         <div class="row">
             <div class="col-sm card shadow tip-round col-lg-4 mt-4">
-                <form class="card-body" action="{% url 'findtutors:filter' %}" method="get" autocomplete="off">
+                <form class="card-body" action="{% url 'groupstudy:filter' %}" method="get" autocomplete="off">
                     <!-- autocomplete location search -->
                     <input name="place" type="text" class="form-control shadow-sm" autocomplete="off" id="place" placeholder="Search your location...">
                     <input name="longitude" class="d-none" id="longitude">
@@ -134,8 +136,11 @@
             </div>
         </div>
 
+        <!-- number of tutors nearby -->
+     
+        <p class="lead text-center tutorNumText"></p>
         
-        
+        <!-- search results -->
         <div class="row">
 
             <!-- show group classes -->
@@ -239,6 +244,32 @@
                 
             
         </div>
+
+        <!-- pagination -->
+        <div class="row">
+            <div class="col text-center">
+                
+                {% if group_classes.has_previous %}
+                    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ group_classes.previous_page_number }}">previous</a>
+                {% endif %}
+            
+                {% for num in group_classes.paginator.page_range %}
+                    {% if group_classes.number == num %}
+                        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% elif  num > group_classes.number|add:'-3' and num < group_classes.number|add:'3' %}
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                   
+                {% endfor %}
+
+                {% if group_classes.has_next %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ group_classes.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ group_classes.paginator.num_pages }}">previous</a>
+                {% endif %}
+            
+            </div>
+        </div>
     </div>
 
 
@@ -248,7 +279,7 @@
         const programmeList = {{programme_list | safe}};
         let progDropdown = $('#programme');
         let coursDropdown = $('#courseList');
-        let tutorNum = '{{ total_tutors }}';
+        let tutorNum = '{{ total_groups }}';
 
         coursDropdown.empty()
         //coursDropdown.append('<option selected="true" disabled>Filter by subjects/courses</option>');
@@ -304,15 +335,16 @@
 
         // title and number of tutors available indicator
         if (tutorNum == 1){
-            $('.tutorNumText').text(`${tutorNum} home tutor in ${locName}`);
-            $('title').html(`${tutorNum} home tutor in ${locName} | Homestud`);
+            $('.tutorNumText').text(`${tutorNum} Group Classes around ${locName}`);
+            $('title').html(`${tutorNum} Group Classes around ${locName} | Homestud`);
         } else {
-            $('.tutorNumText').text(`${tutorNum} home tutors in ${locName}`);
-            $('title').html(`${tutorNum} home tutors in ${locName} | Homestud`);
+            $('.tutorNumText').text(`${tutorNum} Group Classes around ${locName}`);
+            $('title').html(`${tutorNum} Group Classes around ${locName} | Homestud`);
         }
         
         console.log({locName});
     </script>
     
+    <script src="{% static 'js/ajax_update_group.js' %}"></script>
 {% endblock content %}
 
