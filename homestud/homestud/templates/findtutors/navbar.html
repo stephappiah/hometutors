@@ -15,6 +15,7 @@
           {% if user.is_tutor %}
             <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
             <li><a class="black-text" href="{% url 'groupstudy:group_class_list' %}">My Group Classes</a></li>
+            <li><a class="black-text" href="{% url 'groupstudy:classes' %}">Find Group Classes</a></li>
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
             <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
@@ -27,6 +28,7 @@
             <li><a class="black-text" href="{% url 'admin:index' %}users/user/">Users</a></li>
 
 
+            <li><a class="black-text" href="{% url 'groupstudy:classes' %}">Find Group Classes</a></li>
             <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
@@ -35,6 +37,7 @@
           {% else %}
             <li><a class="black-text" href="{% url 'findtutors:user_profile' %}">Profile</a></li>
             <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
+            <li><a class="black-text" href="{% url 'groupstudy:classes' %}">Find Group Classes</a></li>
             <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
             <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
             <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
@@ -42,6 +45,7 @@
           {% endif %}
         
         {% else %}
+        <li><a class="black-text" href="{% url 'groupstudy:classes' %}">Find Group Classes</a></li>
         <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
         <li><a class="black-text" href="{% url 'account_signup' %}">Create an Account</a></li>
         <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
@@ -61,6 +65,7 @@
       <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
       <li><a class="black-text" href="{% url 'groupstudy:group_class_list' %}">My Group Classes</a></li>
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
+      <li><a class="black-text" href="{% url 'groupstudy:classes' %}">Find Group Classes</a></li>
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
       <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
       <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
@@ -73,12 +78,14 @@
 
    <hr>
 
+    <li><a class="black-text" href="{% url 'groupstudy:classes' %}">Find Group Classes</a></li>
     <li><a class="black-text" href="{% url 'findtutors:dashboard_profile' %}">Profile</a></li>
     <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
     <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
     <li><a class="black-text" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
     <li><a class="black-text" href="{% url 'findtutors:cities' %}">All Cities</a></li>
     {% else %}
+      <li><a class="black-text" href="{% url 'groupstudy:classes' %}">Find Group Classes</a></li>
       <li><a class="black-text" href="{% url 'findtutors:user_profile' %}">Profile</a></li>
       <li><a class="black-text" href="{% url 'chat:index' %}">Messages</a></li>
       <li><a class="black-text" href="{% url 'account_email' %}">Change E-mail</a></li>
@@ -88,6 +95,7 @@
     {% endif %}
 
   {% else %}
+  <li><a class="black-text" href="{% url 'groupstudy:classes' %}">Find Group Classes</a></li>
   <li><a class="black-text" href="{% url 'account_login' %}">Sign In</a></li>
   <li><a class="black-text" href="{% url 'account_signup' %}">Create an Account</a></li>
   <li><a class="black-text" href="{% url 'findtutors:for-tutors' %}">Become a tutor</a></li>
