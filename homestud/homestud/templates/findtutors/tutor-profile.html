@@ -44,6 +44,7 @@
                     <p class="gold-color text-center">1st lesson free</p>
                 </div>
                 <div class="hmst-w-100">
+                    <!-- tutor chat link -->
                     <form class="search-form" action="{% url 'chat:get_chat_url' %}" method="get">
                         <input class="d-none" name="target_user" type="text" value="{{ tutor.user.username }}">
                         <button class="btn btn-block semi-round book-a-cls-btn" type="submit">Book a class</button>

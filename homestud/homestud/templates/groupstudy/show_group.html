@@ -210,7 +210,13 @@
                             <!-- tutor profile avatar -->
                             <div class="d-flex prof-avt mt-4">
                                 
-                                <img src="{{class.tutor.tutor_user_profile.avatar.url}}" alt="">
+                                {% if class.tutor.tutor_user_profile.avatar.url != '' %}
+                                    <img src="{{class.tutor.tutor_user_profile.avatar.url}}" alt="">
+                                {% else %}
+                                    <img src='{% static "img/avatar/no-avatar.png" %}' alt="{{ class.tutor.get_full_name }}-homestud-tutor">
+                                {% endif %}
+                                    
+                                
               
                                 <p class="text-center text-muted ml-2">Tutor: {{ class.tutor.get_full_name | title}}</p>
                             </div>
@@ -220,7 +226,11 @@
                         
                         <div class="card-footer bg-transparent border-none">
                             <div class="text-center">
-                                <button class="btn btn-dark">Book now</button>
+                                <!-- <button class="btn btn-dark">Book now</button> -->
+                                <form class="search-form" action="{% url 'chat:get_chat_url' %}" method="get">
+                                    <input class="d-none" name="target_user" type="text" value="{{ class.tutor.username }}">
+                                    <button class="btn btn-block semi-round book-a-cls-btn" type="submit">Book a spot</button>
+                                </form>
                             </div>
                             {% include 'groupstudy/delete_group_modal.html' %}
                         </div>
