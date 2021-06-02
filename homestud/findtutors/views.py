@@ -275,6 +275,10 @@ def FilterSearch(request):
         if request.GET.get('latitude') is not None or '':
             # coordinates from search form
             latitude = request.GET.get('latitude')
+
+            # Store coordinates in user session
+            request.session['lat'] = float(latitude)
+
             return latitude
         else:
             # coordinates from session
@@ -285,6 +289,9 @@ def FilterSearch(request):
         if request.GET.get('longitude') is not None or '':
             # coordinates from search form
             longitude = request.GET.get('longitude')
+
+            # Store coordinates in user session
+            request.session['lon'] = float(longitude)
             return longitude
         else:
             # coordinates from session
