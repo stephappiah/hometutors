@@ -3,7 +3,10 @@ teach_level_choices = (
         ('Preschool', 'Preschool'),
         ('Primary', 'Primary'),
         ('Junior High', 'Junior High'),
-        ('Senior High', 'Senior High')
+        ('Senior High', 'Senior High'),
+        ('Tertiary', 'Tertiary'),
+        ('Adult Education', 'Adult Education'),
+        ('All ages', 'All ages')
 )
 
 highest_education_choices = (
