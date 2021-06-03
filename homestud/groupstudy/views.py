@@ -54,6 +54,7 @@ class GroupClassUpdate(LoginRequiredMixin, UpdateView):
 class GroupClassDelete(LoginRequiredMixin, DeleteView):
     # check if logged in user matches the user saved with the
     # group class object
+    # allows only the user related to the class to delete 
     def dispatch(self, request, *args, **kwargs):
         id_ = self.kwargs.get('pk')
         gClass = get_object_or_404(GroupClass, id=id_)
@@ -133,7 +134,7 @@ def FilterSearch(request):
             latitude = request.GET.get('latitude')
 
             # Store coordinates in user session
-            request.session['lat'] = float(latitude)
+            request.session['lat'] = latitude
 
             return latitude
         else:
@@ -147,7 +148,7 @@ def FilterSearch(request):
             longitude = request.GET.get('longitude')
 
             # Store coordinates in user session
-            request.session['lon'] = float(longitude) 
+            request.session['lon'] = longitude 
 
             return longitude
         else:
@@ -155,24 +156,29 @@ def FilterSearch(request):
             longitude = request.session['lon']
             return longitude
     
-    # get coordinates
-    longitude = float(get_longitude())
-    latitude = float(get_latitude())
-    print(longitude, latitude)
-    user_location = Point(longitude, latitude, srid=4326)
-    # Queryset filtered within a distance of 100km; annotated and orderd by distance
-    dist = Distance('location', user_location)
-    qs = GroupClass.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
+    # check if long and lat returns a value & are not empty
+    if get_longitude() != '' or get_latitude() != '':
+
+        # get coordinates
+        longitude = float(get_longitude())
+        latitude = float(get_latitude())
+        print(longitude, latitude)
+        user_location = Point(longitude, latitude, srid=4326)
+        # Queryset filtered within a distance of 100km; annotated and orderd by distance
+        dist = Distance('location', user_location)
+        qs = GroupClass.objects.filter(location__distance_lte=(user_location, D(km=100))).annotate(distance=dist).order_by('distance')
+    else:
+        qs = GroupClass.objects.all()
 
     # Grab search fields
     programme = request.GET.get('programme')
     course = request.GET.get('course')
     
     if programme != '' and programme is not None:
-        qs = qs.filter(tutoring_programs__icontains=programme)
+        qs = qs.filter(programs__icontains=programme)
 
     if course != '' and course is not None:
-        qs = qs.filter(courses_subjects__icontains=course)
+        qs = qs.filter(subjects__icontains=course)
 
     paginator = Paginator(qs, 3) #show 10 tutors per page
 
