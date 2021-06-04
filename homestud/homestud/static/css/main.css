@@ -10,6 +10,12 @@ body {
     margin: 0;
     position: relative;
 }
+
+.search-tutor input[type=text]{
+    border-radius: 5rem !important;
+    background-color: #fff;
+}
+
 nav{
     border-bottom: 1px solid #eee;
     height: 65px;
@@ -406,6 +412,42 @@ p {
     background-color: #fdfdff;
 }
 
+.my-autocomp{
+    display: none;
+    background-color: #fff;
+    position: absolute!important;
+    z-index: 1000;
+    border-radius: 2px;
+    border-top: 1px solid #d9d9d9;
+    font-family: Arial,sans-serif;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    border-radius: 10px;
+    box-shadow: 0 30px 40px 0 rgb(0 0 0 / 12%);
+    
+}
+
+.autocomp-item{
+    cursor: default;
+    padding: 0 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 30px;
+    text-align: left;
+    border-top: 1px solid #e6e6e6;
+    color: #999;
+
+    margin: 10px;
+    border: 0;
+    align-items: center;
+    justify-content: center;
+}
+
 .profile-pic img{
     width: 150px;
     height: 150px;
@@ -460,6 +502,14 @@ p {
 }
 .onboard-jumbo{
     background-color:#f2f8ff52;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+}
+
+.search-jumbo{
+    background-color: #05e8ba;
+    background-image: linear-gradient(315deg, #05e8ba 0%, #087ee1 74%);
+    color: white;
     margin-bottom: 0 !important;
     border-radius: 0 !important;
 }
