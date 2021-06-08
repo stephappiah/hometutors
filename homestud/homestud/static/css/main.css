@@ -497,7 +497,7 @@ p {
   }
 
 .courseJumbo{
-    background-color:#adddef52;
+    background-color:#6495ed14;
     margin-bottom: 0 !important;
 }
 .onboard-jumbo{
@@ -516,7 +516,7 @@ p {
 
 .courseJumbo h3 {
     font-weight: 500;
-    color: #084034;
+    color: #000000;
 }
 .course-list {
     display: flex;
@@ -535,7 +535,7 @@ p {
     min-width: 16rem;
     padding: 2rem;
     background-color: rgb(255 255 255);
-    color: #0a411a;
+    color: #000000;
     min-height: 15rem;
     border-radius: 25px;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
@@ -570,7 +570,9 @@ p {
 }
 
 .btn-dark{
-    background-color: #585858eb;
+    background: -webkit-linear-gradient(135deg, #5b8dfe 0%, #ff5f5f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .btn-box-radius{
