@@ -169,11 +169,16 @@
                             <p class="card-sm-txt">{{ tutor.address|title }}</p>
                         </div>
                         <!-- list of courses/Subjects -->
-                        <div class="course-chips-container mt-4">
+                        
+                        <div class="course-chips-container mt-4 d-none" id="{{ tutor.slug }}"> 
                             <p class="lead mb-3">Teaches courses in:</p>
                             {% for program in tutor.tutoring_programs %}
                                 <div class="chips-small card-sm-txt">{{ program }}</div>
                             {% endfor %}
+                        </div>
+
+                        <div style="color: #26a69a;" class="mt-4" id="{{ tutor.slug }}Show" onclick='showTutorCourses(event)'>
+                            Show Courses
                         </div>
             
                         <a href="{% url 'findtutors:view_tutor_profile' tutor.slug %}" class="btn btn-block view-profile border-round link-theme mt-4">View Profile</a>
@@ -219,6 +224,22 @@
     </div>
 
     <script>
+        // show courses for tutor
+        function showTutorCourses(event){
+            let id = event.target.id;
+            let showCourselink = $(`#${id}`);
+            // select course-chip element which lies above it
+            let prevID = $(`#${id}`).prev()[0].id;
+
+            // display courses
+            $(`#${prevID}`).removeClass('d-none');
+            // hid show courses link
+            showCourselink.addClass('d-none');
+            console.log(prevID);
+
+        }
+
+
         // Script fetches programmes and courses into dropdown
         const courseList = {{ course_list | safe }};
         const programmeList = {{programme_list | safe}};
