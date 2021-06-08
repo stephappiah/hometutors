@@ -151,7 +151,7 @@
                     <div class="my-autocomp" id="tutor-autocomp">
                         <div class="autocomp-item d-flex">
                             <span class="material-icons mr-2">my_location</span>
-                            <button class="btn" onclick="getPosition()">Use location from my device</button>
+                            <div class="btn" onclick="getPosition()">Use location from device</div>
                             
                         </div>
                         
@@ -200,7 +200,7 @@
         <!-- search form -->
         <div class=" m-4 hero-sub text-center">
             <div class="search-group">
-                <div class="btn text-center border-round btn-dark" onclick="getPosition()">Start Searching</div>
+                <a class="btn text-center border-round btn-dark" href="{% url 'groupstudy:classes' %}">Start Searching</a>
             </div>
         </div>
 
@@ -367,18 +367,32 @@
             $('#tutor-autocomp').css({
                 'display': 'block'
             })
+            console.log('show')
         }
 
         
 
         // hide autocomplete --> find tutor search input
         var tutorSearch = $('.address-search');
+        var autocomp = $('#tutor-autocomp');
 
         tutorSearch.blur(function() {
-            console.log('lost focus');
-            $('.my-autocomp').css({
-                'display': 'block'
-            })
+
+            // hide autocomplete box only if user clicks outside of it (autocomplete component)
+            $(document).bind('click', function (event) {
+                // Check if we have not clicked on the autocomp and searh box 
+
+                if (!($(event.target).parents().addBack().is('#tutor-autocomp')) && !($(event.target).parents().addBack().is('.address-search')) ) {
+                    // Hide/collapse your search box, autocomplete or whatever you need to do
+                    console.log('autocomp lost focus');
+                    $('.my-autocomp').css({
+                        'display': 'none'
+                    })
+                }
+            });
+            
+
+            
         })
         
         // autoscroll subjects
