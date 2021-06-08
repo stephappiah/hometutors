@@ -113,7 +113,7 @@ class ShowGroupClass(ListView):
     def get_queryset(self):
         
         qs = GroupClass.objects.all()
-        paginator = Paginator(qs, 3) #show 10 tutors per page
+        paginator = Paginator(qs, 10) #show 10 tutors per page
 
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -180,7 +180,7 @@ def FilterSearch(request):
     if course != '' and course is not None:
         qs = qs.filter(subjects__icontains=course)
 
-    paginator = Paginator(qs, 3) #show 10 tutors per page
+    paginator = Paginator(qs, 10) #show 10 tutors per page
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
